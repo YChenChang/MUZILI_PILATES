@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Ma+Shan+Zheng&family=EB+Garamond:ital@1&family=Alex+Brush&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#EAE4D8"/><g transform="translate(60,50)"><rect x="0" y="0" width="80" height="100" rx="8" fill="#C1694A"/><rect x="10" y="15" width="60" height="6" rx="3" fill="#F6F0E6"/><rect x="10" y="30" width="60" height="6" rx="3" fill="#F6F0E6"/><rect x="10" y="45" width="40" height="6" rx="3" fill="#F6F0E6"/><circle cx="40" cy="75" r="12" fill="#F6F0E6"/></g></svg></template>
+</helmet>
+
+<div style="min-height:100vh;background:#EAE4D8;display:flex;flex-direction:column;align-items:center;padding:48px 24px 64px;box-sizing:border-box;font-family:'Noto Sans TC',sans-serif;">
+
+  <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402,874">
+    <div style="width:402px;height:874px;position:relative;overflow:hidden;font-family:'Noto Sans TC',sans-serif;background:#F6F0E6;">
+
+      <sc-if value="{{isPickerScreen}}" hint-placeholder-val="{{false}}">
+        <div style="padding:78px 22px 24px;height:874px;box-sizing:border-box;overflow:auto;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;">
+            <div style="font-family:'Noto Serif TC',serif;font-size:20px;color:#3A2E22;font-weight:600;flex-shrink:0;">切換學員</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div onClick="{{openAddStudent}}" style="background:#C1694A;color:#fff;padding:6px 9px;border-radius:12px;font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;">＋新增</div>
+              <div onClick="{{exportAllStudentsPDF}}" style="background:#fff;border:1px solid #E8DFD0;color:#C1694A;padding:6px 9px;border-radius:12px;font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;">📄PDF</div>
+              <div onClick="{{closePicker}}" style="font-size:12.5px;color:#C1694A;cursor:pointer;white-space:nowrap;flex-shrink:0;">關閉</div>
+            </div>
+          </div>
+          <input value="{{searchQuery}}" onChange="{{onSearchChange}}" placeholder="搜尋姓名／編號／指導老師" style="width:100%;box-sizing:border-box;background:#fff;border:1px solid #EEE3D2;border-radius:16px;padding:11px 14px;font-size:13px;color:#3A2E22;margin-bottom:12px;font-family:'Noto Sans TC',sans-serif;"></input>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+            <sc-for list="{{tierFilterList}}" as="tf" hint-placeholder-count="5">
+              <div onClick="{{tf.onClick}}" style="{{tf.style}}">{{tf.label}}</div>
+            </sc-for>
+          </div>
+          <sc-for list="{{studentOptions}}" as="stu" hint-placeholder-count="4">
+            <div onClick="{{stu.onClick}}" style="display:flex;align-items:center;gap:14px;background:#fff;border-radius:20px;padding:14px;margin-bottom:10px;">
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                  <div style="font-size:14.5px;font-weight:600;color:#3A2E22;">{{stu.name}}</div>
+                  <div style="font-size:10px;color:#8A7A68;background:#F1E9DC;border-radius:8px;padding:2px 7px;">{{stu.code}}</div>
+                  <sc-if value="{{stu.hasVip}}" hint-placeholder-val="{{false}}">
+                    <div style="{{stu.vipStyle}}">{{stu.vipLabel}}</div>
+                  </sc-if>
+                  <sc-if value="{{stu.attendanceFlag}}" hint-placeholder-val="{{false}}">
+                    <div style="font-size:12px;" title="很久沒出席">⚠️</div>
+                  </sc-if>
+                </div>
+                <div style="font-size:11px;color:#8A7A68;margin-top:4px;">指導老師 {{stu.coach}} · 剩餘 {{stu.remainingClasses}} 堂</div>
+                <div style="font-size:10.5px;color:#8A7A68;margin-top:2px;">{{stu.contractLabel}}</div>
+                <sc-if value="{{stu.hasLastPurchase}}" hint-placeholder-val="{{false}}">
+                  <div style="font-size:10px;color:#B8935A;margin-top:2px;">最近加購：{{stu.lastPurchaseDate}}（+{{stu.lastPurchaseAmount}}堂）</div>
+                </sc-if>
+              </div>
+              <div onClick="{{stu.onEditClick}}" style="font-size:15px;padding:6px;flex-shrink:0;">✏️</div>
+              <svg width="7" height="12" viewBox="0 0 7 12"><path d="M1 1l5 5-5 5" stroke="#C7B9A4" stroke-width="1.6" fill="none" stroke-linecap="round"></path></svg>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isAddStudentScreen}}" hint-placeholder-val="{{false}}">
+        <div style="padding:78px 22px 24px;height:874px;box-sizing:border-box;overflow:auto;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+            <div style="font-family:'Noto Serif TC',serif;font-size:19px;color:#3A2E22;font-weight:600;">{{addStudentTitle}}</div>
+            <div onClick="{{closeAddStudent}}" style="font-size:12.5px;color:#C1694A;cursor:pointer;">取消</div>
+          </div>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">學員編號</div>
+          <input value="{{newStudentCode}}" onChange="{{onNewStudentCodeChange}}" placeholder="例如：M005" style="width:100%;box-sizing:border-box;background:#fff;border:1px solid #E8DFD0;border-radius:14px;padding:11px 14px;font-size:13px;color:#3A2E22;margin-bottom:16px;font-family:'Noto Sans TC',sans-serif;"></input>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">學員姓名</div>
+          <input value="{{newStudentName}}" onChange="{{onNewStudentNameChange}}" placeholder="例如：王小美" style="width:100%;box-sizing:border-box;background:#fff;border:1px solid #E8DFD0;border-radius:14px;padding:11px 14px;font-size:13px;color:#3A2E22;margin-bottom:16px;font-family:'Noto Sans TC',sans-serif;"></input>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">指導老師</div>
+          <input value="{{newStudentCoach}}" onChange="{{onNewStudentCoachChange}}" placeholder="例如：木子老師" style="width:100%;box-sizing:border-box;background:#fff;border:1px solid #E8DFD0;border-radius:14px;padding:11px 14px;font-size:13px;color:#3A2E22;margin-bottom:16px;font-family:'Noto Sans TC',sans-serif;"></input>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">購買課程堂數（課卡）</div>
+          <input type="number" min="1" value="{{newStudentPurchased}}" onChange="{{onNewStudentPurchasedChange}}" placeholder="例如：20" style="width:100%;box-sizing:border-box;background:#fff;border:1px solid #E8DFD0;border-radius:14px;padding:11px 14px;font-size:13px;color:#3A2E22;margin-bottom:16px;font-family:'Noto Sans TC',sans-serif;"></input>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">VIP 分級</div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;">
+            <sc-for list="{{vipTierOptions}}" as="vt" hint-placeholder-count="4">
+              <div onClick="{{vt.onClick}}" style="{{vt.style}}">{{vt.label}}</div>
+            </sc-for>
+          </div>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">出席狀態</div>
+          <div onClick="{{toggleNewStudentAttendanceFlag}}" style="{{attendanceFlagStyle}}margin-bottom:16px;">⚠️ 標記為很久沒出席</div>
+
+          <sc-if value="{{isEditingStudent}}" hint-placeholder-val="{{false}}">
+            <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">名單顯示</div>
+            <div onClick="{{toggleNewStudentArchived}}" style="{{archivedStyle}}margin-bottom:16px;">📦 從學員清單隱藏（封存）</div>
+          </sc-if>
+
+          <div onClick="{{createStudent}}" style="background:#C1694A;color:#fff;text-align:center;padding:15px;border-radius:30px;font-size:14.5px;font-weight:600;cursor:pointer;margin-top:8px;">{{addStudentSubmitLabel}}</div>
+
+          <sc-if value="{{isEditingStudent}}" hint-placeholder-val="{{false}}">
+            <sc-if value="{{isDeleteConfirming}}" hint-placeholder-val="{{false}}">
+              <div style="background:#FBEADD;border:1px solid #EBC49E;border-radius:14px;padding:12px;margin-top:14px;text-align:center;">
+                <div style="font-size:12px;color:#9C4A2E;margin-bottom:10px;">確定要永久刪除 {{newStudentName}} 的資料嗎？此動作無法復原。</div>
+                <div style="display:flex;gap:8px;">
+                  <div onClick="{{confirmDeleteStudent}}" style="flex:1;background:#9C4A2E;color:#fff;text-align:center;padding:10px;border-radius:20px;font-size:12.5px;font-weight:600;cursor:pointer;">確認刪除</div>
+                  <div onClick="{{cancelDeleteStudent}}" style="flex:1;background:#fff;color:#8A7A68;border:1px solid #E8DFD0;text-align:center;padding:10px;border-radius:20px;font-size:12.5px;cursor:pointer;">取消</div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{isNotDeleteConfirming}}" hint-placeholder-val="{{true}}">
+              <div onClick="{{startDeleteStudent}}" style="text-align:center;font-size:12px;color:#B95A3E;padding:12px;cursor:pointer;">🗑 刪除此學員</div>
+            </sc-if>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isGateScreen}}" hint-placeholder-val="{{false}}">
+        <div style="padding:64px 22px 26px;height:874px;box-sizing:border-box;overflow:auto;background:#F6F0E6;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;">
+            <div onClick="{{openPicker}}" style="font-size:11.5px;color:#C1694A;cursor:pointer;">切換學員</div>
+          </div>
+          <div style="border:1.5px solid #B8935A;border-radius:6px;padding:22px 18px;position:relative;">
+            <div style="position:absolute;top:6px;left:6px;width:16px;height:16px;border-top:2px solid #B8935A;border-left:2px solid #B8935A;"></div>
+            <div style="position:absolute;top:6px;right:6px;width:16px;height:16px;border-top:2px solid #B8935A;border-right:2px solid #B8935A;"></div>
+            <div style="position:absolute;bottom:6px;left:6px;width:16px;height:16px;border-bottom:2px solid #B8935A;border-left:2px solid #B8935A;"></div>
+            <div style="position:absolute;bottom:6px;right:6px;width:16px;height:16px;border-bottom:2px solid #B8935A;border-right:2px solid #B8935A;"></div>
+
+            <div style="font-family:'Noto Serif TC',serif;font-size:18px;color:#3A2E22;font-weight:700;text-align:center;">木子李・自我提升契約書</div>
+            <div style="font-size:10.5px;color:#B8935A;text-align:center;margin:6px 0 16px;">— 用最溫柔的方式，陪你走向更喜歡的自己 —</div>
+
+            <div style="font-size:11.5px;color:#3A2E22;margin-bottom:4px;">甲方（簽署者）：{{currentStudent.name}}</div>
+            <div style="font-size:11.5px;color:#3A2E22;margin-bottom:12px;">乙方：未來那個更穩定、更有力量的自己</div>
+            <div style="font-size:11px;color:#6B5D4E;line-height:1.7;margin-bottom:16px;">這不只是一本記錄身體的簿子，而是一段回到自己、練習喜歡自己的開始。甲方在此，願意與未來的自己，建立溫柔堅定的合作關係：</div>
+
+            <div style="font-size:11.5px;font-weight:700;color:#B8935A;margin-bottom:3px;">【願景承諾】</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.65;margin-bottom:11px;">甲方願意溫柔但明確地設下目標，不急著改變，而是為了更靠近內心那個穩定、自然的自己。</div>
+
+            <div style="font-size:11.5px;font-weight:700;color:#B8935A;margin-bottom:3px;">【身體覺察】</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.65;margin-bottom:11px;">甲方會練習看見身體的訊號，尊重它、感謝它，知道它是用來好好生活的。</div>
+
+            <div style="font-size:11.5px;font-weight:700;color:#B8935A;margin-bottom:3px;">【情緒照顧】</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.65;margin-bottom:11px;">甲方會練習理解情緒，不是為了控制它，而是為了安心地與它共處。低落時，不逃跑，而是抱抱自己，深呼吸一口，再往前走。</div>
+
+            <div style="font-size:11.5px;font-weight:700;color:#B8935A;margin-bottom:3px;">【溫柔野心】</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.65;margin-bottom:11px;">甲方知道，溫柔和企圖心可以同行，願意學會穩定地努力，也不忘留空間給生活裡的期待。</div>
+
+            <div style="font-size:11.5px;font-weight:700;color:#B8935A;margin-bottom:3px;">【長期陪伴】</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.65;margin-bottom:14px;">甲方願意陪自己長長久久，即使中間會慢、會累、會退後，知道這不是線性的旅程，但會一直走在自己的路上。</div>
+
+            <div style="font-size:10.5px;color:#6B5D4E;line-height:1.7;border-top:1px solid #E8DCC4;padding-top:12px;margin-bottom:14px;">這份契約，代表甲方願意開始、願意相信、願意練習。因為值得，因為妳值得。</div>
+
+            <div style="font-size:11px;color:#8A7A68;margin-bottom:10px;">生效日期：{{todayDateDisplay}}</div>
+            <div style="font-size:11px;color:#8A7A68;margin-bottom:8px;">甲方簽名：（請在下方親筆簽名）</div>
+            <div style="position:relative;">
+              <canvas ref="{{gateCanvasRef}}" width="322" height="110" onPointerDown="{{onGateCanvasDown}}" onPointerMove="{{onGateCanvasMove}}" onPointerUp="{{onGateCanvasUp}}" onPointerLeave="{{onGateCanvasUp}}" style="width:100%;height:110px;background:#fff;border:1px dashed #DCCFB8;border-radius:12px;touch-action:none;display:block;box-sizing:border-box;"></canvas>
+              <div onClick="{{clearGateCanvas}}" style="position:absolute;bottom:6px;right:6px;font-size:10px;color:#C1694A;background:#fff;padding:4px 10px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);cursor:pointer;">清除</div>
+            </div>
+          </div>
+
+          <div style="flex:1;min-height:16px;"></div>
+          <div onClick="{{signContract}}" style="background:#C1694A;color:#fff;text-align:center;padding:16px;border-radius:30px;font-size:14.5px;font-weight:600;cursor:pointer;margin-top:16px;">我願意簽署，開始上課旅程 →</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isContractReview}}" hint-placeholder-val="{{false}}">
+        <div style="padding:64px 22px 30px;height:874px;box-sizing:border-box;overflow:auto;background:#F6F0E6;">
+          <div onClick="{{closeContractReview}}" style="font-size:13px;color:#C1694A;margin-bottom:14px;">← 返回</div>
+          <div style="border:1.5px solid #B8935A;border-radius:6px;padding:22px 18px;position:relative;">
+            <div style="position:absolute;top:6px;left:6px;width:16px;height:16px;border-top:2px solid #B8935A;border-left:2px solid #B8935A;"></div>
+            <div style="position:absolute;top:6px;right:6px;width:16px;height:16px;border-top:2px solid #B8935A;border-right:2px solid #B8935A;"></div>
+            <div style="position:absolute;bottom:6px;left:6px;width:16px;height:16px;border-bottom:2px solid #B8935A;border-left:2px solid #B8935A;"></div>
+            <div style="position:absolute;bottom:6px;right:6px;width:16px;height:16px;border-bottom:2px solid #B8935A;border-right:2px solid #B8935A;"></div>
+
+            <div style="font-family:'Noto Serif TC',serif;font-size:18px;color:#3A2E22;font-weight:700;text-align:center;">木子李・自我提升契約書</div>
+            <div style="font-size:10.5px;color:#B8935A;text-align:center;margin:6px 0 16px;">— 用最溫柔的方式，陪你走向更喜歡的自己 —</div>
+
+            <div style="font-size:11.5px;color:#3A2E22;margin-bottom:4px;">甲方（簽署者）：{{currentStudent.name}}</div>
+            <div style="font-size:11.5px;color:#3A2E22;margin-bottom:12px;">乙方：未來那個更穩定、更有力量的自己</div>
+            <div style="font-size:11px;color:#6B5D4E;line-height:1.7;margin-bottom:16px;">這不只是一本記錄身體的簿子，而是一段回到自己、練習喜歡自己的開始。甲方在此，願意與未來的自己，建立溫柔堅定的合作關係：</div>
+
+            <div style="font-size:11.5px;font-weight:700;color:#B8935A;margin-bottom:3px;">【願景承諾】</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.65;margin-bottom:11px;">甲方願意溫柔但明確地設下目標，不急著改變，而是為了更靠近內心那個穩定、自然的自己。</div>
+
+            <div style="font-size:11.5px;font-weight:700;color:#B8935A;margin-bottom:3px;">【身體覺察】</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.65;margin-bottom:11px;">甲方會練習看見身體的訊號，尊重它、感謝它，知道它是用來好好生活的。</div>
+
+            <div style="font-size:11.5px;font-weight:700;color:#B8935A;margin-bottom:3px;">【情緒照顧】</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.65;margin-bottom:11px;">甲方會練習理解情緒，不是為了控制它，而是為了安心地與它共處。低落時，不逃跑，而是抱抱自己，深呼吸一口，再往前走。</div>
+
+            <div style="font-size:11.5px;font-weight:700;color:#B8935A;margin-bottom:3px;">【溫柔野心】</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.65;margin-bottom:11px;">甲方知道，溫柔和企圖心可以同行，願意學會穩定地努力，也不忘留空間給生活裡的期待。</div>
+
+            <div style="font-size:11.5px;font-weight:700;color:#B8935A;margin-bottom:3px;">【長期陪伴】</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.65;margin-bottom:14px;">甲方願意陪自己長長久久，即使中間會慢、會累、會退後，知道這不是線性的旅程，但會一直走在自己的路上。</div>
+
+            <div style="font-size:10.5px;color:#6B5D4E;line-height:1.7;border-top:1px solid #E8DCC4;padding-top:12px;margin-bottom:14px;">這份契約，代表甲方願意開始、願意相信、願意練習。因為值得，因為妳值得。</div>
+
+            <div style="font-size:11px;color:#8A7A68;">生效日期：{{currentStudent.contractSignedDate}}</div>
+            <div style="font-size:11px;color:#8A7A68;margin-top:10px;margin-bottom:6px;">甲方簽名：</div>
+            <sc-if value="{{isNotResigning}}" hint-placeholder-val="{{true}}">
+              <sc-if value="{{hasDrawnSignature}}" hint-placeholder-val="{{false}}">
+                <canvas ref="{{reviewSignatureCanvasRef}}" width="300" height="102" style="width:150px;height:51px;display:block;"></canvas>
+              </sc-if>
+              <sc-if value="{{noDrawnSignature}}" hint-placeholder-val="{{true}}">
+                <div style="font-family:'Ma Shan Zheng',cursive;font-size:22px;color:#3A2E22;">{{currentStudent.name}}</div>
+              </sc-if>
+              <div onClick="{{startResign}}" style="font-size:11px;color:#C1694A;margin-top:14px;cursor:pointer;">✏️ 重新簽名</div>
+            </sc-if>
+            <sc-if value="{{isResigning}}" hint-placeholder-val="{{false}}">
+              <div style="position:relative;margin-bottom:10px;">
+                <canvas ref="{{resignCanvasRef}}" width="322" height="110" onPointerDown="{{onResignCanvasDown}}" onPointerMove="{{onResignCanvasMove}}" onPointerUp="{{onResignCanvasUp}}" onPointerLeave="{{onResignCanvasUp}}" style="width:322px;height:110px;background:#fff;border:1px dashed #DCCFB8;border-radius:12px;touch-action:none;display:block;"></canvas>
+                <div onClick="{{clearResignCanvas}}" style="position:absolute;bottom:8px;right:8px;font-size:10px;color:#C1694A;background:#fff;padding:4px 10px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);cursor:pointer;">清除</div>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <div onClick="{{confirmResign}}" style="flex:1;background:#C1694A;color:#fff;text-align:center;padding:11px;border-radius:20px;font-size:12.5px;font-weight:600;cursor:pointer;">確認重新簽名</div>
+                <div onClick="{{cancelResign}}" style="flex:1;background:#fff;color:#8A7A68;border:1px solid #E8DFD0;text-align:center;padding:11px;border-radius:20px;font-size:12.5px;cursor:pointer;">取消</div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isEntryScreen}}" hint-placeholder-val="{{false}}">
+        <div style="padding:78px 22px 24px;height:874px;box-sizing:border-box;overflow:auto;display:flex;flex-direction:column;position:relative;">
+          <sc-if value="{{toastVisible}}" hint-placeholder-val="{{false}}">
+            <div style="position:absolute;top:78px;left:22px;right:22px;background:#3A2E22;color:#fff;text-align:center;padding:10px;border-radius:14px;font-size:12.5px;z-index:30;">已完成本堂紀錄，記得回來簽名 ✓</div>
+          </sc-if>
+
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:44px;height:44px;border-radius:50%;background:#8DAF8A;flex-shrink:0;overflow:hidden;"><image-slot id="avatar-{{currentStudent.id}}" shape="circle" placeholder="大頭照" style="width:44px;height:44px;"></image-slot></div>
+            <div style="flex:1;min-width:0;">
+              <div style="display:flex;align-items:center;gap:7px;">
+                <div style="font-size:16.5px;font-weight:700;color:#3A2E22;">{{currentStudent.name}}</div>
+                <div style="font-size:10px;color:#8A7A68;background:#F1E9DC;border-radius:8px;padding:2px 7px;">{{currentStudent.code}}</div>
+              </div>
+              <div style="font-size:11.5px;color:#8A7A68;margin-top:2px;">第 {{nextClassNum}} 堂</div>
+            </div>
+            <div onClick="{{closeEntry}}" style="font-size:10.5px;color:#C1694A;flex-shrink:0;cursor:pointer;">取消</div>
+          </div>
+
+          <sc-if value="{{hasPrevSession}}" hint-placeholder-val="{{false}}">
+            <div style="background:#F1E9DC;border-radius:16px;padding:11px 13px;margin-bottom:16px;display:flex;">
+              <div style="flex:1;">
+                <div style="font-size:9px;color:#8A7A68;letter-spacing:1px;margin-bottom:3px;">上次上課</div>
+                <div style="font-size:11.5px;color:#3A2E22;">{{prevSessionDate}}</div>
+              </div>
+              <div style="flex:1.5;border-left:1px solid #DCCFB8;padding-left:13px;">
+                <div style="font-size:9px;color:#8A7A68;letter-spacing:1px;margin-bottom:3px;">上次回家作業</div>
+                <div style="font-size:11.5px;color:#3A2E22;">{{prevSessionHomework}}</div>
+              </div>
+            </div>
+          </sc-if>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">上課日期時間</div>
+          <div style="display:flex;gap:8px;margin-bottom:16px;">
+            <input type="date" value="{{coachFormClassDate}}" onChange="{{onClassDateChange}}" style="flex:1.3;box-sizing:border-box;background:#fff;border:1px solid #E8DFD0;border-radius:14px;padding:11px 10px;font-size:13px;color:#3A2E22;font-family:'Noto Sans TC',sans-serif;min-width:0;"></input>
+            <input type="time" value="{{coachFormClassTime}}" onChange="{{onClassTimeChange}}" style="flex:1;box-sizing:border-box;background:#fff;border:1px solid #E8DFD0;border-radius:14px;padding:11px 10px;font-size:13px;color:#3A2E22;font-family:'Noto Sans TC',sans-serif;min-width:0;"></input>
+          </div>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:6px;">今日課程內容</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;">
+            <sc-for list="{{bodyFocusList}}" as="bf" hint-placeholder-count="6">
+              <div onClick="{{bf.onClick}}" style="{{bf.style}}">{{bf.name}}</div>
+            </sc-for>
+          </div>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:6px;">今日使用器材</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;">
+            <sc-for list="{{equipmentList}}" as="eq" hint-placeholder-count="10">
+              <div onClick="{{eq.onClick}}" style="{{eq.style}}">{{eq.name}}</div>
+            </sc-for>
+          </div>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">本堂生活小記</div>
+          <sc-for list="{{lifeCheckList}}" as="lc" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <div style="width:32px;font-size:11.5px;color:#3A2E22;flex-shrink:0;">{{lc.label}}</div>
+              <div onClick="{{lc.onCheck}}" style="{{lc.checkStyle}}">✓</div>
+              <div onClick="{{lc.onTriangle}}" style="{{lc.triangleStyle}}">△</div>
+              <input value="{{lc.note}}" onChange="{{lc.onNoteChange}}" placeholder="備註" style="flex:1;box-sizing:border-box;background:#fff;border:1px solid #E8DFD0;border-radius:12px;padding:8px 12px;font-size:11.5px;color:#3A2E22;font-family:'Noto Sans TC',sans-serif;min-width:0;"></input>
+            </div>
+          </sc-for>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">學員簽名（當下簽名，稍後仍可於「簽名紀錄」補簽）</div>
+          <div style="position:relative;margin-bottom:20px;">
+            <canvas ref="{{entrySignatureCanvasRef}}" width="358" height="140" onPointerDown="{{onEntrySignatureDown}}" onPointerMove="{{onEntrySignatureMove}}" onPointerUp="{{onEntrySignatureUp}}" onPointerLeave="{{onEntrySignatureUp}}" style="width:358px;height:140px;background:#fff;border:1px dashed #DCCFB8;border-radius:16px;touch-action:none;display:block;"></canvas>
+            <div onClick="{{clearEntrySignatureCanvas}}" style="position:absolute;bottom:8px;right:8px;font-size:10px;color:#C1694A;background:#fff;padding:4px 10px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);cursor:pointer;">清除</div>
+          </div>
+
+          <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">今日課程教案 <span style="font-weight:400;color:#B9A38A;">（打字或直接手寫皆可）</span></div>
+          <div style="position:relative;margin-bottom:20px;">
+            <textarea ref="{{lessonTextareaRef}}" value="{{lessonPlanText}}" onChange="{{onLessonPlanChange}}" placeholder="例如：熱身 → 核心啟動 → 器械床訓練 → 伸展收操" style="position:relative;z-index:1;background-image:repeating-linear-gradient(to bottom, transparent, transparent 27px, #DDD0B8 27px, #DDD0B8 28px);background-color:#fff;background-attachment:local;border:1px dashed #DCCFB8;border-radius:16px;padding:8px 14px 14px;font-size:15px;color:#3A2E22;font-family:'Noto Sans TC',sans-serif;resize:none;height:340px;box-sizing:border-box;width:100%;line-height:28px;"></textarea>
+            <canvas ref="{{lessonCanvasRef}}" width="358" height="340" onPointerDown="{{onLessonCanvasDown}}" onPointerMove="{{onLessonCanvasMove}}" onPointerUp="{{onLessonCanvasUp}}" onPointerLeave="{{onLessonCanvasUp}}" style="position:absolute;top:0;left:0;width:358px;height:340px;background:transparent;touch-action:none;z-index:2;"></canvas>
+            <div onClick="{{clearLessonCanvas}}" style="position:absolute;bottom:8px;right:8px;font-size:10px;color:#C1694A;background:#fff;padding:4px 10px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);cursor:pointer;z-index:3;">清除手寫</div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;">指派回家作業 <span style="font-weight:400;color:#B9A38A;">（打字或直接手寫皆可）</span></div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;">
+            <sc-for list="{{homeworkFocusList}}" as="h" hint-placeholder-count="6">
+              <div onClick="{{h.onClick}}" style="{{h.style}}">{{h.name}}</div>
+            </sc-for>
+          </div>
+          <div style="position:relative;margin-bottom:16px;">
+            <textarea ref="{{homeworkTextareaRef}}" value="{{homeworkNote}}" onChange="{{onHomeworkNoteChange}}" placeholder="新增備註，例如：每日核心10分鐘、睡前伸展5分鐘……" style="position:relative;z-index:1;background-image:repeating-linear-gradient(to bottom, transparent, transparent 27px, #DDD0B8 27px, #DDD0B8 28px);background-color:#fff;background-attachment:local;border:1px dashed #DCCFB8;border-radius:16px;padding:8px 14px 14px;font-size:15px;color:#3A2E22;font-family:'Noto Sans TC',sans-serif;resize:none;height:340px;box-sizing:border-box;width:100%;line-height:28px;"></textarea>
+            <canvas ref="{{homeworkCanvasRef}}" width="358" height="340" onPointerDown="{{onHomeworkCanvasDown}}" onPointerMove="{{onHomeworkCanvasMove}}" onPointerUp="{{onHomeworkCanvasUp}}" onPointerLeave="{{onHomeworkCanvasUp}}" style="position:absolute;top:0;left:0;width:358px;height:340px;background:transparent;touch-action:none;z-index:2;"></canvas>
+            <div onClick="{{clearHomeworkCanvas}}" style="position:absolute;bottom:8px;right:8px;font-size:10px;color:#C1694A;background:#fff;padding:4px 10px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);cursor:pointer;z-index:3;">清除手寫</div>
+          </div>
+
+          <div style="flex:1;"></div>
+          <div onClick="{{submitForm}}" style="background:#C1694A;color:#fff;text-align:center;padding:15px;border-radius:30px;font-size:14.5px;font-weight:600;cursor:pointer;">完成本堂紀錄 →</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isMainScreen}}" hint-placeholder-val="{{true}}">
+
+        <div style="position:absolute;left:0;top:0;width:402px;height:796px;overflow:auto;">
+
+          <sc-if value="{{isTabHome}}" hint-placeholder-val="{{true}}">
+            <div style="padding:78px 18px 30px;box-sizing:border-box;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <div onClick="{{openPicker}}" style="display:flex;align-items:center;gap:9px;cursor:pointer;">
+                  <div style="width:38px;height:38px;border-radius:50%;background:#8DAF8A;flex-shrink:0;overflow:hidden;"><image-slot id="avatar-{{currentStudent.id}}" shape="circle" placeholder="照片" style="width:38px;height:38px;"></image-slot></div>
+                  <div>
+                    <div style="font-family:'Noto Serif TC',serif;font-size:17px;color:#3A2E22;font-weight:600;">{{currentStudent.name}} <span style="font-size:10px;color:#8A7A68;font-family:'Noto Sans TC',sans-serif;font-weight:400;">▾</span></div>
+                    <div style="font-size:10.5px;color:#8A7A68;margin-top:2px;">{{currentStudent.code}}</div>
+                  </div>
+                </div>
+                <div onClick="{{openEntry}}" style="background:#C1694A;color:#fff;font-size:11px;font-weight:600;padding:8px 12px;border-radius:20px;cursor:pointer;white-space:nowrap;">＋新增紀錄</div>
+              </div>
+
+              <div onClick="{{shuffleEncouragement}}" style="background:#fff;border-radius:20px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;margin-bottom:12px;box-shadow:0 6px 18px rgba(58,46,34,0.05);">
+                <div style="font-size:12.5px;color:#3A2E22;line-height:1.6;font-style:italic;">「{{encouragement}}」</div>
+                <div style="font-size:15px;flex-shrink:0;">🔄</div>
+              </div>
+
+              <div style="background:#fff;border-radius:18px;padding:12px;margin-bottom:12px;display:flex;align-items:stretch;gap:10px;">
+                <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+                  <div style="width:76px;height:76px;border-radius:50%;overflow:hidden;background:#8DAF8A;"><image-slot id="avatar-{{currentStudent.id}}" shape="circle" placeholder="大頭照" style="width:100%;height:100%;"></image-slot></div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                  <div style="font-family:'Noto Serif TC',serif;font-size:21px;color:#C1694A;font-weight:700;">{{classCount}}</div>
+                  <div style="font-size:10px;color:#8A7A68;margin-top:2px;">已上堂數</div>
+                </div>
+              </div>
+
+              <div style="background:#fff;border-radius:22px;padding:15px;margin-bottom:12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <div style="font-size:13px;font-weight:600;color:#3A2E22;">課卡剩餘堂數</div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <sc-if value="{{hasPurchasedPackage}}" hint-placeholder-val="{{false}}">
+                      <div style="{{remainingClassesTextStyle}}">剩 {{remainingClasses}} 堂</div>
+                    </sc-if>
+                    <div onClick="{{toggleAddPackage}}" style="font-size:10.5px;color:#C1694A;background:#F7E8E0;padding:5px 10px;border-radius:14px;cursor:pointer;white-space:nowrap;">＋加購</div>
+                  </div>
+                </div>
+                <sc-if value="{{hasPurchasedPackage}}" hint-placeholder-val="{{false}}">
+                  <div style="height:7px;background:#EFE6D6;border-radius:4px;overflow:hidden;">
+                    <div style="height:100%;background:{{packageBarColor}};width:{{packageUsedPercent}}%;"></div>
+                  </div>
+                  <div style="font-size:10.5px;color:#8A7A68;margin-top:6px;">已用 {{classCount}} / {{purchasedClasses}} 堂</div>
+                  <sc-if value="{{hasPackageHistory}}" hint-placeholder-val="{{false}}">
+                    <div style="font-size:10px;color:#B8935A;margin-top:6px;border-top:1px dashed #EFE6D6;padding-top:6px;">
+                      <sc-for list="{{packageHistoryList}}" as="ph" hint-placeholder-count="1">
+                        <div>加購 {{ph.date}}　+{{ph.amount}} 堂</div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </sc-if>
+                <sc-if value="{{noPurchasedPackage}}" hint-placeholder-val="{{true}}">
+                  <div style="font-size:11.5px;color:#8A7A68;">尚未設定課卡堂數，點「＋加購」開始追蹤</div>
+                </sc-if>
+                <sc-if value="{{showAddPackageInput}}" hint-placeholder-val="{{false}}">
+                  <div style="display:flex;gap:8px;margin-top:12px;">
+                    <input type="number" min="1" value="{{addPackageAmount}}" onChange="{{onAddPackageAmountChange}}" placeholder="輸入堂數，例如 10" style="flex:1;box-sizing:border-box;background:#F6F0E6;border:1px solid #E8DFD0;border-radius:12px;padding:9px 12px;font-size:12.5px;color:#3A2E22;font-family:'Noto Sans TC',sans-serif;"></input>
+                    <div onClick="{{confirmAddPackage}}" style="background:#C1694A;color:#fff;font-size:12px;font-weight:600;padding:9px 14px;border-radius:12px;cursor:pointer;white-space:nowrap;">確認</div>
+                  </div>
+                </sc-if>
+              </div>
+
+              <sc-if value="{{hasUnsigned}}" hint-placeholder-val="{{false}}">
+                <div onClick="{{goToFirstUnsigned}}" style="background:#FBEADD;border:1px solid #EBC49E;border-radius:16px;padding:12px 14px;margin-bottom:12px;font-size:12px;color:#9C4A2E;cursor:pointer;">⚠ 有 {{unsignedCount}} 堂尚未簽名，點我前往簽名</div>
+              </sc-if>
+
+              <div style="background:#fff;border-radius:22px;padding:15px;margin-bottom:12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                  <div style="font-size:13px;font-weight:600;color:#3A2E22;">回家作業</div>
+                  <div style="font-size:9px;color:#C1694A;background:#F7E8E0;padding:3px 9px;border-radius:20px;">教練指派</div>
+                </div>
+                <sc-if value="{{hasLatestHomework}}" hint-placeholder-val="{{false}}">
+                  <div style="font-size:12.5px;color:#3A2E22;line-height:1.7;">{{latestHomeworkText}}</div>
+                </sc-if>
+                <sc-if value="{{noLatestHomework}}" hint-placeholder-val="{{true}}">
+                  <div style="font-size:11.5px;color:#B9A38A;">尚無指派作業</div>
+                </sc-if>
+              </div>
+
+              <div onClick="{{goAssessment}}" style="background:#fff;border-radius:24px;padding:15px;display:flex;align-items:center;gap:13px;margin-bottom:12px;">
+                <svg width="42" height="42" viewBox="0 0 56 56" style="flex-shrink:0;">
+                  <polygon points="28,6 46,20 39,46 17,46 10,20" fill="none" stroke="#E8DFD0" stroke-width="1.5"></polygon>
+                  <polygon points="28,14 39,24 35,42 21,42 16,24" fill="#C1694A" fill-opacity="0.25" stroke="#C1694A" stroke-width="1.5"></polygon>
+                </svg>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:13.5px;font-weight:600;color:#3A2E22;">身體成長紀錄</div>
+                  <div style="font-size:11px;color:#7C8A6E;margin-top:3px;">查看靜態與動態評估對比 →</div>
+                </div>
+              </div>
+
+              <div onClick="{{goChallenge}}" style="background:#FBF3EA;border-radius:22px;padding:16px;margin-bottom:12px;cursor:pointer;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                  <div style="font-family:'Noto Serif TC',serif;font-size:14.5px;font-weight:700;color:#3A2E22;">木子李學院挑戰賽</div>
+                  <div style="font-size:10.5px;color:#B8935A;">查看全部關卡 →</div>
+                </div>
+                <div style="text-align:center;margin-bottom:12px;">
+                  <div style="font-size:11px;color:#8A7A68;">目前累積 {{classCount}} 堂</div>
+                  <div style="font-size:13px;color:#9C4A2E;font-weight:600;margin-top:4px;">下一關卡 {{nextMilestoneN}} 堂 · 還差 {{nextMilestoneRemain}} 堂</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:12px;">
+                  <div style="{{currentMilestoneNode.nodeStyle}}">{{currentMilestoneNode.nodeMark}}</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:12px;font-weight:600;color:#C1694A;">{{currentMilestoneNode.title}}</div>
+                    <div style="font-size:9.5px;color:#9C4A2E;margin-top:2px;">{{currentMilestoneNode.rewardText}}</div>
+                  </div>
+                </div>
+              </div>
+
+              <sc-if value="{{isGraduated}}" hint-placeholder-val="{{false}}">
+                <div onClick="{{openGraduationCertificate}}" style="font-size:11px;color:#B8935A;text-align:center;padding:4px;">🎓 查看我的畢業證書 →</div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{isTabLog}}" hint-placeholder-val="{{true}}">
+            <sc-if value="{{hasSelectedLog}}" hint-placeholder-val="{{false}}">
+              <div style="padding:78px 18px 30px;box-sizing:border-box;">
+                <div onClick="{{closeLog}}" style="font-size:12.5px;color:#C1694A;margin-bottom:14px;">← 返回紀錄列表</div>
+                <div style="font-family:'Noto Serif TC',serif;font-size:19px;color:#3A2E22;font-weight:600;margin-bottom:2px;">第 {{selectedLog.classNum}} 堂</div>
+                <div style="font-size:11.5px;color:#8A7A68;margin-bottom:14px;">{{selectedLog.date}}</div>
+
+                <div style="background:#F1E9DC;border-radius:16px;padding:11px 13px;margin-bottom:14px;display:flex;">
+                  <div style="flex:1;">
+                    <div style="font-size:9px;color:#8A7A68;letter-spacing:1px;margin-bottom:3px;">上次上課</div>
+                    <div style="font-size:11.5px;color:#3A2E22;">{{selectedLog.prevDate}}</div>
+                  </div>
+                  <div style="flex:1.5;border-left:1px solid #DCCFB8;padding-left:13px;">
+                    <div style="font-size:9px;color:#8A7A68;letter-spacing:1px;margin-bottom:3px;">上次回家作業</div>
+                    <div style="font-size:11.5px;color:#3A2E22;">{{selectedLog.prevHomework}}</div>
+                  </div>
+                </div>
+
+                <div style="background:#fff;border-radius:20px;padding:15px;margin-bottom:10px;">
+                  <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:7px;">今日學習</div>
+                  <div style="font-size:13.5px;color:#3A2E22;line-height:1.6;">{{selectedLog.learning}}</div>
+                  <sc-if value="{{selectedLog.hasLessonDrawing}}" hint-placeholder-val="{{false}}">
+                    <canvas ref="{{selectedLog.lessonDrawingRef}}" width="358" height="200" style="width:100%;height:auto;border:1px dashed #DCCFB8;border-radius:12px;margin-top:8px;display:block;"></canvas>
+                  </sc-if>
+                </div>
+                <div style="background:#fff;border-radius:20px;padding:15px;margin-bottom:10px;">
+                  <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:7px;">回家作業</div>
+                  <div style="font-size:13.5px;color:#3A2E22;line-height:1.6;">{{selectedLog.homework}}</div>
+                  <sc-if value="{{selectedLog.hasHomeworkDrawing}}" hint-placeholder-val="{{false}}">
+                    <canvas ref="{{selectedLog.homeworkDrawingRef}}" width="358" height="200" style="width:100%;height:auto;border:1px dashed #DCCFB8;border-radius:12px;margin-top:8px;display:block;"></canvas>
+                  </sc-if>
+                </div>
+                <div style="background:#fff;border-radius:20px;padding:15px;margin-bottom:10px;display:flex;align-items:center;gap:13px;">
+                  <div style="font-size:28px;">{{selectedLog.mood}}</div>
+                  <div>
+                    <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:3px;">今日心情</div>
+                    <div style="font-size:13.5px;color:#3A2E22;">{{selectedLog.moodLabel}}</div>
+                  </div>
+                </div>
+                <div style="background:#fff;border-radius:20px;padding:15px;margin-bottom:10px;">
+                  <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:9px;">生活紀錄</div>
+                  <sc-for list="{{selectedLog.lifeItems}}" as="li" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:center;gap:8px;padding:4px 0;">
+                      <div style="{{li.style}}"></div>
+                      <div style="font-size:12px;color:#3A2E22;">{{li.label}}<sc-if value="{{li.hasNote}}" hint-placeholder-val="{{false}}"><span style="color:#8A7A68;"> · {{li.note}}</span></sc-if></div>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <div style="background:#FBF3EA;border-radius:20px;padding:15px;margin-bottom:14px;">
+                  <div style="font-size:10.5px;color:#C1694A;letter-spacing:1px;margin-bottom:7px;">感謝自己的一句話</div>
+                  <div style="font-size:13px;color:#3A2E22;line-height:1.6;font-style:italic;">「{{selectedLog.note}}」</div>
+                </div>
+
+                <div style="border-top:1px dashed #DCCFB8;padding-top:14px;">
+                  <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:9px;">簽名</div>
+                  <sc-if value="{{selectedLog.isSigned}}" hint-placeholder-val="{{false}}">
+                    <div style="background:#F7E8E0;border-radius:16px;padding:14px;text-align:center;">
+                      <sc-if value="{{selectedLog.hasSignatureImage}}" hint-placeholder-val="{{false}}">
+                        <canvas ref="{{selectedLog.signatureDataRef}}" width="300" height="102" style="width:150px;height:51px;display:block;margin:0 auto 6px;"></canvas>
+                      </sc-if>
+                      <div style="font-size:13px;color:#9C4A2E;">已簽名 ✓</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{selectedLog.needsSign}}" hint-placeholder-val="{{true}}">
+                    <div style="position:relative;margin-bottom:10px;">
+                      <canvas ref="{{signatureCanvasRef}}" width="322" height="120" onPointerDown="{{onSignatureCanvasDown}}" onPointerMove="{{onSignatureCanvasMove}}" onPointerUp="{{onSignatureCanvasUp}}" onPointerLeave="{{onSignatureCanvasUp}}" style="width:322px;height:120px;background:#fff;border:1px dashed #DCCFB8;border-radius:16px;touch-action:none;display:block;"></canvas>
+                      <div onClick="{{clearSignatureCanvas}}" style="position:absolute;bottom:8px;right:8px;font-size:10px;color:#C1694A;background:#fff;padding:4px 10px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);cursor:pointer;">清除</div>
+                    </div>
+                    <div onClick="{{confirmSignature}}" style="background:#C1694A;color:#fff;text-align:center;padding:13px;border-radius:24px;font-size:13.5px;font-weight:600;cursor:pointer;">確認簽名</div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{noSelectedLog}}" hint-placeholder-val="{{true}}">
+              <div style="padding:78px 18px 30px;box-sizing:border-box;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                  <div style="font-family:'Noto Serif TC',serif;font-size:19px;color:#3A2E22;font-weight:600;">簽名＋紀錄</div>
+                  <div onClick="{{openEntry}}" style="background:#C1694A;color:#fff;font-size:10.5px;font-weight:600;padding:7px 11px;border-radius:20px;cursor:pointer;white-space:nowrap;">＋新增</div>
+                </div>
+
+                <sc-if value="{{hasUnsigned}}" hint-placeholder-val="{{false}}">
+                  <div onClick="{{goToFirstUnsigned}}" style="background:#FBEADD;border:1px solid #EBC49E;border-radius:14px;padding:10px 12px;margin-bottom:14px;font-size:11.5px;color:#9C4A2E;cursor:pointer;">⚠ 有 {{unsignedCount}} 堂尚未簽名，點我前往之前的堂數簽名</div>
+                </sc-if>
+
+                <sc-for list="{{logPages}}" as="page" hint-placeholder-count="1">
+                  <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">{{page.label}}</div>
+                  <div style="display:flex;gap:8px;margin-bottom:16px;">
+                    <div style="flex:1;background:#fff;border-radius:14px;overflow:hidden;">
+                      <div style="display:flex;background:#EFE6D6;padding:7px 4px;font-size:9.5px;color:#8A7A68;font-weight:600;">
+                        <div style="width:26px;text-align:center;">堂</div>
+                        <div style="flex:1;text-align:center;">日期</div>
+                        <div style="width:34px;text-align:center;">簽名</div>
+                      </div>
+                      <sc-for list="{{page.left}}" as="gr" hint-placeholder-count="20">
+                        <div onClick="{{gr.onClick}}" style="{{gr.rowStyle}}">
+                          <div style="width:26px;text-align:center;">{{gr.n}}</div>
+                          <div style="flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{gr.date}}</div>
+                          <div style="width:34px;text-align:center;color:{{gr.markColor}};">{{gr.mark}}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <div style="flex:1;background:#fff;border-radius:14px;overflow:hidden;">
+                      <div style="display:flex;background:#EFE6D6;padding:7px 4px;font-size:9.5px;color:#8A7A68;font-weight:600;">
+                        <div style="width:26px;text-align:center;">堂</div>
+                        <div style="flex:1;text-align:center;">日期</div>
+                        <div style="width:34px;text-align:center;">簽名</div>
+                      </div>
+                      <sc-for list="{{page.right}}" as="gr2" hint-placeholder-count="20">
+                        <div onClick="{{gr2.onClick}}" style="{{gr2.rowStyle}}">
+                          <div style="width:26px;text-align:center;">{{gr2.n}}</div>
+                          <div style="flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{gr2.date}}</div>
+                          <div style="width:34px;text-align:center;color:{{gr2.markColor}};">{{gr2.mark}}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </sc-if>
+
+          <sc-if value="{{isTabAssessment}}" hint-placeholder-val="{{false}}">
+            <div style="padding:78px 18px 30px;box-sizing:border-box;">
+              <div style="font-family:'Noto Serif TC',serif;font-size:19px;color:#3A2E22;font-weight:600;margin-bottom:4px;">身體評估</div>
+              <div style="font-size:11.5px;color:#8A7A68;margin-bottom:16px;">拍照存查，追蹤身體姿勢隨堂數進步的變化</div>
+
+              <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:10px;">靜態姿勢評估 · 第1堂 vs 第40堂</div>
+              <div style="background:#fff;border-radius:20px;padding:14px;margin-bottom:22px;">
+                <div style="display:flex;margin-bottom:10px;">
+                  <div style="width:38px;"></div>
+                  <div style="flex:1;text-align:center;font-size:10.5px;color:#8A7A68;font-weight:600;">第1堂</div>
+                  <div style="flex:1;text-align:center;font-size:10.5px;color:#C1694A;font-weight:600;">第40堂</div>
+                </div>
+                <div style="display:flex;align-items:center;margin-bottom:12px;">
+                  <div style="width:38px;font-size:11px;color:#3A2E22;">正面</div>
+                  <div style="flex:1;display:flex;justify-content:center;"><image-slot id="{{staticSlotIds.frontFirst}}" shape="rounded" radius="12" placeholder="拍照" style="width:82px;height:100px;"></image-slot></div>
+                  <div style="flex:1;display:flex;justify-content:center;"><image-slot id="{{staticSlotIds.frontLast}}" shape="rounded" radius="12" placeholder="拍照" style="width:82px;height:100px;"></image-slot></div>
+                </div>
+                <div style="display:flex;align-items:center;margin-bottom:12px;">
+                  <div style="width:38px;font-size:11px;color:#3A2E22;">側面</div>
+                  <div style="flex:1;display:flex;justify-content:center;"><image-slot id="{{staticSlotIds.sideFirst}}" shape="rounded" radius="12" placeholder="拍照" style="width:82px;height:100px;"></image-slot></div>
+                  <div style="flex:1;display:flex;justify-content:center;"><image-slot id="{{staticSlotIds.sideLast}}" shape="rounded" radius="12" placeholder="拍照" style="width:82px;height:100px;"></image-slot></div>
+                </div>
+                <div style="display:flex;align-items:center;">
+                  <div style="width:38px;font-size:11px;color:#3A2E22;">背面</div>
+                  <div style="flex:1;display:flex;justify-content:center;"><image-slot id="{{staticSlotIds.backFirst}}" shape="rounded" radius="12" placeholder="拍照" style="width:82px;height:100px;"></image-slot></div>
+                  <div style="flex:1;display:flex;justify-content:center;"><image-slot id="{{staticSlotIds.backLast}}" shape="rounded" radius="12" placeholder="拍照" style="width:82px;height:100px;"></image-slot></div>
+                </div>
+              </div>
+
+              <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:8px;">動態評估</div>
+              <div style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;">
+                <sc-for list="{{dynamicSlots}}" as="ds" hint-placeholder-count="6">
+                  <div style="text-align:center;flex-shrink:0;">
+                    <image-slot id="{{ds.id}}" shape="rounded" radius="14" placeholder="拍照存查" style="width:88px;height:110px;"></image-slot>
+                    <div style="font-size:9.5px;color:#8A7A68;margin-top:5px;">第{{ds.n}}堂</div>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="font-size:10.5px;color:#8A7A68;letter-spacing:1px;margin-bottom:10px;">新增比較堂數（靜態）</div>
+              <sc-for list="{{extraStaticEntries}}" as="ex" hint-placeholder-count="0">
+                <div style="background:#fff;border-radius:20px;padding:14px;margin-bottom:12px;">
+                  <div style="font-size:11px;color:#C1694A;font-weight:600;margin-bottom:10px;">第{{ex.n}}堂</div>
+                  <div style="display:flex;gap:8px;">
+                    <div style="text-align:center;">
+                      <image-slot id="{{ex.frontId}}" shape="rounded" radius="12" placeholder="正面" style="width:82px;height:100px;"></image-slot>
+                      <div style="font-size:9px;color:#8A7A68;margin-top:4px;">正面</div>
+                    </div>
+                    <div style="text-align:center;">
+                      <image-slot id="{{ex.sideId}}" shape="rounded" radius="12" placeholder="側面" style="width:82px;height:100px;"></image-slot>
+                      <div style="font-size:9px;color:#8A7A68;margin-top:4px;">側面</div>
+                    </div>
+                    <div style="text-align:center;">
+                      <image-slot id="{{ex.backId}}" shape="rounded" radius="12" placeholder="背面" style="width:82px;height:100px;"></image-slot>
+                      <div style="font-size:9px;color:#8A7A68;margin-top:4px;">背面</div>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="display:flex;gap:8px;">
+                <input type="number" min="1" value="{{newStaticClassInput}}" onChange="{{onNewStaticClassChange}}" placeholder="輸入堂數，例如 60" style="flex:1;box-sizing:border-box;background:#fff;border:1px solid #E8DFD0;border-radius:12px;padding:9px 12px;font-size:12.5px;color:#3A2E22;font-family:'Noto Sans TC',sans-serif;"></input>
+                <div onClick="{{addStaticCompareClass}}" style="background:#C1694A;color:#fff;font-size:12px;font-weight:600;padding:9px 16px;border-radius:12px;cursor:pointer;white-space:nowrap;">＋新增</div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{isTabChallenge}}" hint-placeholder-val="{{false}}">
+            <div style="padding:78px 18px 30px;box-sizing:border-box;">
+              <div style="font-family:'Noto Serif TC',serif;font-size:19px;color:#3A2E22;font-weight:600;margin-bottom:4px;">木子李學院挑戰賽</div>
+              <div style="font-size:11.5px;color:#8A7A68;margin-bottom:16px;">完成任務、累積堂數，一關接一關解鎖獎勵 · 沒有終點，一直闖下去</div>
+
+              <div style="background:#FBF3EA;border-radius:22px;padding:16px 12px;margin-bottom:20px;text-align:center;">
+                <div style="font-size:11px;color:#8A7A68;">目前累積 {{classCount}} 堂</div>
+                <div style="font-size:13px;color:#9C4A2E;font-weight:600;margin-top:4px;">下一關卡 {{nextMilestoneN}} 堂 · 還差 {{nextMilestoneRemain}} 堂</div>
+              </div>
+
+              <div style="background:#FBF3EA;border-radius:22px;padding:16px;position:relative;overflow:hidden;">
+                <div style="position:relative;padding-left:34px;">
+                  <div style="position:absolute;left:14px;top:6px;bottom:6px;width:4px;background:#E8C99A;border-radius:2px;"></div>
+                  <sc-for list="{{gameSteps}}" as="gs" hint-placeholder-count="9">
+                    <div style="position:relative;display:flex;align-items:flex-start;gap:11px;margin-bottom:15px;">
+                      <div onClick="{{gs.onClick}}" style="{{gs.circleStyle}}">{{gs.circleMark}}</div>
+                      <div style="flex:1;min-width:0;padding-top:1px;">
+                        <div style="font-size:9px;color:#B8935A;letter-spacing:1px;margin-bottom:2px;">第{{gs.ordinalLabel}}關</div>
+                        <div style="{{gs.titleStyle}}">{{gs.label}}</div>
+                        <sc-for list="{{gs.rewards}}" as="rw" hint-placeholder-count="1">
+                          <div style="{{gs.rewardStyle}}">{{rw.icon}} {{rw.text}}</div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="text-align:center;font-size:11px;color:#B8935A;margin-top:2px;">🎉 一直玩下去，關卡永不結束</div>
+              </div>
+
+              <div style="display:flex;gap:14px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+                <div onClick="{{openContractReview}}" style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+                  <div style="font-size:13px;">📜</div>
+                  <div style="font-size:10.5px;color:#C1694A;">查看我的承諾書</div>
+                </div>
+                <div onClick="{{openCertificateOverlay}}" style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+                  <div style="font-size:13px;">🎓</div>
+                  <div style="font-size:10.5px;color:#C1694A;">查看40堂小證書</div>
+                </div>
+                <sc-if value="{{isNotGraduated}}" hint-placeholder-val="{{true}}">
+                  <div onClick="{{openGraduationConfirm}}" style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+                    <div style="font-size:13px;">🚪</div>
+                    <div style="font-size:10.5px;color:#B9A38A;">學員即將離開木子李？標記畢業結業</div>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+
+        <div style="position:absolute;left:0;bottom:0;width:402px;height:78px;background:rgba(255,255,255,0.94);display:flex;align-items:center;justify-content:space-around;border-top:1px solid #EEE3D2;">
+          <div onClick="{{goHome}}" style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;">
+            <div style="{{tabHomeIconStyle}}"></div>
+            <div style="{{tabHomeLabelStyle}}">首頁</div>
+          </div>
+          <div onClick="{{goLog}}" style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;">
+            <div style="{{tabLogIconStyle}}"></div>
+            <div style="{{tabLogLabelStyle}}">簽名紀錄</div>
+          </div>
+          <div onClick="{{goAssessment}}" style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;">
+            <div style="{{tabAssessmentIconStyle}}"></div>
+            <div style="{{tabAssessmentLabelStyle}}">評估</div>
+          </div>
+          <div onClick="{{goChallenge}}" style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;">
+            <div style="{{tabChallengeIconStyle}}"></div>
+            <div style="{{tabChallengeLabelStyle}}">挑戰賽</div>
+          </div>
+        </div>
+
+      </sc-if>
+
+      <sc-if value="{{isCertificateOverlay}}" hint-placeholder-val="{{false}}">
+        <div style="padding:64px 22px 30px;height:874px;box-sizing:border-box;overflow:auto;background:#F6F0E6;display:flex;flex-direction:column;">
+          <div onClick="{{closeCertificateOverlay}}" style="font-size:13px;color:#C1694A;margin-bottom:14px;">← 返回</div>
+          <div style="flex:1;border:1.5px solid #B8935A;border-radius:6px;padding:26px 18px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+            <div style="position:absolute;top:6px;left:6px;width:16px;height:16px;border-top:2px solid #B8935A;border-left:2px solid #B8935A;"></div>
+            <div style="position:absolute;top:6px;right:6px;width:16px;height:16px;border-top:2px solid #B8935A;border-right:2px solid #B8935A;"></div>
+            <div style="position:absolute;bottom:6px;left:6px;width:16px;height:16px;border-bottom:2px solid #B8935A;border-left:2px solid #B8935A;"></div>
+            <div style="position:absolute;bottom:6px;right:6px;width:16px;height:16px;border-bottom:2px solid #B8935A;border-right:2px solid #B8935A;"></div>
+
+            <div style="font-size:9px;letter-spacing:3px;color:#B8935A;margin-bottom:10px;">MUZILI 學院</div>
+            <div style="font-family:'EB Garamond',serif;font-style:italic;font-size:30px;color:#3A2E22;margin-bottom:4px;">Certificate</div>
+            <div style="font-size:13px;color:#3A2E22;font-weight:600;margin:6px 0 14px;">MUZILI　階段紀念證書</div>
+            <div style="width:70%;height:1px;background:#DCCBA8;margin-bottom:14px;"></div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.9;max-width:250px;">親愛的，<br>恭喜完成 {{nextCertTarget}} 堂課程，<br>謝謝你願意一次次出現在木子李，<br>陪著自己的身體，一步步走到這裡。<br>這張證書，不是句點，是旅程中的一個印記。<br>願你在往後的日子裡，<br>用自己的步調，慢慢成為自己喜歡的樣子。</div>
+            <svg viewBox="0 0 260 145" width="130" height="72" style="display:block;margin:20px auto 0;">
+              <g fill="none" stroke="#16215A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M45,55 C35,40 30,30 35,45 C42,65 50,110 40,125 C33,135 20,128 25,113 C29,100 42,100 48,110"></path>
+                <path d="M78,38 L84,45"></path>
+                <path d="M75,130 C75,105 78,60 85,40 C88,32 92,35 90,48 C86,72 88,105 95,120 C99,128 104,118 100,102"></path>
+                <path d="M100,102 C105,75 112,40 118,32 C122,27 126,32 124,45 C120,65 120,90 128,100 C133,106 138,90 142,65 C146,42 150,28 155,32 C160,36 158,60 156,85 C154,105 156,118 162,110"></path>
+                <path d="M162,110 C165,85 170,45 176,35 C179,30 183,33 181,45 C177,68 180,100 188,118 C193,128 200,135 210,132 C222,128 228,115 220,105 C214,97 202,100 198,110 C210,95 235,90 250,98 C260,104 258,112 250,110"></path>
+              </g>
+              <path d="M172,55 C170,48 176,44 179,49 C182,44 188,48 186,55 C184,62 179,68 179,68 C179,68 174,62 172,55 Z" fill="#16215A"></path>
+            </svg>
+            <div style="font-size:8px;letter-spacing:1.5px;color:#8A7A68;margin-top:2px;">DEAN OF MUZILI PILATES INSTITUTE</div>
+            <div style="font-size:9.5px;color:#B9A38A;margin-top:18px;">目前進度 {{classCount}} / {{nextCertTarget}} 堂 · 還差 {{classesToCertificate}} 堂解鎖</div>
+            <sc-if value="{{hasCertificatesEarned}}" hint-placeholder-val="{{false}}">
+              <div style="font-size:9.5px;color:#C1694A;margin-top:4px;">🎓 已累計獲得 {{certificatesEarned}} 張紀念證書</div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isGraduationConfirm}}" hint-placeholder-val="{{false}}">
+        <div style="padding:70px 24px 30px;height:874px;box-sizing:border-box;overflow:auto;background:#F6F0E6;display:flex;flex-direction:column;">
+          <div onClick="{{closeGraduationConfirm}}" style="font-size:13px;color:#C1694A;margin-bottom:20px;">← 返回</div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+            <div style="font-size:34px;margin-bottom:14px;">🎓</div>
+            <div style="font-family:'Noto Serif TC',serif;font-size:18px;color:#3A2E22;font-weight:700;margin-bottom:10px;">確定要標記 {{currentStudent.name}} 畢業結業嗎？</div>
+            <div style="font-size:12px;color:#8A7A68;line-height:1.7;max-width:260px;">這代表她即將離開木子李，系統會產生一張正式的畢業證書，記錄她在這裡累計上過的 {{classCount}} 堂課。此動作可之後在後台調整。</div>
+          </div>
+          <div onClick="{{confirmGraduation}}" style="background:#B8935A;color:#fff;text-align:center;padding:16px;border-radius:30px;font-size:14.5px;font-weight:600;cursor:pointer;margin-bottom:10px;">確認標記畢業 →</div>
+          <div onClick="{{closeGraduationConfirm}}" style="text-align:center;font-size:12.5px;color:#8A7A68;padding:8px;cursor:pointer;">先不要</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isGraduationCertificate}}" hint-placeholder-val="{{false}}">
+        <div style="padding:64px 22px 30px;height:874px;box-sizing:border-box;overflow:auto;background:#F6F0E6;display:flex;flex-direction:column;">
+          <div onClick="{{closeGraduationCertificate}}" style="font-size:13px;color:#C1694A;margin-bottom:14px;">← 返回</div>
+          <div style="flex:1;border:1.5px solid #B8935A;border-radius:6px;padding:26px 18px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+            <div style="position:absolute;top:6px;left:6px;width:16px;height:16px;border-top:2px solid #B8935A;border-left:2px solid #B8935A;"></div>
+            <div style="position:absolute;top:6px;right:6px;width:16px;height:16px;border-top:2px solid #B8935A;border-right:2px solid #B8935A;"></div>
+            <div style="position:absolute;bottom:6px;left:6px;width:16px;height:16px;border-bottom:2px solid #B8935A;border-left:2px solid #B8935A;"></div>
+            <div style="position:absolute;bottom:6px;right:6px;width:16px;height:16px;border-bottom:2px solid #B8935A;border-right:2px solid #B8935A;"></div>
+
+            <div style="font-size:9px;letter-spacing:3px;color:#B8935A;margin-bottom:10px;">MUZILI 學院</div>
+            <div style="font-family:'EB Garamond',serif;font-style:italic;font-size:30px;color:#3A2E22;margin-bottom:4px;">Graduation</div>
+            <div style="font-size:13px;color:#3A2E22;font-weight:600;margin:6px 0 14px;">MUZILI　畢業證書</div>
+            <div style="width:70%;height:1px;background:#DCCBA8;margin-bottom:14px;"></div>
+            <div style="font-size:11px;color:#8A7A68;margin-bottom:6px;">恭喜</div>
+            <div style="font-family:'Ma Shan Zheng',cursive;font-size:28px;color:#3A2E22;margin-bottom:14px;">{{currentStudent.name}}</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.9;max-width:250px;">親愛的，恭喜完成這本聯絡簿，<br>謝謝你願意一次次出現在木子李，<br>陪著自己的身體，一步步走到這裡。<br>這張證書，不是句點，是開始，<br>願你在往後的日子裡，<br>用自己的步調，慢慢成為自己喜歡的樣子。</div>
+            <svg viewBox="0 0 260 145" width="130" height="72" style="display:block;margin:20px auto 0;">
+              <g fill="none" stroke="#16215A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M45,55 C35,40 30,30 35,45 C42,65 50,110 40,125 C33,135 20,128 25,113 C29,100 42,100 48,110"></path>
+                <path d="M78,38 L84,45"></path>
+                <path d="M75,130 C75,105 78,60 85,40 C88,32 92,35 90,48 C86,72 88,105 95,120 C99,128 104,118 100,102"></path>
+                <path d="M100,102 C105,75 112,40 118,32 C122,27 126,32 124,45 C120,65 120,90 128,100 C133,106 138,90 142,65 C146,42 150,28 155,32 C160,36 158,60 156,85 C154,105 156,118 162,110"></path>
+                <path d="M162,110 C165,85 170,45 176,35 C179,30 183,33 181,45 C177,68 180,100 188,118 C193,128 200,135 210,132 C222,128 228,115 220,105 C214,97 202,100 198,110 C210,95 235,90 250,98 C260,104 258,112 250,110"></path>
+              </g>
+              <path d="M172,55 C170,48 176,44 179,49 C182,44 188,48 186,55 C184,62 179,68 179,68 C179,68 174,62 172,55 Z" fill="#16215A"></path>
+            </svg>
+            <div style="font-size:8px;letter-spacing:1.5px;color:#8A7A68;margin-top:2px;">DEAN OF MUZILI PILATES INSTITUTE</div>
+            <div style="font-size:9.5px;color:#B9A38A;margin-top:18px;">畢業日期 {{currentStudent.graduationDate}}</div>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </x-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  lessonCanvasRef = React.createRef();
+  homeworkCanvasRef = React.createRef();
+  signatureCanvasRef = React.createRef();
+  entrySignatureCanvasRef = React.createRef();
+  lessonTextareaRef = React.createRef();
+  homeworkTextareaRef = React.createRef();
+  gateCanvasRef = React.createRef();
+  resignCanvasRef = React.createRef();
+  drawing = false;
+  lastPoint = null;
+  lessonMoved = false;
+  homeworkMoved = false;
+  todayDateDisplay = '2026/07/06';
+
+  state = {
+    currentStudentId: 1,
+    tab: 'home',
+    selectedLogId: null,
+    showPicker: false,
+    showEntry: false,
+    showContractReview: false,
+    showCertificate: false,
+    showAddStudent: false,
+    newStudentCode: '',
+    newStudentName: '',
+    newStudentCoach: '',
+    newStudentPurchased: '',
+    newStudentVipTier: null,
+    newStudentAttendanceFlag: false,
+    newStudentArchived: false,
+    editingStudentId: null,
+    tierFilter: 'all',
+    deleteConfirming: false,
+    showGraduationConfirm: false,
+    showGraduationCertificate: false,
+    graduatedOverrides: {},
+    graduationDateOverrides: {},
+    searchQuery: '',
+    coachForm: null,
+    toastVisible: false,
+    signedOverrides: {},
+    contractOverrides: {},
+    encouragementIndex: 0,
+    challengeOverrides: {},
+    contractSignatureOverrides: {},
+    resigningContract: false,
+    showAddPackageInput: false,
+    addPackageAmount: '',
+  };
+
+  bodyFocusCategories = ['上肢', '下肢', '核心控制', '脊柱靈活', '全身整合', '伸展'];
+  equipmentCategories = ['MAT', 'REFORMER', 'CHAIR', 'BARREL', 'CADILLAC', '小球', '環', '彈力帶', '富蘭克林球', 'OOV', '磚', '輪', '瑜珈椅'];
+  timeSlots = ['09:00', '10:30', '14:00', '16:00', '19:00', '20:30'];
+
+  encouragementMessages = [
+    '每一次出現，都是給自己的禮物。',
+    '身體會記得妳所有的溫柔堅持。',
+    '慢慢來，比較快。',
+    '妳已經比昨天更靠近自己一點了。',
+    '穩定不是終點，是每天的選擇。',
+    '今天的妳，也很值得被看見。',
+    '呼吸深一點，肩膀放鬆一點。',
+    '進步不用很快，只要一直在路上。',
+    '謝謝妳，願意為自己留這段時間。',
+    '妳的努力，身體都知道。',
+  ];
+
+  challengeStepsData = [
+    { key: 'review', label: 'Google 5星好評（50字＋合照）', reward: '送襪子', isReward: true, type: 'manual', defaultDone: false },
+    { key: 'checkin', label: '回家作業或上課影片打卡標記木子李', isReward: false, type: 'manual', defaultDone: false },
+    { key: 'friend', label: '帶家人、朋友來木子李體驗私人課程', isReward: false, type: 'manual', defaultDone: false },
+    { key: 'weekly', label: '一週挑戰兩堂課', isReward: false, type: 'manual', defaultDone: false },
+  ];
+
+  chineseOrdinal(n) {
+    const map = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+    return n <= 10 ? map[n - 1] : String(n);
+  }
+
+  buildGameSteps(classCount, challengeOverrides) {
+    const chipDone = 'width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;background:#C1694A;color:#fff;';
+    const chipTodo = 'width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;background:#fff;border:2px solid #E8C99A;color:#B8935A;';
+    const chipLocked = 'width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;background:#F1E9DC;border:1px solid #E8DFD0;color:#C7B9A4;';
+    const titleDone = 'font-size:12.5px;font-weight:600;color:#7C8A6E;';
+    const titleCurrent = 'font-size:12.5px;font-weight:600;color:#C1694A;';
+    const titleLocked = 'font-size:12.5px;font-weight:600;color:#C7B9A4;';
+
+    const physicalTable = { 20: '一條彈力帶', 40: '', 60: '木子李包包', 80: '木子李毛巾', 0: '一堂一對一' };
+
+    const milestoneEntry = (n) => {
+      const isCert = n % 40 === 0;
+      const certNum = n / 40;
+      const physical = physicalTable[n % 100] || '';
+      const rewards = [];
+      if (physical) rewards.push({ icon: '🎁', text: physical });
+      if (isCert) rewards.push({ icon: '🎓', text: certNum === 1 ? '紀念證書＋一堂地板課程' : '一堂地板課程' });
+      return {
+        type: 'milestone', n,
+        label: isCert ? `第${certNum}張證書 · ${n}堂` : `里程碑 · ${n}堂`,
+        rewards,
+        done: classCount >= n,
+        clickable: false,
+      };
+    };
+
+    const manualDefs = this.challengeStepsData;
+    const byKey = {};
+    manualDefs.forEach(m => { byKey[m.key] = m; });
+    const manualEntry = (key) => {
+      const def = byKey[key];
+      const done = challengeOverrides[key] ?? def.defaultDone;
+      return {
+        type: 'manual', key,
+        label: def.label,
+        rewards: def.isReward ? [{ icon: '🎁', text: def.reward }] : [],
+        done,
+        clickable: true,
+      };
+    };
+
+    const steps = [
+      manualEntry('review'),
+      manualEntry('checkin'),
+      manualEntry('friend'),
+      milestoneEntry(20),
+      milestoneEntry(40),
+      manualEntry('weekly'),
+      milestoneEntry(60),
+      milestoneEntry(80),
+    ];
+    let n = 100;
+    while (true) {
+      steps.push(milestoneEntry(n));
+      if (classCount < n) break;
+      n += 20;
+      if (n > classCount + 200) break;
+    }
+
+    let unlockedSoFar = true;
+    return steps.map((step, idx) => {
+      const unlocked = unlockedSoFar;
+      unlockedSoFar = unlockedSoFar && step.done;
+      const canClick = step.clickable && unlocked;
+      const effectiveDone = step.done && unlocked;
+      return {
+        ...step,
+        ordinalLabel: this.chineseOrdinal(idx + 1),
+        unlocked,
+        effectiveDone,
+        circleMark: effectiveDone ? '✓' : (unlocked ? '' : '🔒'),
+        circleStyle: effectiveDone ? chipDone : (unlocked ? chipTodo : chipLocked),
+        titleStyle: effectiveDone ? titleDone : (unlocked ? titleCurrent : titleLocked),
+        rewardStyle: unlocked ? 'font-size:9.5px;color:#9C4A2E;margin-top:2px;' : 'font-size:9.5px;color:#C7B9A4;margin-top:2px;',
+        onClick: canClick ? () => this.toggleChallenge(step.key) : null,
+      };
+    });
+  }
+
+  students = [
+    {
+      id: 1, code: 'M001', name: '陳美如', coach: '木子老師', legacyClasses: 0, digitalClasses: 22, purchasedClasses: 40, packageHistory: [{ date: '2026/02/03', amount: 20 }, { date: '2026/05/12', amount: 20 }], lastDate: '2026/06/30', lastHomework: '每日核心10分鐘', avatar: '#7C8A6E',
+      vipTier: 'diamond', attendanceFlag: false,
+      contractSigned: true, contractSignedDate: '2026/02/03', selfPracticeCount: 15, graduated: false, graduationDate: '',
+      todayTasksData: [{ text: '核心穩定訓練 10 分鐘', done: true }, { text: '睡前伸展 5 分鐘', done: false }],
+      logs: [
+        { id: 1, classNum: 1, date: '2026/02/03', mood: '😊', moodLabel: '期待又緊張', learning: '認識核心呼吸與骨盆中立', homework: '每天3分鐘骨盆時鐘練習', water: true, waterNote: '2000ml', practice: false, practiceNote: '', sleep: true, sleepNote: '7小時', gratitude: true, note: '願意跨出第一步的自己，很棒', signed: true },
+        { id: 2, classNum: 2, date: '2026/02/10', mood: '😌', moodLabel: '平靜', learning: '找到脊椎中立位置', homework: '靠牆站立練習5分鐘', water: true, waterNote: '', practice: true, practiceNote: '核心5分鐘', sleep: true, sleepNote: '', gratitude: false, note: '今天姿勢有感覺對了一點', signed: true },
+        { id: 3, classNum: 3, date: '2026/02/17', mood: '😅', moodLabel: '有點累', learning: '核心啟動練習（百式基礎）', homework: '百式呼吸 x10', water: true, waterNote: '', practice: true, practiceNote: '', sleep: false, sleepNote: '5小時，較少', gratitude: true, note: '累但還是出現了，謝謝自己', signed: true },
+        { id: 4, classNum: 4, date: '2026/02/24', mood: '😊', moodLabel: '開心', learning: '骨盆穩定與脊椎伸展', homework: '貓牛式 x10', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '身體比想像中聽話', signed: true },
+        { id: 5, classNum: 5, date: '2026/03/03', mood: '💪', moodLabel: '有力量', learning: '器械床初體驗－穩定訓練', homework: '每日核心練習10分鐘', water: false, waterNote: '忘記喝水', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '第一次上器械床，好新鮮', signed: true },
+        { id: 6, classNum: 6, date: '2026/03/10', mood: '😊', moodLabel: '開心', learning: '改善圓肩、肩胛穩定練習', homework: '肩胛下沉練習 x10', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: false, note: '肩膀鬆開了一些', signed: true },
+        { id: 7, classNum: 7, date: '2026/03/17', mood: '😌', moodLabel: '平靜', learning: '全蹲深度提升訓練', homework: '靠牆深蹲練習', water: true, waterNote: '', practice: false, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '蹲得比上次深一點點了', signed: true },
+        { id: 8, classNum: 8, date: '2026/03/24', mood: '😊', moodLabel: '開心', learning: '側棒式穩定訓練', homework: '側棒式 10 秒 x3', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '撐住的那幾秒很有成就感', signed: true },
+        { id: 9, classNum: 9, date: '2026/03/31', mood: '🙂', moodLabel: '還不錯', learning: '骨盆歪斜覺察與矯正練習', homework: '單腳站立平衡練習', water: true, waterNote: '', practice: true, practiceNote: '', sleep: false, sleepNote: '', gratitude: false, note: '開始能感覺到左右不對稱', signed: true },
+        { id: 10, classNum: 10, date: '2026/04/07', mood: '🥳', moodLabel: '小小里程碑', learning: '回顧前十堂的進步', homework: '自由選擇喜歡的動作練習', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '十堂了，謝謝自己一直出現', signed: true },
+        { id: 11, classNum: 11, date: '2026/04/14', mood: '😊', moodLabel: '開心', learning: '呼吸模式調整，減少代償', homework: '躺姿呼吸練習5分鐘', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '呼吸變深了，肩膀也放鬆了', signed: true },
+        { id: 12, classNum: 12, date: '2026/04/21', mood: '😌', moodLabel: '平靜', learning: '髖關節活動度訓練', homework: '髖屈肌伸展 x2組', water: true, waterNote: '', practice: false, practiceNote: '', sleep: true, sleepNote: '', gratitude: false, note: '髖前側緊繃感有變少', signed: true },
+        { id: 13, classNum: 13, date: '2026/04/28', mood: '😅', moodLabel: '有點累', learning: '核心－脊柱連動訓練', homework: '死蟲式 x10', water: false, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '雖然累但練完很舒服', signed: true },
+        { id: 14, classNum: 14, date: '2026/05/05', mood: '😊', moodLabel: '開心', learning: '長坐姿延展與脊柱伸展', homework: '長坐姿前彎練習', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '腿後側緊繃感減少很多', signed: true },
+        { id: 15, classNum: 15, date: '2026/05/12', mood: '💪', moodLabel: '有力量', learning: 'Z型坐姿穩定訓練', homework: '髖旋轉控制練習', water: true, waterNote: '', practice: true, practiceNote: '', sleep: false, sleepNote: '', gratitude: true, note: '感覺骨盆越來越聽話了', signed: true },
+        { id: 16, classNum: 16, date: '2026/05/19', mood: '🙂', moodLabel: '還不錯', learning: '肩關節活動度與穩定並重', homework: '肩繞環練習 x10', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: false, note: '肩膀活動範圍變大了', signed: true },
+        { id: 17, classNum: 17, date: '2026/05/26', mood: '😊', moodLabel: '開心', learning: '平衡感訓練－單腳支撐', homework: '每日單腳站立1分鐘', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '站得比之前穩很多', signed: true },
+        { id: 18, classNum: 18, date: '2026/06/02', mood: '😌', moodLabel: '平靜', learning: '伏地挺身姿勢矯正', homework: '跪姿伏地挺身 x8', water: true, waterNote: '', practice: false, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '手臂力氣有進步的感覺', signed: true },
+        { id: 19, classNum: 19, date: '2026/06/09', mood: '😊', moodLabel: '開心', learning: '全身整合訓練－銜接動作', homework: '骨盆穩定訓練組合', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '動作之間銜接更順了', signed: true },
+        { id: 20, classNum: 20, date: '2026/06/16', mood: '🥳', moodLabel: '達成里程碑', learning: '二十堂重新評估準備', homework: '靜態伸展5分鐘', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '二十堂達成，繼續加油', signed: true },
+        { id: 21, classNum: 21, date: '2026/06/23', mood: '😊', moodLabel: '開心', learning: '核心穩定進階訓練', homework: '棒式進階 x3組', water: true, waterNote: '', practice: true, practiceNote: '', sleep: false, sleepNote: '', gratitude: false, note: '棒式撐得比之前久了', signed: false },
+        { id: 22, classNum: 22, date: '2026/06/30', mood: '💪', moodLabel: '有力量', learning: '骨盆對稱性追蹤訓練', homework: '每日核心10分鐘', water: true, waterNote: '', practice: true, practiceNote: '', sleep: true, sleepNote: '', gratitude: true, note: '感覺身體越來越聽自己的話了', signed: false },
+      ],
+    },
+    {
+      id: 2, code: 'M002', name: '林佳穎', coach: '阿如老師', legacyClasses: 0, digitalClasses: 0, purchasedClasses: 20, lastDate: '－', lastHomework: '－', avatar: '#C1694A',
+      vipTier: 'silver', attendanceFlag: false,
+      contractSigned: true, contractSignedDate: '2026/04/15', selfPracticeCount: 0, graduated: false, graduationDate: '',
+      todayTasksData: [], logs: [],
+    },
+    {
+      id: 3, code: 'M003', name: '王雨柔', coach: '木子老師', legacyClasses: 30, digitalClasses: 0, purchasedClasses: 40, lastDate: '2026/06/28（紙本）', lastHomework: '骨盆穩定訓練（紙本紀錄）', avatar: '#8A7A68',
+      vipTier: 'gold', attendanceFlag: true,
+      contractSigned: true, contractSignedDate: '2026/01/10', selfPracticeCount: 20, graduated: false, graduationDate: '',
+      todayTasksData: [{ text: '骨盆穩定訓練 10 分鐘', done: true }], logs: [],
+    },
+    {
+      id: 4, code: 'M004', name: '許庭恩', coach: '阿如老師', legacyClasses: 0, digitalClasses: 0, purchasedClasses: 20, lastDate: '－', lastHomework: '－', avatar: '#B08968',
+      vipTier: null, attendanceFlag: false,
+      contractSigned: false, contractSignedDate: '', selfPracticeCount: 0, graduated: false, graduationDate: '',
+      todayTasksData: [], logs: [],
+    },
+  ];
+
+  nextStudentSeq = 5;
+  avatarPalette = ['#7C8A6E', '#C1694A', '#8A7A68', '#B08968', '#9C8AA6', '#6E8A8C'];
+
+  freshCoachForm() {
+    return {
+      classDate: '2026-07-06',
+      classTime: '10:30',
+      bodyFocus: { '上肢': false, '下肢': false, '核心控制': true, '脊柱靈活': false, '全身整合': true, '伸展': false },
+      equipment: { 'MAT': true, 'REFORMER': true, 'CHAIR': false, 'BARREL': false, 'CADILLAC': false, '小球': false, '環': false, '彈力帶': false, '富蘭克林球': false, 'OOV': false, '磚': false, '輪': false, '瑜珈椅': false },
+      coreStability: 4,
+      pelvis: '無歪斜',
+      breathing: '順暢',
+      lifeCheck: { '喝水': { status: null, note: '' }, '練習': { status: null, note: '' }, '睡眠': { status: null, note: '' } },
+      lessonMode: 'type',
+      lessonPlanText: '',
+      homeworkFocus: { '上肢': false, '下肢': false, '核心控制': true, '脊柱靈活': false, '全身整合': false, '伸展': false },
+      homeworkMode: 'type',
+      homeworkNote: '',
+    };
+  }
+
+  getStudent() { return this.students.find(st => st.id === this.state.currentStudentId) || this.students[0]; }
+  isContractSigned(student) { return this.state.contractOverrides[student.id] ?? student.contractSigned; }
+
+  setTab(t) { this.setState({ tab: t, selectedLogId: null }); }
+  openLog(id) { this.setState({ selectedLogId: id }); }
+  closeLog() { this.setState({ selectedLogId: null }); }
+  setSearchQuery(e) { this.setState({ searchQuery: e.target.value }); }
+  openPicker() { this.setState({ showPicker: true, searchQuery: '' }); }
+  closePicker() { this.setState({ showPicker: false }); }
+  selectStudent(id) { this.setState({ currentStudentId: id, showPicker: false, tab: 'home', selectedLogId: null }); }
+
+  openAddStudent() { this.setState({ showAddStudent: true, editingStudentId: null, newStudentCode: '', newStudentName: '', newStudentCoach: '', newStudentPurchased: '', newStudentVipTier: null, newStudentAttendanceFlag: false, newStudentArchived: false, deleteConfirming: false }); }
+  openEditStudent(id) {
+    const st = this.students.find(s => s.id === id);
+    if (!st) return;
+    this.setState({
+      showAddStudent: true, editingStudentId: id,
+      newStudentCode: st.code, newStudentName: st.name, newStudentCoach: st.coach,
+      newStudentPurchased: st.purchasedClasses ? String(st.purchasedClasses) : '',
+      newStudentVipTier: st.vipTier || null, newStudentAttendanceFlag: !!st.attendanceFlag,
+      newStudentArchived: !!st.archived, deleteConfirming: false,
+    });
+  }
+  setTierFilter(v) { this.setState({ tierFilter: v }); }
+  setNewStudentVipTier(v) { this.setState(s => ({ newStudentVipTier: s.newStudentVipTier === v ? null : v })); }
+  toggleNewStudentAttendanceFlag() { this.setState(s => ({ newStudentAttendanceFlag: !s.newStudentAttendanceFlag })); }
+  toggleNewStudentArchived() { this.setState(s => ({ newStudentArchived: !s.newStudentArchived })); }
+  startDeleteStudent() { this.setState({ deleteConfirming: true }); }
+  cancelDeleteStudent() { this.setState({ deleteConfirming: false }); }
+  confirmDeleteStudent() {
+    const id = this.state.editingStudentId;
+    this.students = this.students.filter(s => s.id !== id);
+    this.setState({ showAddStudent: false, editingStudentId: null, deleteConfirming: false, newStudentCode: '', newStudentName: '', newStudentCoach: '', newStudentPurchased: '', newStudentVipTier: null, newStudentAttendanceFlag: false, newStudentArchived: false });
+  }
+  closeAddStudent() { this.setState({ showAddStudent: false, deleteConfirming: false }); }
+  setNewStudentCode(e) { this.setState({ newStudentCode: e.target.value }); }
+  setNewStudentName(e) { this.setState({ newStudentName: e.target.value }); }
+  setNewStudentCoach(e) { this.setState({ newStudentCoach: e.target.value }); }
+  setNewStudentPurchased(e) { this.setState({ newStudentPurchased: e.target.value }); }
+  createStudent() {
+    const name = (this.state.newStudentName || '').trim() || '新學員';
+    const coach = (this.state.newStudentCoach || '').trim() || '未指定';
+    const code = (this.state.newStudentCode || '').trim() || ('M' + String(this.nextStudentSeq).padStart(3, '0'));
+    const purchasedClasses = Math.max(0, parseInt(this.state.newStudentPurchased, 10) || 0);
+    const vipTier = this.state.newStudentVipTier;
+    const attendanceFlag = this.state.newStudentAttendanceFlag;
+
+    if (this.state.editingStudentId != null) {
+      const st = this.students.find(s => s.id === this.state.editingStudentId);
+      if (st) {
+        st.code = code; st.name = name; st.coach = coach; st.purchasedClasses = purchasedClasses;
+        st.vipTier = vipTier; st.attendanceFlag = attendanceFlag; st.archived = this.state.newStudentArchived;
+      }
+      this.setState({ showAddStudent: false, editingStudentId: null, newStudentCode: '', newStudentName: '', newStudentCoach: '', newStudentPurchased: '', newStudentVipTier: null, newStudentAttendanceFlag: false, newStudentArchived: false });
+      return;
+    }
+
+    const seq = this.nextStudentSeq++;
+    const avatar = this.avatarPalette[(seq - 1) % this.avatarPalette.length];
+    const newStudent = {
+      id: seq, code, name, coach, legacyClasses: 0, digitalClasses: 0, purchasedClasses, lastDate: '－', lastHomework: '－', avatar,
+      vipTier, attendanceFlag, archived: false,
+      contractSigned: false, contractSignedDate: '', selfPracticeCount: 0, graduated: false, graduationDate: '',
+      todayTasksData: [], logs: [],
+    };
+    this.students.push(newStudent);
+    // Stay on the student list after creating — don't drop straight into the signature
+    // gate. The契約簽署 should happen with the coach at the student's actual first class,
+    // not during admin setup.
+    this.setState({ showAddStudent: false, showPicker: true, tab: 'home', selectedLogId: null, newStudentCode: '', newStudentName: '', newStudentCoach: '', newStudentPurchased: '', newStudentVipTier: null, newStudentAttendanceFlag: false });
+  }
+  openContractReview() { this.setState({ showContractReview: true, resigningContract: false }); }
+  closeContractReview() { this.setState({ showContractReview: false, resigningContract: false }); }
+
+  startResign() { this.setState({ resigningContract: true }); }
+  cancelResign() { this.clearResignCanvas(); this.setState({ resigningContract: false }); }
+  onResignCanvasDown(e) { e.preventDefault(); this.drawing = true; this.lastPoint = this.getCanvasPoint(this.resignCanvasRef, e); }
+  onResignCanvasMove(e) { if (!this.drawing || !this.resignCanvasRef.current) return; const p = this.getCanvasPoint(this.resignCanvasRef, e); this.drawLine(this.resignCanvasRef, this.lastPoint, p); this.lastPoint = p; }
+  onResignCanvasUp() { this.drawing = false; this.lastPoint = null; }
+  clearResignCanvas() { const c = this.resignCanvasRef.current; if (c) c.getContext('2d').clearRect(0, 0, c.width, c.height); }
+  confirmResign() {
+    const studentId = this.state.currentStudentId;
+    const canvas = this.resignCanvasRef.current;
+    if (!canvas || this.isCanvasBlank(this.resignCanvasRef)) { this.setState({ resigningContract: false }); return; }
+    const dataUrl = canvas.toDataURL();
+    const dateDisplay = this.todayDateDisplay;
+    const student = this.getStudent();
+    student.contractSignedDate = dateDisplay;
+    this.setState(s => ({
+      contractSignatureOverrides: { ...s.contractSignatureOverrides, [studentId]: dataUrl },
+      resigningContract: false,
+    }));
+  }
+  exportAllStudentsPDF() {
+    const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const studentBlocks = this.students.map((student, idx) => {
+      const classCount = student.legacyClasses + student.digitalClasses;
+      const remaining = Math.max(0, (student.purchasedClasses || 0) - classCount);
+      const purchaseHistoryHtml = (student.packageHistory && student.packageHistory.length)
+        ? student.packageHistory.map(ph => `${esc(ph.date)}　+${ph.amount} 堂`).join('<br>')
+        : '尚無加購紀錄';
+      const rows = (student.logs || []).map(l => {
+        const signed = this.state.signedOverrides[l.id] ?? l.signed;
+        return `<tr>
+          <td style="padding:6px 8px;border-bottom:1px solid #E8DFD0;">${l.classNum}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #E8DFD0;">${esc(l.date)}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #E8DFD0;">${esc(l.learning)}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #E8DFD0;">${esc(l.homework)}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #E8DFD0;">${signed ? '已簽名 ✓' : '未簽名'}</td>
+        </tr>`;
+      }).join('');
+      return `<section style="${idx > 0 ? 'page-break-before:always;' : ''}padding-top:${idx > 0 ? '24px' : '0'};">
+        <h1 style="font-size:20px;margin-bottom:4px;">${esc(student.name)}</h1>
+        <div style="font-size:12.5px;color:#8A7A68;margin-bottom:10px;">
+          編號：${esc(student.code)}　指導老師：${esc(student.coach)}　契約簽署日：${esc(student.contractSignedDate || '－')}
+        </div>
+        <div style="display:flex;gap:10px;margin-bottom:16px;">
+          <div style="flex:1;background:#F7E8E0;border-radius:10px;padding:10px 14px;">
+            <div style="font-size:10px;color:#9C4A2E;">剩餘堂數</div>
+            <div style="font-size:20px;font-weight:700;color:#C1694A;">${remaining} 堂</div>
+            <div style="font-size:10px;color:#8A7A68;margin-top:2px;">已用 ${classCount} / 購買 ${student.purchasedClasses || 0} 堂</div>
+          </div>
+          <div style="flex:2;background:#F1E9DC;border-radius:10px;padding:10px 14px;">
+            <div style="font-size:10px;color:#8A7A68;margin-bottom:4px;">加購課卡紀錄</div>
+            <div style="font-size:11px;color:#3A2E22;line-height:1.6;">${purchaseHistoryHtml}</div>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:11.5px;">
+          <thead><tr>
+            <th style="text-align:left;padding:6px 8px;background:#F1E9DC;border-bottom:1px solid #E8DFD0;">堂</th>
+            <th style="text-align:left;padding:6px 8px;background:#F1E9DC;border-bottom:1px solid #E8DFD0;">日期</th>
+            <th style="text-align:left;padding:6px 8px;background:#F1E9DC;border-bottom:1px solid #E8DFD0;">今日教案</th>
+            <th style="text-align:left;padding:6px 8px;background:#F1E9DC;border-bottom:1px solid #E8DFD0;">回家作業</th>
+            <th style="text-align:left;padding:6px 8px;background:#F1E9DC;border-bottom:1px solid #E8DFD0;">簽名狀態</th>
+          </tr></thead>
+          <tbody>${rows || '<tr><td colspan="5" style="padding:12px;color:#B9A38A;">尚無課堂紀錄</td></tr>'}</tbody>
+        </table>
+      </section>`;
+    }).join('');
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>木子李・全體學員課程紀錄</title>
+      <style>
+        body{font-family:'Noto Sans TC','PingFang TC',sans-serif;color:#3A2E22;padding:32px;}
+        @media print { body{padding:12px;} }
+      </style>
+    </head><body>${studentBlocks}</body></html>`;
+    const win = window.open('', '_blank');
+    if (!win) return;
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+    setTimeout(() => { win.print(); }, 400);
+  }
+
+  openCertificateOverlay() { this.setState({ showCertificate: true }); }
+  closeCertificateOverlay() { this.setState({ showCertificate: false }); }
+  openGraduationConfirm() { this.setState({ showGraduationConfirm: true }); }
+  closeGraduationConfirm() { this.setState({ showGraduationConfirm: false }); }
+  openGraduationCertificate() { this.setState({ showGraduationCertificate: true }); }
+  closeGraduationCertificate() { this.setState({ showGraduationCertificate: false }); }
+  confirmGraduation() {
+    this.setState(s => {
+      const student = this.getStudent();
+      const date = student.graduationDate || this.todayDateDisplay;
+      return {
+        graduatedOverrides: { ...s.graduatedOverrides, [s.currentStudentId]: true },
+        graduationDateOverrides: { ...s.graduationDateOverrides, [s.currentStudentId]: date },
+        showGraduationConfirm: false,
+        showGraduationCertificate: true,
+      };
+    });
+  }
+  signContract() {
+    this.setState(s => {
+      const student = this.getStudent();
+      student.contractSignedDate = student.contractSignedDate || this.todayDateDisplay;
+      const canvas = this.gateCanvasRef.current;
+      const dataUrl = canvas ? canvas.toDataURL() : null;
+      const nextSigOverrides = dataUrl ? { ...s.contractSignatureOverrides, [s.currentStudentId]: dataUrl } : s.contractSignatureOverrides;
+      return {
+        contractOverrides: { ...s.contractOverrides, [s.currentStudentId]: true },
+        contractSignatureOverrides: nextSigOverrides,
+      };
+    });
+    this.clearGateCanvas();
+  }
+
+  onGateCanvasDown(e) { e.preventDefault(); this.drawing = true; this.lastPoint = this.getCanvasPoint(this.gateCanvasRef, e); }
+  onGateCanvasMove(e) { if (!this.drawing || !this.gateCanvasRef.current) return; const p = this.getCanvasPoint(this.gateCanvasRef, e); this.drawLine(this.gateCanvasRef, this.lastPoint, p); this.lastPoint = p; }
+  onGateCanvasUp() { this.drawing = false; this.lastPoint = null; }
+  clearGateCanvas() { const c = this.gateCanvasRef.current; if (c) c.getContext('2d').clearRect(0, 0, c.width, c.height); }
+
+  shuffleEncouragement() {
+    this.setState(s => {
+      let next = Math.floor(Math.random() * this.encouragementMessages.length);
+      if (next === s.encouragementIndex) next = (next + 1) % this.encouragementMessages.length;
+      return { encouragementIndex: next };
+    });
+  }
+
+  toggleChallenge(key) {
+    this.setState(s => ({ challengeOverrides: { ...s.challengeOverrides, [key]: !s.challengeOverrides[key] } }));
+  }
+
+  toggleAddPackage() { this.setState(s => ({ showAddPackageInput: !s.showAddPackageInput, addPackageAmount: '' })); }
+  setAddPackageAmount(e) { this.setState({ addPackageAmount: e.target.value }); }
+  confirmAddPackage() {
+    const student = this.getStudent();
+    const amount = Math.max(0, parseInt(this.state.addPackageAmount, 10) || 0);
+    if (amount > 0) {
+      student.purchasedClasses = (student.purchasedClasses || 0) + amount;
+      if (!student.packageHistory) student.packageHistory = [];
+      student.packageHistory.push({ date: this.todayDateDisplay, amount });
+    }
+    this.setState({ showAddPackageInput: false, addPackageAmount: '' });
+  }
+
+  clearAllEntryCanvases() {
+    this.clearLessonCanvas();
+    this.clearHomeworkCanvas();
+    this.clearEntrySignatureCanvas();
+  }
+  openEntry() { this.clearAllEntryCanvases(); this.setState({ showEntry: true, coachForm: this.freshCoachForm() }); }
+  closeEntry() { this.clearAllEntryCanvases(); this.setState({ showEntry: false }); }
+
+  toggleBodyFocus(name) { this.setState(s => ({ coachForm: { ...s.coachForm, bodyFocus: { ...s.coachForm.bodyFocus, [name]: !s.coachForm.bodyFocus[name] } } })); }
+  toggleEquipment(name) { this.setState(s => ({ coachForm: { ...s.coachForm, equipment: { ...s.coachForm.equipment, [name]: !s.coachForm.equipment[name] } } })); }
+  toggleHomeworkFocus(name) { this.setState(s => ({ coachForm: { ...s.coachForm, homeworkFocus: { ...s.coachForm.homeworkFocus, [name]: !s.coachForm.homeworkFocus[name] } } })); }
+  setLifeCheckStatus(name, status) { this.setState(s => ({ coachForm: { ...s.coachForm, lifeCheck: { ...s.coachForm.lifeCheck, [name]: { ...s.coachForm.lifeCheck[name], status: s.coachForm.lifeCheck[name].status === status ? null : status } } } })); }
+  setLifeCheckNote(name, e) { const val = e.target.value; this.setState(s => ({ coachForm: { ...s.coachForm, lifeCheck: { ...s.coachForm.lifeCheck, [name]: { ...s.coachForm.lifeCheck[name], note: val } } } })); }
+  setClassDate(e) { const val = e.target.value; this.setState(s => ({ coachForm: { ...s.coachForm, classDate: val } })); }
+  setClassTime(e) { const val = e.target.value; this.setState(s => ({ coachForm: { ...s.coachForm, classTime: val } })); }
+  setCoreStability(n) { this.setState(s => ({ coachForm: { ...s.coachForm, coreStability: n } })); }
+  setPelvis(v) { this.setState(s => ({ coachForm: { ...s.coachForm, pelvis: v } })); }
+  setBreathing(v) { this.setState(s => ({ coachForm: { ...s.coachForm, breathing: v } })); }
+  setLessonPlanText(e) { const val = e.target.value; this.setState(s => ({ coachForm: { ...s.coachForm, lessonPlanText: val } })); }
+  setHomeworkNote(e) { const val = e.target.value; this.setState(s => ({ coachForm: { ...s.coachForm, homeworkNote: val } })); }
+
+  getCanvasPoint(ref, e) {
+    const canvas = ref.current;
+    const rect = canvas.getBoundingClientRect();
+    return { x: (e.clientX - rect.left) * (canvas.width / rect.width), y: (e.clientY - rect.top) * (canvas.height / rect.height) };
+  }
+  isCanvasBlank(ref) {
+    const c = ref.current;
+    if (!c) return true;
+    const data = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+    for (let i = 3; i < data.length; i += 4) { if (data[i] !== 0) return false; }
+    return true;
+  }
+  drawLine(ref, p1, p2) {
+    const ctx = ref.current.getContext('2d');
+    ctx.strokeStyle = '#3A2E22'; ctx.lineWidth = 2.4; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+  }
+
+  onLessonCanvasDown(e) { e.preventDefault(); this.drawing = true; this.lessonMoved = false; this.lastPoint = this.getCanvasPoint(this.lessonCanvasRef, e); }
+  onLessonCanvasMove(e) {
+    if (!this.drawing || !this.lessonCanvasRef.current) return;
+    const p = this.getCanvasPoint(this.lessonCanvasRef, e);
+    if (Math.hypot(p.x - this.lastPoint.x, p.y - this.lastPoint.y) > 2) this.lessonMoved = true;
+    this.drawLine(this.lessonCanvasRef, this.lastPoint, p);
+    this.lastPoint = p;
+  }
+  onLessonCanvasUp() {
+    if (this.drawing && !this.lessonMoved && this.lessonTextareaRef.current) this.lessonTextareaRef.current.focus();
+    this.drawing = false; this.lastPoint = null;
+  }
+  clearLessonCanvas() { const c = this.lessonCanvasRef.current; if (c) c.getContext('2d').clearRect(0, 0, c.width, c.height); }
+
+  onHomeworkCanvasDown(e) { e.preventDefault(); this.drawing = true; this.homeworkMoved = false; this.lastPoint = this.getCanvasPoint(this.homeworkCanvasRef, e); }
+  onHomeworkCanvasMove(e) {
+    if (!this.drawing || !this.homeworkCanvasRef.current) return;
+    const p = this.getCanvasPoint(this.homeworkCanvasRef, e);
+    if (Math.hypot(p.x - this.lastPoint.x, p.y - this.lastPoint.y) > 2) this.homeworkMoved = true;
+    this.drawLine(this.homeworkCanvasRef, this.lastPoint, p);
+    this.lastPoint = p;
+  }
+  onHomeworkCanvasUp() {
+    if (this.drawing && !this.homeworkMoved && this.homeworkTextareaRef.current) this.homeworkTextareaRef.current.focus();
+    this.drawing = false; this.lastPoint = null;
+  }
+  clearHomeworkCanvas() { const c = this.homeworkCanvasRef.current; if (c) c.getContext('2d').clearRect(0, 0, c.width, c.height); }
+
+  onEntrySignatureDown(e) { e.preventDefault(); this.drawing = true; this.lastPoint = this.getCanvasPoint(this.entrySignatureCanvasRef, e); }
+  onEntrySignatureMove(e) { if (!this.drawing || !this.entrySignatureCanvasRef.current) return; const p = this.getCanvasPoint(this.entrySignatureCanvasRef, e); this.drawLine(this.entrySignatureCanvasRef, this.lastPoint, p); this.lastPoint = p; }
+  onEntrySignatureUp() { this.drawing = false; this.lastPoint = null; }
+  clearEntrySignatureCanvas() { const c = this.entrySignatureCanvasRef.current; if (c) c.getContext('2d').clearRect(0, 0, c.width, c.height); }
+
+  onSignatureCanvasDown(e) { e.preventDefault(); this.drawing = true; this.lastPoint = this.getCanvasPoint(this.signatureCanvasRef, e); }
+  onSignatureCanvasMove(e) { if (!this.drawing || !this.signatureCanvasRef.current) return; const p = this.getCanvasPoint(this.signatureCanvasRef, e); this.drawLine(this.signatureCanvasRef, this.lastPoint, p); this.lastPoint = p; }
+  onSignatureCanvasUp() { this.drawing = false; this.lastPoint = null; }
+  clearSignatureCanvas() { const c = this.signatureCanvasRef.current; if (c) c.getContext('2d').clearRect(0, 0, c.width, c.height); }
+  confirmSignature() {
+    const logId = this.state.selectedLogId;
+    this.setState(s => ({ signedOverrides: { ...s.signedOverrides, [logId]: true } }));
+  }
+
+  goToFirstUnsigned() {
+    const student = this.getStudent();
+    const first = student.logs.find(l => !(this.state.signedOverrides[l.id] ?? l.signed));
+    if (first) this.setState({ tab: 'log', selectedLogId: first.id });
+  }
+
+  submitForm() {
+    const student = this.getStudent();
+    const cf = this.state.coachForm;
+    const classNum = student.legacyClasses + student.digitalClasses + 1;
+    const bodyChosen = Object.keys(cf.bodyFocus).filter(k => cf.bodyFocus[k]);
+    const hwChosen = Object.keys(cf.homeworkFocus).filter(k => cf.homeworkFocus[k]);
+    const dateDisplay = (cf.classDate || '2026-07-06').split('-').join('/');
+    const hasLessonInk = !this.isCanvasBlank(this.lessonCanvasRef);
+    const hasHomeworkInk = !this.isCanvasBlank(this.homeworkCanvasRef);
+    const hasSignatureInk = !this.isCanvasBlank(this.entrySignatureCanvasRef);
+    const newLog = {
+      id: Date.now(),
+      classNum,
+      date: dateDisplay,
+      mood: '😊',
+      moodLabel: '完成本堂課程',
+      learning: cf.lessonPlanText || (bodyChosen.join('、') || '本堂課程重點練習'),
+      lessonDrawing: hasLessonInk ? this.lessonCanvasRef.current.toDataURL() : '',
+      homework: (hwChosen.join('、') || '待補') + (cf.homeworkNote ? '．' + cf.homeworkNote : ''),
+      homeworkDrawing: hasHomeworkInk ? this.homeworkCanvasRef.current.toDataURL() : '',
+      water: cf.lifeCheck['喝水'].status === 'check', waterStatus: cf.lifeCheck['喝水'].status, waterNote: cf.lifeCheck['喝水'].note,
+      practice: cf.lifeCheck['練習'].status === 'check', practiceStatus: cf.lifeCheck['練習'].status, practiceNote: cf.lifeCheck['練習'].note,
+      sleep: cf.lifeCheck['睡眠'].status === 'check', sleepStatus: cf.lifeCheck['睡眠'].status, sleepNote: cf.lifeCheck['睡眠'].note,
+      gratitude: false,
+      note: '',
+      signed: hasSignatureInk,
+      signatureData: hasSignatureInk ? this.entrySignatureCanvasRef.current.toDataURL() : '',
+    };
+    student.logs.push(newLog);
+    student.digitalClasses += 1;
+    student.lastDate = newLog.date;
+    student.lastHomework = newLog.homework;
+    this.setState({ toastVisible: true });
+    setTimeout(() => {
+      this.clearLessonCanvas();
+      this.clearHomeworkCanvas();
+      this.clearEntrySignatureCanvas();
+      this.setState({ toastVisible: false, showEntry: false });
+    }, 1500);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const cf = s.coachForm || this.freshCoachForm();
+    const student = this.getStudent();
+    const classCount = student.legacyClasses + student.digitalClasses;
+    const contractSigned = this.isContractSigned(student);
+
+    const chipSelected = 'background:#C1694A;color:#fff;border-radius:16px;padding:5px 10px;font-size:11px;cursor:pointer;';
+    const chipUnselected = 'background:#fff;color:#3A2E22;border:1px solid #E8DFD0;border-radius:16px;padding:5px 10px;font-size:11px;cursor:pointer;';
+    const segSelected = 'flex:1;text-align:center;background:#fff;border-radius:11px;padding:9px 0;font-size:12.5px;color:#3A2E22;box-shadow:0 1px 3px rgba(0,0,0,.08);cursor:pointer;';
+    const segUnselected = 'flex:1;text-align:center;padding:9px 0;font-size:12.5px;color:#8A7A68;cursor:pointer;';
+    const dotFilled = 'width:26px;height:26px;border-radius:50%;background:#C1694A;cursor:pointer;';
+    const dotOutline = 'width:26px;height:26px;border-radius:50%;border:2px solid #E8DFD0;cursor:pointer;';
+    const dotOn = 'width:18px;height:18px;border-radius:50%;background:#7C8A6E;flex-shrink:0;';
+    const dotOff = 'width:18px;height:18px;border-radius:50%;border:2px solid #E8DFD0;flex-shrink:0;';
+    const statusBtnOn = 'width:26px;height:26px;border-radius:50%;background:#C1694A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;flex-shrink:0;';
+    const statusBtnOff = 'width:26px;height:26px;border-radius:50%;border:1.5px solid #E8DFD0;color:#B9A38A;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;flex-shrink:0;';
+    const statusSymbol = (status) => status === 'check' ? '✓' : status === 'triangle' ? '△' : '－';
+    const statusColorFor = (status) => status === 'check' ? '#7C8A6E' : status === 'triangle' ? '#C1694A' : '#C7B9A4';
+    const tabActiveIcon = 'width:20px;height:20px;border-radius:50%;background:#C1694A;';
+    const tabInactiveIcon = 'width:20px;height:20px;border:2px solid #C7B9A4;border-radius:5px;';
+    const tabActiveLabel = 'font-size:9.5px;color:#C1694A;font-weight:600;';
+    const tabInactiveLabel = 'font-size:9.5px;color:#8A7A68;';
+
+    const query = (s.searchQuery || '').trim().toLowerCase();
+    const vipStyles = {
+      diamond: 'font-size:9px;font-weight:700;color:#2A6FDB;background:#E6EFFC;border-radius:8px;padding:2px 7px;',
+      gold: 'font-size:9px;font-weight:700;color:#9C7A1E;background:#FBF0D6;border-radius:8px;padding:2px 7px;',
+      silver: 'font-size:9px;font-weight:700;color:#7A8088;background:#EEF0F2;border-radius:8px;padding:2px 7px;',
+    };
+    const vipLabels = { diamond: '💎 鑽石', gold: '🥇 金卡', silver: '🥈 銀卡' };
+    const tierFilterDefs = [
+      { key: 'all', label: '全部' },
+      { key: 'diamond', label: '💎 鑽石' },
+      { key: 'gold', label: '🥇 金卡' },
+      { key: 'silver', label: '🥈 銀卡' },
+      { key: 'flag', label: '⚠️ 待關心' },
+      { key: 'archived', label: '📦 已封存' },
+    ];
+    const tierFilterList = tierFilterDefs.map(d => ({
+      label: d.label,
+      onClick: () => this.setTierFilter(d.key),
+      style: (s.tierFilter === d.key
+        ? 'background:#C1694A;color:#fff;'
+        : 'background:#fff;color:#3A2E22;border:1px solid #E8DFD0;') + 'border-radius:14px;padding:6px 12px;font-size:11px;cursor:pointer;',
+    }));
+    const studentOptions = this.students
+      .filter(st => !query || st.name.toLowerCase().includes(query) || st.code.toLowerCase().includes(query) || (st.coach || '').toLowerCase().includes(query))
+      .filter(st => {
+        if (s.tierFilter === 'archived') return !!st.archived;
+        if (st.archived) return false;
+        if (s.tierFilter === 'all') return true;
+        if (s.tierFilter === 'flag') return !!st.attendanceFlag;
+        return st.vipTier === s.tierFilter;
+      })
+      .map(st => {
+        const classNum = st.legacyClasses + st.digitalClasses;
+        const lastPurchase = (st.packageHistory || []).slice(-1)[0];
+        return {
+          ...st,
+          classNum,
+          remainingClasses: Math.max(0, (st.purchasedClasses || 0) - classNum),
+          contractLabel: this.isContractSigned(st) ? '已簽署契約' : '尚未簽署契約',
+          hasVip: !!st.vipTier,
+          vipStyle: st.vipTier ? vipStyles[st.vipTier] : '',
+          vipLabel: st.vipTier ? vipLabels[st.vipTier] : '',
+          hasLastPurchase: !!lastPurchase,
+          lastPurchaseDate: lastPurchase ? lastPurchase.date : '',
+          lastPurchaseAmount: lastPurchase ? lastPurchase.amount : '',
+          onClick: () => this.selectStudent(st.id),
+          onEditClick: (e) => { e.stopPropagation(); this.openEditStudent(st.id); },
+        };
+      });
+
+    const bodyFocusList = this.bodyFocusCategories.map(name => ({ name, style: cf.bodyFocus[name] ? chipSelected : chipUnselected, onClick: () => this.toggleBodyFocus(name) }));
+    const equipmentList = this.equipmentCategories.map(name => ({ name, style: cf.equipment[name] ? chipSelected : chipUnselected, onClick: () => this.toggleEquipment(name) }));
+    const homeworkFocusList = this.bodyFocusCategories.map(name => ({ name, style: cf.homeworkFocus[name] ? chipSelected : chipUnselected, onClick: () => this.toggleHomeworkFocus(name) }));
+    const lifeCheckList = ['喝水', '練習', '睡眠'].map(name => ({
+      label: name,
+      checkStyle: cf.lifeCheck[name].status === 'check' ? statusBtnOn : statusBtnOff,
+      triangleStyle: cf.lifeCheck[name].status === 'triangle' ? statusBtnOn : statusBtnOff,
+      onCheck: () => this.setLifeCheckStatus(name, 'check'),
+      onTriangle: () => this.setLifeCheckStatus(name, 'triangle'),
+      note: cf.lifeCheck[name].note,
+      onNoteChange: (e) => this.setLifeCheckNote(name, e),
+    }));
+    const pelvisList = ['無歪斜', '左高', '右高'].map(v => ({ value: v, style: cf.pelvis === v ? segSelected : segUnselected, onClick: () => this.setPelvis(v) }));
+    const breathingList = ['順暢', '需加強'].map(v => ({ value: v, style: cf.breathing === v ? segSelected : segUnselected, onClick: () => this.setBreathing(v) }));
+    const starDots = [1, 2, 3, 4, 5].map(n => ({ n, style: n <= cf.coreStability ? dotFilled : dotOutline, onClick: () => this.setCoreStability(n) }));
+
+    const rawSelected = s.selectedLogId != null ? student.logs.find(l => l.id === s.selectedLogId) : null;
+    const selectedIdx = rawSelected ? student.logs.findIndex(l => l.id === rawSelected.id) : -1;
+    const prevLog = selectedIdx > 0 ? student.logs[selectedIdx - 1] : null;
+    const rawSignedEff = rawSelected ? (s.signedOverrides[rawSelected.id] ?? rawSelected.signed) : false;
+    const selectedLog = rawSelected ? {
+      ...rawSelected,
+      prevDate: prevLog ? prevLog.date : '首次上課',
+      prevHomework: prevLog ? prevLog.homework : '－',
+      isSigned: rawSignedEff,
+      needsSign: !rawSignedEff,
+      hasLessonDrawing: !!rawSelected.lessonDrawing,
+      hasHomeworkDrawing: !!rawSelected.homeworkDrawing,
+      hasSignatureImage: !!rawSelected.signatureData,
+      lessonDrawingRef: (el) => {
+        if (!el || !rawSelected.lessonDrawing) return;
+        const ctx = el.getContext('2d');
+        const img = new Image();
+        img.onload = () => { ctx.clearRect(0, 0, el.width, el.height); ctx.drawImage(img, 0, 0, el.width, el.height); };
+        img.src = rawSelected.lessonDrawing;
+      },
+      homeworkDrawingRef: (el) => {
+        if (!el || !rawSelected.homeworkDrawing) return;
+        const ctx = el.getContext('2d');
+        const img = new Image();
+        img.onload = () => { ctx.clearRect(0, 0, el.width, el.height); ctx.drawImage(img, 0, 0, el.width, el.height); };
+        img.src = rawSelected.homeworkDrawing;
+      },
+      signatureDataRef: (el) => {
+        if (!el || !rawSelected.signatureData) return;
+        const ctx = el.getContext('2d');
+        const img = new Image();
+        img.onload = () => { ctx.clearRect(0, 0, el.width, el.height); ctx.drawImage(img, 0, 0, el.width, el.height); };
+        img.src = rawSelected.signatureData;
+      },
+      lifeItems: [
+        { label: '喝水', symbol: statusSymbol(rawSelected.waterStatus ?? (rawSelected.water ? 'check' : null)), symbolColor: statusColorFor(rawSelected.waterStatus ?? (rawSelected.water ? 'check' : null)), hasNote: !!rawSelected.waterNote, note: rawSelected.waterNote },
+        { label: '練習', symbol: statusSymbol(rawSelected.practiceStatus ?? (rawSelected.practice ? 'check' : null)), symbolColor: statusColorFor(rawSelected.practiceStatus ?? (rawSelected.practice ? 'check' : null)), hasNote: !!rawSelected.practiceNote, note: rawSelected.practiceNote },
+        { label: '睡眠', symbol: statusSymbol(rawSelected.sleepStatus ?? (rawSelected.sleep ? 'check' : null)), symbolColor: statusColorFor(rawSelected.sleepStatus ?? (rawSelected.sleep ? 'check' : null)), hasNote: !!rawSelected.sleepNote, note: rawSelected.sleepNote },
+      ],
+    } : null;
+
+    const lastLog = student.logs && student.logs.length ? student.logs[student.logs.length - 1] : null;
+    const latestHomeworkText = lastLog ? lastLog.homework : '';
+
+    const unsignedLogs = student.logs.filter(l => !(s.signedOverrides[l.id] ?? l.signed));
+
+    const buildGridRows = (start, end) => {
+      const arr = [];
+      for (let n = start; n <= end; n++) {
+        const log = student.logs.find(l => l.classNum === n);
+        const signedEff = log ? (s.signedOverrides[log.id] ?? log.signed) : null;
+        arr.push({
+          n,
+          date: log ? log.date : '－',
+          mark: log ? (signedEff ? '✓' : '⚠') : '·',
+          markColor: log ? (signedEff ? '#7C8A6E' : '#C1694A') : '#C7B9A4',
+          rowStyle: 'display:flex;align-items:center;padding:6px 4px;font-size:10.5px;color:#3A2E22;border-top:1px solid #F1E9DC;' + (log ? 'cursor:pointer;' : 'color:#C7B9A4;'),
+          onClick: log ? () => this.openLog(log.id) : null,
+        });
+      }
+      return arr;
+    };
+
+    const certStep = 40;
+    const milestoneStep = 20;
+    const certificatesEarned = Math.floor(classCount / certStep);
+    const nextCertTarget = (certificatesEarned + 1) * certStep;
+    const classesToCertificate = nextCertTarget - classCount;
+    const graduationPercent = Math.round(((classCount - certificatesEarned * certStep) / certStep) * 100);
+
+    const completedMilestones = Math.floor(classCount / milestoneStep);
+    const nextMilestoneN = (completedMilestones + 1) * milestoneStep;
+    const nextMilestoneRemain = nextMilestoneN - classCount;
+    const windowStart = Math.max(0, completedMilestones - 1);
+    const milestoneNodes = [];
+    for (let i = 0; i < 4; i++) {
+      const idx = windowStart + i;
+      const n = (idx + 1) * milestoneStep;
+      const isDone = classCount >= n;
+      const isCurrent = n === nextMilestoneN;
+      const isGraduation = n % certStep === 0;
+      const isLeft = idx % 2 === 0;
+      const rewardText = isGraduation ? '🎓 紀念證書＋一堂地板課程' : '🎁 一條彈力帶';
+      const title = isGraduation ? `第 ${n / certStep} 張證書 · ${n}堂` : `里程碑 · ${n}堂`;
+      let nodeStyle;
+      if (isDone) {
+        nodeStyle = 'width:44px;height:44px;border-radius:50%;background:#C1694A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;';
+      } else if (isCurrent) {
+        nodeStyle = 'width:44px;height:44px;border-radius:50%;background:#fff;color:#C1694A;border:3px solid #C1694A;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;box-shadow:0 0 0 5px rgba(193,105,74,0.15);';
+      } else {
+        nodeStyle = 'width:44px;height:44px;border-radius:50%;background:#EFE6D6;color:#B9A38A;border:2px dashed #DCCFB8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;';
+      }
+      milestoneNodes.push({
+        n, isLeft, isRight: !isLeft,
+        nodeMark: isDone ? '✓' : String(n),
+        nodeStyle,
+        cardStyle: 'background:#fff;border-radius:16px;padding:10px 12px;' + (isLeft ? 'text-align:right;' : 'text-align:left;') + (isCurrent ? 'box-shadow:0 4px 14px rgba(193,105,74,0.18);' : ''),
+        titleStyle: 'font-size:12px;font-weight:600;' + (isDone ? 'color:#7C8A6E;' : isCurrent ? 'color:#C1694A;' : 'color:#B9A38A;'),
+        rewardStyle: 'font-size:9.5px;color:#9C4A2E;margin-top:3px;',
+        rewardText,
+        title,
+      });
+    }
+
+    const challengeSteps = this.challengeStepsData.map(step => {
+      let done;
+      if (step.type === 'classCount') done = classCount >= step.threshold;
+      else done = s.challengeOverrides[step.key] ?? step.defaultDone;
+      const clickable = step.type === 'manual';
+      return {
+        label: step.label,
+        hasReward: !!step.isReward,
+        reward: step.reward,
+        circleMark: done ? '✓' : (step.isReward ? '🎁' : ''),
+        circleStyle: 'width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;' +
+          (done ? 'background:#C1694A;color:#fff;' : 'background:#fff;border:2px solid #E8C99A;color:#B8935A;') +
+          (clickable ? 'cursor:pointer;' : ''),
+        pillStyle: 'flex:1;background:#B8935A;color:#fff;border-radius:14px;padding:8px 12px;font-size:11px;line-height:1.4;' + (done ? '' : 'opacity:0.72;'),
+        onClick: clickable ? () => this.toggleChallenge(step.key) : null,
+      };
+    });
+
+    return {
+      isPickerScreen: s.showPicker && !s.showAddStudent,
+      isAddStudentScreen: s.showPicker && s.showAddStudent,
+      openAddStudent: () => this.openAddStudent(),
+      closeAddStudent: () => this.closeAddStudent(),
+      tierFilterList,
+      addStudentTitle: s.editingStudentId != null ? '編輯學員資料' : '新增學員',
+      addStudentSubmitLabel: s.editingStudentId != null ? '儲存變更 →' : '新增並開始 →',
+      vipTierOptions: [
+        { key: null, label: '無' },
+        { key: 'diamond', label: '💎 鑽石' },
+        { key: 'gold', label: '🥇 金卡' },
+        { key: 'silver', label: '🥈 銀卡' },
+      ].map(v => ({
+        label: v.label,
+        onClick: () => this.setNewStudentVipTier(v.key),
+        style: (s.newStudentVipTier === v.key
+          ? 'background:#C1694A;color:#fff;'
+          : 'background:#fff;color:#3A2E22;border:1px solid #E8DFD0;') + 'border-radius:16px;padding:8px 15px;font-size:11px;cursor:pointer;',
+      })),
+      toggleNewStudentAttendanceFlag: () => this.toggleNewStudentAttendanceFlag(),
+      attendanceFlagStyle: (s.newStudentAttendanceFlag
+        ? 'background:#FBEADD;color:#9C4A2E;border:1px solid #EBC49E;'
+        : 'background:#fff;color:#8A7A68;border:1px solid #E8DFD0;') + 'border-radius:14px;padding:11px 14px;font-size:12.5px;cursor:pointer;text-align:center;',
+      isEditingStudent: s.editingStudentId != null,
+      toggleNewStudentArchived: () => this.toggleNewStudentArchived(),
+      archivedStyle: (s.newStudentArchived
+        ? 'background:#F1E9DC;color:#8A7A68;border:1px solid #DCCFB8;'
+        : 'background:#fff;color:#8A7A68;border:1px solid #E8DFD0;') + 'border-radius:14px;padding:11px 14px;font-size:12.5px;cursor:pointer;text-align:center;',
+      isDeleteConfirming: s.deleteConfirming,
+      isNotDeleteConfirming: !s.deleteConfirming,
+      startDeleteStudent: () => this.startDeleteStudent(),
+      cancelDeleteStudent: () => this.cancelDeleteStudent(),
+      confirmDeleteStudent: () => this.confirmDeleteStudent(),
+      newStudentCode: s.newStudentCode,
+      onNewStudentCodeChange: (e) => this.setNewStudentCode(e),
+      newStudentName: s.newStudentName,
+      onNewStudentNameChange: (e) => this.setNewStudentName(e),
+      newStudentCoach: s.newStudentCoach,
+      onNewStudentCoachChange: (e) => this.setNewStudentCoach(e),
+      newStudentPurchased: s.newStudentPurchased,
+      onNewStudentPurchasedChange: (e) => this.setNewStudentPurchased(e),
+      createStudent: () => this.createStudent(),
+      isGateScreen: !s.showPicker && !contractSigned,
+      isContractReview: !s.showPicker && contractSigned && !s.showCertificate && s.showContractReview,
+      isCertificateOverlay: !s.showPicker && contractSigned && !s.showContractReview && s.showCertificate,
+      isGraduationConfirm: !s.showPicker && contractSigned && !s.showContractReview && !s.showCertificate && s.showGraduationConfirm,
+      isGraduationCertificate: !s.showPicker && contractSigned && !s.showContractReview && !s.showCertificate && !s.showGraduationConfirm && s.showGraduationCertificate,
+      isEntryScreen: !s.showPicker && contractSigned && !s.showContractReview && !s.showCertificate && !s.showGraduationConfirm && !s.showGraduationCertificate && s.showEntry,
+      isMainScreen: !s.showPicker && contractSigned && !s.showContractReview && !s.showCertificate && !s.showGraduationConfirm && !s.showGraduationCertificate && !s.showEntry,
+
+      searchQuery: s.searchQuery,
+      onSearchChange: (e) => this.setSearchQuery(e),
+      studentOptions,
+      closePicker: () => this.closePicker(),
+      openPicker: () => this.openPicker(),
+
+      signContract: () => this.signContract(),
+      openContractReview: () => this.openContractReview(),
+      closeContractReview: () => this.closeContractReview(),
+      openCertificateOverlay: () => this.openCertificateOverlay(),
+      exportAllStudentsPDF: () => this.exportAllStudentsPDF(),
+      closeCertificateOverlay: () => this.closeCertificateOverlay(),
+      openGraduationConfirm: () => this.openGraduationConfirm(),
+      closeGraduationConfirm: () => this.closeGraduationConfirm(),
+      openGraduationCertificate: () => this.openGraduationCertificate(),
+      closeGraduationCertificate: () => this.closeGraduationCertificate(),
+      confirmGraduation: () => this.confirmGraduation(),
+      isGraduated: !!(s.graduatedOverrides[student.id] ?? student.graduated),
+      isNotGraduated: !(s.graduatedOverrides[student.id] ?? student.graduated),
+      todayDateDisplay: this.todayDateDisplay,
+      gateCanvasRef: this.gateCanvasRef,
+      onGateCanvasDown: (e) => this.onGateCanvasDown(e),
+      onGateCanvasMove: (e) => this.onGateCanvasMove(e),
+      onGateCanvasUp: () => this.onGateCanvasUp(),
+      clearGateCanvas: () => this.clearGateCanvas(),
+      hasDrawnSignature: !!s.contractSignatureOverrides[student.id],
+      noDrawnSignature: !s.contractSignatureOverrides[student.id],
+      isResigning: s.resigningContract,
+      isNotResigning: !s.resigningContract,
+      startResign: () => this.startResign(),
+      cancelResign: () => this.cancelResign(),
+      confirmResign: () => this.confirmResign(),
+      resignCanvasRef: this.resignCanvasRef,
+      onResignCanvasDown: (e) => this.onResignCanvasDown(e),
+      onResignCanvasMove: (e) => this.onResignCanvasMove(e),
+      onResignCanvasUp: () => this.onResignCanvasUp(),
+      clearResignCanvas: () => this.clearResignCanvas(),
+      reviewSignatureCanvasRef: (el) => {
+        if (!el) return;
+        const dataUrl = s.contractSignatureOverrides[student.id];
+        if (!dataUrl) return;
+        const ctx = el.getContext('2d');
+        const img = new Image();
+        img.onload = () => { ctx.clearRect(0, 0, el.width, el.height); ctx.drawImage(img, 0, 0, el.width, el.height); };
+        img.src = dataUrl;
+      },
+
+      openEntry: () => this.openEntry(),
+      closeEntry: () => this.closeEntry(),
+
+      currentStudent: { ...student, graduationDate: s.graduationDateOverrides[student.id] || student.graduationDate || this.todayDateDisplay },
+      nextClassNum: classCount + 1,
+      hasPrevSession: !!(student.logs && student.logs.length),
+      prevSessionDate: (student.logs && student.logs.length) ? student.logs[student.logs.length - 1].date : '',
+      prevSessionHomework: (student.logs && student.logs.length) ? student.logs[student.logs.length - 1].homework : '',
+      coachFormClassDate: cf.classDate,
+      onClassDateChange: (e) => this.setClassDate(e),
+      coachFormClassTime: cf.classTime,
+      onClassTimeChange: (e) => this.setClassTime(e),
+
+      tab: s.tab,
+      isTabHome: s.tab === 'home',
+      isTabLog: s.tab === 'log',
+      isTabAssessment: s.tab === 'assessment',
+      isTabChallenge: s.tab === 'challenge',
+      goHome: () => this.setTab('home'),
+      goLog: () => this.setTab('log'),
+      goAssessment: () => this.setTab('assessment'),
+      goChallenge: () => this.setTab('challenge'),
+      tabHomeIconStyle: s.tab === 'home' ? tabActiveIcon : tabInactiveIcon,
+      tabHomeLabelStyle: s.tab === 'home' ? tabActiveLabel : tabInactiveLabel,
+      tabLogIconStyle: s.tab === 'log' ? 'width:20px;height:20px;border-radius:5px;border:2px solid #C1694A;background:transparent;' : 'width:20px;height:20px;border:2px solid #C7B9A4;border-radius:5px;',
+      tabLogLabelStyle: s.tab === 'log' ? tabActiveLabel : tabInactiveLabel,
+      tabAssessmentIconStyle: s.tab === 'assessment' ? 'width:20px;height:20px;border:2px solid #C1694A;transform:rotate(45deg);' : 'width:20px;height:20px;border:2px solid #C7B9A4;transform:rotate(45deg);',
+      tabAssessmentLabelStyle: s.tab === 'assessment' ? tabActiveLabel : tabInactiveLabel,
+      tabChallengeIconStyle: s.tab === 'challenge'
+        ? 'width:20px;height:20px;background:#C1694A;clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);'
+        : 'width:20px;height:20px;background:#C7B9A4;clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);',
+      tabChallengeLabelStyle: s.tab === 'challenge' ? tabActiveLabel : tabInactiveLabel,
+
+      classCount,
+      latestHomeworkText,
+      hasLatestHomework: !!latestHomeworkText,
+      noLatestHomework: !latestHomeworkText,
+      hasPurchasedPackage: !!student.purchasedClasses,
+      noPurchasedPackage: !student.purchasedClasses,
+      hasPackageHistory: !!(student.packageHistory && student.packageHistory.length),
+      packageHistoryList: (student.packageHistory || []).slice().reverse(),
+      purchasedClasses: student.purchasedClasses || 0,
+      remainingClasses: Math.max(0, (student.purchasedClasses || 0) - classCount),
+      packageUsedPercent: student.purchasedClasses ? Math.min(100, Math.round((classCount / student.purchasedClasses) * 100)) : 0,
+      packageBarColor: student.purchasedClasses && (student.purchasedClasses - classCount) <= 3 ? '#C1694A' : '#7C8A6E',
+      remainingClassesTextStyle: 'font-size:12px;font-weight:600;' + (student.purchasedClasses && (student.purchasedClasses - classCount) <= 3 ? 'color:#C1694A;' : 'color:#7C8A6E;'),
+      showAddPackageInput: s.showAddPackageInput,
+      toggleAddPackage: () => this.toggleAddPackage(),
+      addPackageAmount: s.addPackageAmount,
+      onAddPackageAmountChange: (e) => this.setAddPackageAmount(e),
+      confirmAddPackage: () => this.confirmAddPackage(),
+      classesToCertificate,
+      graduationPercent,
+      nextCertTarget,
+      certificatesEarned,
+      hasCertificatesEarned: certificatesEarned > 0,
+      encouragement: this.encouragementMessages[s.encouragementIndex],
+      shuffleEncouragement: () => this.shuffleEncouragement(),
+      challengeSteps,
+      nextMilestoneN,
+      nextMilestoneRemain,
+      milestoneNodes,
+      currentMilestoneNode: milestoneNodes.find(mn => mn.n === nextMilestoneN) || milestoneNodes[0],
+      gameSteps: this.buildGameSteps(classCount, s.challengeOverrides),
+
+      hasUnsigned: unsignedLogs.length > 0,
+      unsignedCount: unsignedLogs.length,
+      goToFirstUnsigned: () => this.goToFirstUnsigned(),
+
+      hasSelectedLog: !!selectedLog,
+      noSelectedLog: !selectedLog,
+      selectedLog,
+      closeLog: () => this.closeLog(),
+      signatureCanvasRef: this.signatureCanvasRef,
+      onSignatureCanvasDown: (e) => this.onSignatureCanvasDown(e),
+      onSignatureCanvasMove: (e) => this.onSignatureCanvasMove(e),
+      onSignatureCanvasUp: () => this.onSignatureCanvasUp(),
+      clearSignatureCanvas: () => this.clearSignatureCanvas(),
+      confirmSignature: () => this.confirmSignature(),
+
+      logPages: (() => {
+        const pages = [];
+        const totalPages = Math.max(1, Math.ceil((classCount + 20) / 100));
+        for (let p = 0; p < totalPages; p++) {
+          const base = p * 100;
+          pages.push({
+            label: `第 ${base + 1}－${base + 100} 堂`,
+            left: buildGridRows(base + 1, base + 50),
+            right: buildGridRows(base + 51, base + 100),
+          });
+        }
+        return pages;
+      })(),
+
+      staticSlotIds: {
+        frontFirst: `static-${student.id}-front-1`, frontLast: `static-${student.id}-front-40`,
+        sideFirst: `static-${student.id}-side-1`, sideLast: `static-${student.id}-side-40`,
+        backFirst: `static-${student.id}-back-1`, backLast: `static-${student.id}-back-40`,
+      },
+      dynamicSlots: [1, 20, 40, 60, 80, 100].map(n => ({ n, id: `dynamic-${student.id}-${n}` })),
+      dynamicSlotIds: { first: `dynamic-${student.id}-1`, mid: `dynamic-${student.id}-20`, last: `dynamic-${student.id}-40` },
+      extraStaticEntries: (s.extraStaticClasses || []).map(n => ({
+        n,
+        frontId: `static-${student.id}-front-${n}`,
+        sideId: `static-${student.id}-side-${n}`,
+        backId: `static-${student.id}-back-${n}`,
+      })),
+      newStaticClassInput: s.newStaticClassInput || '',
+      onNewStaticClassChange: (e) => this.setState({ newStaticClassInput: e.target.value }),
+      addStaticCompareClass: () => {
+        const n = parseInt(this.state.newStaticClassInput, 10);
+        if (!n || n <= 0) return;
+        this.setState(prev => ({
+          extraStaticClasses: prev.extraStaticClasses && prev.extraStaticClasses.includes(n) ? prev.extraStaticClasses : [...(prev.extraStaticClasses || []), n].sort((a, b) => a - b),
+          newStaticClassInput: '',
+        }));
+      },
+
+      bodyFocusList, equipmentList, homeworkFocusList, lifeCheckList,
+      pelvisList, breathingList, starDots,
+
+      lessonPlanText: cf.lessonPlanText,
+      onLessonPlanChange: (e) => this.setLessonPlanText(e),
+      lessonTextareaRef: this.lessonTextareaRef,
+      lessonCanvasRef: this.lessonCanvasRef,
+      onLessonCanvasDown: (e) => this.onLessonCanvasDown(e),
+      onLessonCanvasMove: (e) => this.onLessonCanvasMove(e),
+      onLessonCanvasUp: () => this.onLessonCanvasUp(),
+      clearLessonCanvas: () => this.clearLessonCanvas(),
+
+      homeworkTextareaRef: this.homeworkTextareaRef,
+      homeworkCanvasRef: this.homeworkCanvasRef,
+      onHomeworkCanvasDown: (e) => this.onHomeworkCanvasDown(e),
+      onHomeworkCanvasMove: (e) => this.onHomeworkCanvasMove(e),
+      onHomeworkCanvasUp: () => this.onHomeworkCanvasUp(),
+      clearHomeworkCanvas: () => this.clearHomeworkCanvas(),
+
+      homeworkNote: cf.homeworkNote,
+      onHomeworkNoteChange: (e) => this.setHomeworkNote(e),
+
+      entrySignatureCanvasRef: this.entrySignatureCanvasRef,
+      onEntrySignatureDown: (e) => this.onEntrySignatureDown(e),
+      onEntrySignatureMove: (e) => this.onEntrySignatureMove(e),
+      onEntrySignatureUp: () => this.onEntrySignatureUp(),
+      clearEntrySignatureCanvas: () => this.clearEntrySignatureCanvas(),
+
+      submitForm: () => this.submitForm(),
+      toastVisible: s.toastVisible,
+    };
+  }
+}
+
+</script>
+</body>
+</html>
