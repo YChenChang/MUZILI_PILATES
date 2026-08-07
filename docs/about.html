@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com"></link>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
+<style>
+  body { margin: 0; background: #F6F0E6; }
+  a { color: #C1694A; text-decoration: none; }
+  a:hover { color: #9C4A2E; }
+  @media (max-width: 640px) {
+    .mzl-2col, .mzl-3col { grid-template-columns: 1fr !important; }
+    .mzl-header-inner { flex-direction: column; align-items: center !important; justify-content: center !important; gap: 10px; padding: 14px 16px !important; min-height: auto !important; }
+    .mzl-logo { position: static !important; }
+    .mzl-nav-links { position: static !important; transform: none !important; flex-wrap: wrap; justify-content: center; gap: 12px !important; }
+    .mzl-nav-links a { font-size: 13px !important; }
+    .mzl-header-actions { position: static !important; }
+  }
+</style>
+<script src="./image-slot.js"></script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#EAE4D8"/><g transform="translate(60,50)"><rect x="0" y="0" width="80" height="100" rx="8" fill="#C1694A"/><rect x="10" y="15" width="60" height="6" rx="3" fill="#F6F0E6"/><rect x="10" y="30" width="60" height="6" rx="3" fill="#F6F0E6"/><rect x="10" y="45" width="40" height="6" rx="3" fill="#F6F0E6"/><circle cx="40" cy="75" r="12" fill="#F6F0E6"/></g></svg></template>
+</helmet>
+
+<div style="font-family:'Noto Sans TC',sans-serif;color:#3A2E22;background:#F6F0E6;min-height:100vh;">
+
+  <div style="position:sticky;top:0;z-index:50;background:rgba(246,240,230,0.94);backdrop-filter:blur(6px);border-bottom:1px solid #E8DCC4;">
+    <div class="mzl-header-inner" style="max-width:1040px;margin:0 auto;padding:16px 28px;position:relative;display:flex;justify-content:flex-end;align-items:center;min-height:44px;">
+      <a href="./index.html" class="mzl-logo" style="position:absolute;left:28px;display:flex;align-items:center;gap:8px;font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;color:#3A2E22;letter-spacing:0.5px;"><img src="./assets/muzili-logo.png" alt="MUZILI" style="width:40px;height:40px;object-fit:contain;"></img>木子李 <span style="color:#B8935A;font-weight:500;font-size:12px;">MUZILI</span></a>
+      <div class="mzl-nav-links" style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:34px;">
+        <a href="./index.html" style="font-size:15.5px;color:#3A2E22;">首頁</a>
+        <a href="./about.html" style="font-size:15.5px;color:#3A2E22;font-weight:600;">品牌介紹</a>
+        <a href="./reviews.html" style="font-size:15.5px;color:#3A2E22;">學員評價</a>
+        <a href="./courses.html" style="font-size:15.5px;color:#3A2E22;">課程介紹</a>
+      </div>
+      <div class="mzl-header-actions" style="display:flex;align-items:center;gap:12px;">
+        <a href="./careers.html" style="font-size:15px;color:#C1694A;font-weight:600;border:1.5px solid #C1694A;padding:9px 20px;border-radius:22px;">徵才專區</a>
+        <a href="./courses.html" style="background:#C1694A;color:#fff;padding:11px 24px;border-radius:22px;font-size:15px;font-weight:600;">預約體驗</a>
+      </div>
+    </div>
+  </div>
+
+  <section style="padding:64px 28px 80px;">
+    <div style="max-width:1040px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:44px;">
+        <div style="font-family:'Noto Serif TC',serif;font-size:26px;font-weight:700;color:#3A2E22;line-height:1.6;max-width:600px;margin:0 auto;">兩個關於「慢慢變好」的故事——<br>一個是老師的，一個是這間教室的。</div>
+      </div>
+      <div class="mzl-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-bottom:64px;">
+        <div>
+          <div style="font-family:'Noto Serif TC',serif;font-size:24px;font-weight:700;color:#3A2E22;letter-spacing:0.5px;margin-bottom:12px;">品牌創始人 MiMi</div>
+          <div style="font-family:'Noto Serif TC',serif;font-size:24px;font-weight:700;color:#3A2E22;line-height:1.4;margin-bottom:16px;">走過損耗，<br>才懂得如何陪你慢慢變好。</div>
+          <div style="font-size:15.5px;line-height:1.85;color:#6B5D4E;margin-bottom:24px;">
+            從小學習藝術長大的我，<br>在<strong>芭蕾的世界裡薰陶了將近二十年</strong>。<br>
+            從芭蕾的專業訓練，塑造了我對身體的敏銳，<br>
+            但也讓我的身體付出了<strong style="color:#C1694A;">嚴重損耗的代價</strong>。<br>
+            當傷痛終止了舞者生涯，我被迫停下腳步<br>
+            ——<strong>沒有健康的身體，連選擇未來的底氣都沒有。</strong><br>
+            那是我人生最低谷的時刻，也是最大的覺醒。<br>
+            我發現，<strong style="color:#C1694A;">身體是這輩子唯一不能透支的硬體</strong>，<br>
+            而皮拉提斯，<br>
+            是那個在谷底溫柔接住我的力量<br>
+            讓我找回了重新出發的勇氣。<br>
+            我不再只是一位教練，<br>
+            而是一位走過損耗、<strong style="color:#C1694A;">懂得如何精準引導身體的陪伴者。</strong>
+          </div>
+          <div style="display:flex;gap:24px;">
+            <div>
+              <div style="font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700;color:#4F7A3D;">20 年</div>
+              <div style="font-size:12px;color:#8A7A68;margin-top:2px;">芭蕾與身體訓練資歷</div>
+            </div>
+            <div>
+              <div style="font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700;color:#4F7A3D;">Body Concept</div>
+              <div style="font-size:12px;color:#8A7A68;margin-top:2px;">國際認證師資</div>
+            </div>
+          </div>
+        </div>
+        <div style="position:relative;width:100%;height:560px;border-radius:24px;overflow:hidden;">
+          <sc-for list="{{teacherSlides}}" as="ts" hint-placeholder-count="4">
+            <img src="{{ts.src}}" alt="李宓老師照片" style="{{ts.style}}"></img>
+          </sc-for>
+          <div style="position:absolute;bottom:18px;left:0;right:0;display:flex;justify-content:center;gap:8px;z-index:10;">
+            <sc-for list="{{teacherDots}}" as="td" hint-placeholder-count="4">
+              <div onClick="{{td.onClick}}" style="{{td.style}}"></div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div class="mzl-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
+        <image-slot id="about-studio-photo" shape="rounded" radius="24" fit="contain" placeholder="教室照片" style="width:100%;height:420px;background:#fff;"></image-slot>
+        <div>
+          <div style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:700;color:#3A2E22;letter-spacing:0.5px;margin-bottom:12px;">品牌介紹 木子李</div>
+          <div style="font-family:'Noto Serif TC',serif;font-size:24px;font-weight:700;color:#3A2E22;line-height:1.4;margin-bottom:8px;">在木子李，<br>找回你的身體。</div>
+          <div style="font-size:13px;letter-spacing:1px;color:#B8935A;font-style:italic;margin-bottom:22px;">願景核心精神・Movement is medicine</div>
+          <div style="font-size:15.5px;line-height:1.85;color:#6B5D4E;margin-bottom:24px;">
+            <strong style="color:#3A2E22;">【好好對待身體】</strong><br>
+            <strong>身體陪我們走過一輩子，它從未離開。</strong><br>
+            運動是給生命最溫柔的解答，<br>
+            我們用精準的控制學好好對待身體，<br>
+            <strong style="color:#C1694A;">修復過往的透支與耗損。</strong><br>
+            <strong style="color:#3A2E22;">【選對專業】</strong><br>
+            木子李懂妳的疲憊，用專業穩穩托底，<br>
+            <strong style="color:#C1694A;">把身體主控權溫柔的拿回來。</strong><br>
+            <strong style="color:#3A2E22;">【歲月與使命】</strong><br>
+            顧好身體不成為負擔；<strong style="color:#C1694A;">將病床歲月，換成珍惜陪伴</strong>。
+          </div>
+          <div style="display:flex;gap:24px;">
+            <div>
+              <div style="font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700;color:#4F7A3D;">國際師資</div>
+              <div style="font-size:12px;color:#8A7A68;margin-top:2px;">專業認證教練團隊</div>
+            </div>
+            <div>
+              <div style="font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700;color:#4F7A3D;">1,000+</div>
+              <div style="font-size:12px;color:#8A7A68;margin-top:2px;">累積服務學員</div>
+            </div>
+            <div>
+              <div style="font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700;color:#4F7A3D;">3 年</div>
+              <div style="font-size:12px;color:#8A7A68;margin-top:2px;">深耕頭份在地</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-top:1px solid #E8DCC4;padding:26px 28px;text-align:center;font-size:12px;color:#B9A38A;">© 2026 木子李 Muzili</div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { teacherSlideIndex: 0 };
+  teacherSlideIds = ['./assets/teacher-0.jpg', './assets/teacher-1.jpg', './assets/teacher-2.jpg', './assets/teacher-3.jpg'];
+
+  componentDidMount() {
+    this._timer = setInterval(() => {
+      this.setState(s => ({ teacherSlideIndex: (s.teacherSlideIndex + 1) % this.teacherSlideIds.length }));
+    }, 5000);
+  }
+  componentWillUnmount() {
+    clearInterval(this._timer);
+  }
+  goToTeacherSlide(i) { this.setState({ teacherSlideIndex: i }); }
+
+  renderVals() {
+    const s = this.state;
+    return {
+      teacherSlides: this.teacherSlideIds.map((src, i) => ({
+        src,
+        style: `position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1s ease;opacity:${i === s.teacherSlideIndex ? 1 : 0};z-index:${i === s.teacherSlideIndex ? 1 : 0};`,
+      })),
+      teacherDots: this.teacherSlideIds.map((_, i) => ({
+        onClick: () => this.goToTeacherSlide(i),
+        style: `width:${i === s.teacherSlideIndex ? 20 : 7}px;height:7px;border-radius:4px;background:${i === s.teacherSlideIndex ? '#fff' : 'rgba(255,255,255,0.55)'};cursor:pointer;transition:width 0.3s;`,
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>
