@@ -1,1 +1,2 @@
-
+User-agent: *
+Sitemap: https://muzili.com.tw/sitemap.xml
