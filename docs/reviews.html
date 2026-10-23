@@ -28,9 +28,7 @@
   }
   @media (max-width: 640px) {
     html body { padding-bottom: 76px; }
-    html body #r-injury > div { padding: 26px 22px !important; }
-    html body #r-injury > div > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
-    html body #r-three { padding: 28px 20px !important; }
+
   }
   @media (max-width: 640px) {
     .mzl-linebar { flex-direction: column !important; gap: 2px !important; padding: 11px 24px !important; }
@@ -55,6 +53,19 @@
     .mzl-header-actions a { font-size: 12px !important; padding: 5px 12px !important; }
   }
   img { max-width: 100%; }
+  *, *::before, *::after { box-sizing: border-box; }
+  .mzl-gbadge span { white-space: nowrap !important; }
+  #all.mzl-panel { display: block !important; }
+  @media (max-width: 900px) {
+    html body .mzl-allhead { gap: 10px !important; }
+    html body .mzl-allhead .mzl-eyebrow { font-size: 13px !important; letter-spacing: 0 !important; }
+    html body .mzl-allhead-line { display: none !important; }
+    html body .mzl-allhead { flex-wrap: wrap !important; }
+    html body .mzl-allhead .mzl-eyebrow { width: 100%; margin-bottom: 4px; }
+    html body div.mzl-title.mzl-oneline.mzl-oneline { font-size: clamp(17px, 6vw, 30px) !important; white-space: nowrap !important; word-break: keep-all !important; letter-spacing: 0 !important; min-width: 0; }
+  }
+  @media (max-width: 1100px) { .mzl-cards3 { grid-template-columns: 1fr !important; } }
+  @media (max-width: 900px) { .mzl-cards2 { grid-template-columns: 1fr !important; } section .mzl-split-img { width: 100% !important; } }
   @media (max-width: 640px) {
     div[style*="position:sticky;top:0;z-index:50"] { position: relative !important; }
     .mzl-header-actions a { padding: 8px 16px !important; font-size: 14px !important; }
@@ -71,6 +82,8 @@
     section > * { width: 100%; }
   }
   a[style*="border-radius"], footer span, footer a, footer div[style*="font-size:12.5px"], .mzl-nowrap { white-space: nowrap; }
+  a[style*="display: flex"], a[style*="display:flex"], a[style*="display: grid"], a[style*="display:grid"] { white-space: normal; }
+  @media (max-width: 900px) { span[style*="font-weight"] { white-space: normal !important; } }
   span[style*="font-weight:700"] { white-space: nowrap; }
   @media (min-width: 901px) and (max-width: 1000px) {
     html { scroll-padding-top: 124px !important; }
@@ -85,6 +98,11 @@
     .mzl-hero-title { font-size: 44px !important; }
   }
   .mzl-eyebrow { white-space: nowrap; }
+  @media (max-width: 900px) {
+    html, body { overflow-x: hidden; }
+    [style*="display:grid"] > *, [style*="display:flex"] > * { min-width: 0; }
+    [style*="white-space:nowrap"]:not(.mzl-eyebrow):not(.mzl-linebar) { white-space: normal !important; }
+  }
   @media (min-width: 901px) {
     html { scroll-snap-type: y proximity; scroll-padding-top: 78px; }
     .mzl-panel { min-height: calc(100vh - 78px); scroll-snap-align: start; display: flex; align-items: center; }
@@ -134,7 +152,7 @@
           <div class="mzl-eyebrow" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#B8935A;letter-spacing:1px;margin-bottom:16px;"><span style="width:28px;height:1.5px;background:#B8935A;"></span>學員的真實回饋</div>
           <div class="mzl-hero-title" style="font-family:'Noto Serif TC',serif;font-size:60px;font-weight:700;color:#2B2118;line-height:1.2;margin-bottom:20px;">學員怎麼說</div>
           <div style="font-size:17px;color:#6B5D4E;line-height:1.95;margin-bottom:22px;">每一則都來自 Google 評論，<br>沒有修飾，是他們自己寫下的改變。</div>
-          <div style="display:inline-flex;align-items:center;gap:14px;background:#fff;border:1px solid #E8DCC4;border-radius:30px;padding:10px 22px;margin-bottom:28px;">
+          <div class="mzl-gbadge" style="display:inline-flex;align-items:center;gap:14px;background:#fff;border:1px solid #E8DCC4;border-radius:30px;padding:10px 22px;margin-bottom:28px;">
             <span style="color:#E0A43A;font-size:18px;letter-spacing:2px;">★★★★★</span>
             <span style="font-size:15px;font-weight:700;color:#2B2118;">Google 5.0</span>
           </div>
@@ -188,11 +206,13 @@
   </section>
   <section id="r-three" class="mzl-panel" style="background:#F6F0E6;padding:72px 120px 72px 48px;box-sizing:border-box;scroll-margin-top:78px;">
     <div style="max-width:1120px;width:100%;margin:0 auto;">
-      <div class="mzl-split" style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:48px;align-items:center;">
-        <div>
-          <div class="mzl-eyebrow" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#C1694A;letter-spacing:1px;margin-bottom:16px;"><span style="width:28px;height:1.5px;background:#C1694A;"></span>大家都這樣說</div>
-          <div class="mzl-title" style="font-family:'Noto Serif TC',serif;font-size:42px;font-weight:700;color:#2B2118;line-height:1.35;margin-bottom:18px;">學員最常提到的<br>三件事</div>
-          <div style="font-size:16.5px;color:#6B5D4E;line-height:1.9;">身體變好、孕期安心、<br>下班後真的放鬆。</div>
+      <div style="display:grid;gap:34px;">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+          <div>
+            <div class="mzl-eyebrow" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#C1694A;letter-spacing:1px;margin-bottom:16px;"><span style="width:28px;height:1.5px;background:#C1694A;"></span>大家都這樣說</div>
+            <div class="mzl-title" style="font-family:'Noto Serif TC',serif;font-size:42px;font-weight:700;color:#2B2118;line-height:1.35;">學員最常提到的三件事</div>
+          </div>
+          <div style="font-size:16.5px;color:#6B5D4E;line-height:1.9;">身體變好、孕期安心、下班後真的放鬆。</div>
         </div>
         <div class="mzl-cards3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;">
           <div style="background:#fff;border-radius:24px;padding:26px 26px;display:flex;flex-direction:column;">
@@ -216,13 +236,10 @@
   </section>
   <section id="all" class="mzl-panel" style="background:#EFE6D6;padding:72px 120px 90px 48px;box-sizing:border-box;scroll-margin-top:78px;">
     <div style="max-width:1120px;width:100%;margin:0 auto;">
-      <div style="margin-bottom:24px;"><div class="mzl-eyebrow" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#C1694A;letter-spacing:1px;margin-bottom:16px;"><span style="width:28px;height:1.5px;background:#C1694A;"></span>完整評論</div><div class="mzl-title" style="font-family:'Noto Serif TC',serif;font-size:42px;font-weight:700;color:#2B2118;line-height:1.35;margin-bottom:0px;">每一則，都是真實的聲音</div></div>
-      <div style="background:#FBF6EE;border-radius:24px;padding:6px 22px;">
-      <div style="text-align:center;padding:26px 0 16px;">
-        <div style="font-family:'Noto Serif TC',serif;font-size:clamp(21px,5.6vw,26px);font-weight:700;color:#2B2118;margin-bottom:6px;line-height:1.5;">每一位，<br>都有自己走進來的原因</div>
-        <div style="font-size:15px;color:#8A7A68;">完整評論，原文呈現</div>
-      </div>
-      <div class="mzl-cols" style="column-count:3;column-gap:20px;padding:10px 0 20px;">
+      <div class="mzl-allhead" style="margin-bottom:24px;display:flex;align-items:baseline;gap:16px;flex-wrap:nowrap;"><div class="mzl-eyebrow" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#C1694A;letter-spacing:1px;flex-shrink:0;"><span class="mzl-allhead-line" style="width:28px;height:1.5px;background:#C1694A;"></span>完整評論</div><div class="mzl-title mzl-oneline" style="font-family:'Noto Serif TC',serif;font-size:42px;font-weight:700;color:#2B2118;line-height:1.35;margin-bottom:0px;white-space:nowrap;">每一則，都是真實的聲音</div></div>
+      <div>
+      <div style="font-size:15px;color:#8A7A68;margin-bottom:18px;">每一位，都有自己走進來的原因。完整評論，原文呈現。</div>
+      <div class="mzl-cols" style="column-count:3;column-gap:20px;padding:0 0 20px;">
         <div style="background:#fff;border:1.5px solid #E8DCC4;border-radius:20px;padding:26px 28px;margin-bottom:20px;break-inside:avoid;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
             <div style="width:42px;height:42px;border-radius:50%;background:#F1E9DC;color:#C1694A;font-family:'Noto Serif TC',serif;font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">A</div>
@@ -574,7 +591,7 @@
         <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="display:block;border:1px solid #C1694A;background:#C1694A;color:#fff;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">立即預約體驗</a>
       </div>
     </div>
-    <div style="max-width:1040px;margin:34px auto 0;padding-top:18px;border-top:1px solid rgba(246,217,160,0.18);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="font-size:12.5px;color:#B9A38A;">© 2026 木子李 Muzili</div><a href="#" style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:14.5px;font-weight:700;padding:10px 22px;border-radius:30px;">↑ 回到頂部</a></div>
+    <div style="max-width:1040px;margin:34px auto 0;padding:18px 0 90px;border-top:1px solid rgba(246,217,160,0.18);position:relative;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="font-size:12.5px;color:#B9A38A;">© 2026 木子李 Muzili</div><a href="#" style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:14.5px;font-weight:700;padding:10px 22px;border-radius:30px;">↑ 回到頂部</a></div>
   </footer>
 
 </div>

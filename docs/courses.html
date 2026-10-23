@@ -98,6 +98,7 @@
     section > * { width: 100%; }
   }
   a[style*="border-radius"], footer span, footer a, footer div[style*="font-size:12.5px"], .mzl-nowrap { white-space: nowrap; }
+  a[style*="display: flex"], a[style*="display:flex"], a[style*="display: grid"], a[style*="display:grid"] { white-space: normal; }
   @media (min-width: 901px) and (max-width: 1000px) {
     html { scroll-padding-top: 124px !important; }
     section, .mzl-panel { min-height: calc(100vh - 124px) !important; }
@@ -105,7 +106,9 @@
   @media (max-width: 1100px) { .mzl-panel { padding-right: 96px !important; } }
   @media (max-width: 900px) {
     .mzl-panel { padding: 56px 22px !important; min-height: 0 !important; }
-    .mzl-split, .mzl-cards2, .mzl-cards3 { grid-template-columns: 1fr !important; gap: 22px !important; }
+    .mzl-split, .mzl-cards2, .mzl-cards3 { grid-template-columns: minmax(0,1fr) !important; gap: 22px !important; }
+    .mzl-split > *, .mzl-cards2 > *, .mzl-cards3 > * { min-width: 0; }
+    html, body { overflow-x: hidden; }
     .mzl-split-img { order: -1; height: 300px !important; }
     .mzl-title { font-size: 32px !important; }
     .mzl-hero-title { font-size: 44px !important; }
@@ -113,6 +116,11 @@
     .mzl-bigprice { font-size: 38px !important; }
   }
   .mzl-eyebrow { white-space: nowrap; }
+  @media (max-width: 900px) {
+    [style*="display:grid"] > *, [style*="display:flex"] > * { min-width: 0; }
+    [style*="white-space:nowrap"]:not(.mzl-eyebrow):not(.mzl-linebar) { white-space: normal !important; }
+    .mzl-table { max-width: 100%; }
+  }
   @media (min-width: 901px) {
     html { scroll-snap-type: y proximity; scroll-padding-top: 78px; }
     .mzl-panel { min-height: calc(100vh - 78px); scroll-snap-align: start; display: flex; align-items: center; }
@@ -192,15 +200,15 @@
         <div style="display:grid;gap:14px;">
         <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="display:grid;grid-template-columns:56px minmax(0,1fr);gap:18px;align-items:flex-start;background:#2B2118;border-radius:24px;padding:24px 26px;color:#fff;">
           <div style="width:56px;height:56px;border-radius:50%;background:#C1694A;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:26px;font-weight:700;">1</div>
-          <div><div style="font-size:13.5px;font-weight:700;color:#F6D9A0;letter-spacing:1px;margin-bottom:6px;white-space:nowrap;">STEP 1・預約</div><div style="font-family:'Noto Serif TC',serif;font-size:21px;font-weight:700;margin-bottom:6px;">加 LINE 預約體驗</div><div style="font-size:15px;color:#D8C7A8;line-height:1.75;">傳「體驗」＋方便的星期／時段，小編幫你排好時間。</div><div style="font-size:14px;color:#F6D9A0;font-weight:700;margin-top:10px;">→ 加 LINE @muzili</div></div>
+          <div style="min-width:0;"><div style="font-size:13.5px;font-weight:700;color:#F6D9A0;letter-spacing:1px;margin-bottom:6px;white-space:nowrap;">STEP 1・預約</div><div style="font-family:'Noto Serif TC',serif;font-size:21px;font-weight:700;margin-bottom:6px;">加 LINE 預約體驗</div><div style="font-size:15px;color:#D8C7A8;line-height:1.75;">傳「體驗」＋方便的星期／時段，小編幫你排好時間。</div><div style="font-size:14px;color:#F6D9A0;font-weight:700;margin-top:10px;">→ 加 LINE @muzili</div></div>
         </a>
         <a href="#trial" style="display:grid;grid-template-columns:56px minmax(0,1fr);gap:18px;align-items:flex-start;background:#fff;border-radius:24px;padding:24px 26px;color:#2B2118;">
           <div style="width:56px;height:56px;border-radius:50%;background:#C1694A;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:26px;font-weight:700;">2</div>
-          <div><div style="font-size:13.5px;font-weight:700;color:#C1694A;letter-spacing:1px;margin-bottom:6px;white-space:nowrap;">STEP 2・體驗</div><div style="font-family:'Noto Serif TC',serif;font-size:21px;font-weight:700;margin-bottom:6px;">上一堂首次體驗</div><div style="font-size:15px;color:#6B5D4E;line-height:1.75;">$600 或 $1,300 選一種，AI 與老師幫你評估身體狀況。</div><div style="font-size:14px;color:#C1694A;font-weight:700;margin-top:10px;">↓ 看兩種體驗</div></div>
+          <div style="min-width:0;"><div style="font-size:13.5px;font-weight:700;color:#C1694A;letter-spacing:1px;margin-bottom:6px;white-space:nowrap;">STEP 2・體驗</div><div style="font-family:'Noto Serif TC',serif;font-size:21px;font-weight:700;margin-bottom:6px;">上一堂首次體驗</div><div style="font-size:15px;color:#6B5D4E;line-height:1.75;">$600 或 $1,300 選一種，AI 與老師幫你評估身體狀況。</div><div style="font-size:14px;color:#C1694A;font-weight:700;margin-top:10px;">↓ 看兩種體驗</div></div>
         </a>
         <a href="#classes" style="display:grid;grid-template-columns:56px minmax(0,1fr);gap:18px;align-items:flex-start;background:#fff;border-radius:24px;padding:24px 26px;color:#2B2118;">
           <div style="width:56px;height:56px;border-radius:50%;background:#C1694A;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:26px;font-weight:700;">3</div>
-          <div><div style="font-size:13.5px;font-weight:700;color:#C1694A;letter-spacing:1px;margin-bottom:6px;white-space:nowrap;">STEP 3・開始上課</div><div style="font-family:'Noto Serif TC',serif;font-size:21px;font-weight:700;margin-bottom:6px;">老師建議，選擇課程</div><div style="font-size:15px;color:#6B5D4E;line-height:1.75;">依評估結果，從一對一、器械團課、墊上團課中選最適合的。</div><div style="font-size:14px;color:#C1694A;font-weight:700;margin-top:10px;">↓ 看三種課程</div></div>
+          <div style="min-width:0;"><div style="font-size:13.5px;font-weight:700;color:#C1694A;letter-spacing:1px;margin-bottom:6px;white-space:nowrap;">STEP 3・開始上課</div><div style="font-family:'Noto Serif TC',serif;font-size:21px;font-weight:700;margin-bottom:6px;">老師建議，選擇課程</div><div style="font-size:15px;color:#6B5D4E;line-height:1.75;">依評估結果，從一對一、器械團課、墊上團課中選最適合的。</div><div style="font-size:14px;color:#C1694A;font-weight:700;margin-top:10px;">↓ 看三種課程</div></div>
         </a>
         </div>
       </div>
@@ -410,7 +418,8 @@
         <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="background:#06C755;color:#fff;border-radius:30px;padding:14px 26px;font-size:15.5px;font-weight:700;white-space:nowrap;">詢問官方 LINE @muzili</a>
       </div>
       <div class="mzl-swipe-hint" style="display:none;font-size:13px;color:#8A7A68;margin-bottom:10px;">← 左右滑動看完整表格 →</div>
-      <div class="mzl-table" style="background:#fff;border-radius:24px;overflow:hidden;overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <div class="mzl-swipe-hint" style="display:none;font-size:14px;color:#8A7A68;margin-bottom:8px;">← 左右滑動看完整比較 →</div>
+      <div class="mzl-table" style="background:#fff;border-radius:24px;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;">
         <div style="min-width:640px;">
           <div style="display:grid;grid-template-columns:120px repeat(3,minmax(0,1fr));"><div style="padding:16px 18px;background:#FBF6EE;"></div><div style="padding:16px 18px;background:#C1694A;color:#fff;font-size:15.5px;font-weight:700;">一對一皮拉提斯</div><div style="padding:16px 18px;background:#6B4A3A;color:#fff;font-size:15.5px;font-weight:700;">器械團課</div><div style="padding:16px 18px;background:#2B2118;color:#fff;font-size:15.5px;font-weight:700;">墊上團課</div></div>
           <div style="display:grid;grid-template-columns:120px repeat(3,minmax(0,1fr));border-top:1px solid #EFE6D6;"><div style="padding:16px 18px;background:#FBF6EE;font-size:14.5px;font-weight:700;color:#2B2118;">上課人數</div><div style="padding:16px 18px;font-size:14.5px;color:#6B5D4E;line-height:1.7;"><strong style="color:#C1694A;">1 人</strong>，老師只看你</div><div style="padding:16px 18px;font-size:14.5px;color:#6B5D4E;line-height:1.7;">小班制，人數控制</div><div style="padding:16px 18px;font-size:14.5px;color:#6B5D4E;line-height:1.7;">小班制，人數控制</div></div>
@@ -446,7 +455,7 @@
         <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="display:block;border:1px solid #C1694A;background:#C1694A;color:#fff;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">立即預約體驗</a>
       </div>
     </div>
-    <div style="max-width:1040px;margin:34px auto 0;padding-top:18px;border-top:1px solid rgba(246,217,160,0.18);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="font-size:12.5px;color:#B9A38A;">© 2026 木子李 Muzili</div><a href="#" style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:14.5px;font-weight:700;padding:10px 22px;border-radius:30px;">↑ 回到頂部</a></div>
+    <div style="max-width:1040px;margin:34px auto 0;padding:18px 0 90px;border-top:1px solid rgba(246,217,160,0.18);position:relative;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="font-size:12.5px;color:#B9A38A;">© 2026 木子李 Muzili</div><a href="#" style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:14.5px;font-weight:700;padding:10px 22px;border-radius:30px;">↑ 回到頂部</a></div>
   </footer>
 
 </div>
