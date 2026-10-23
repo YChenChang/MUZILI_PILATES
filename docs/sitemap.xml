@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://muzili.com.tw/</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://muzili.com.tw/courses.html</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://muzili.com.tw/about.html</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://muzili.com.tw/reviews.html</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://muzili.com.tw/careers.html</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
+  <url><loc>https://muzili.com.tw/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://muzili.com.tw/about.html</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://muzili.com.tw/courses.html</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://muzili.com.tw/equipment.html</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://muzili.com.tw/reviews.html</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://muzili.com.tw/careers.html</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://muzili.com.tw/booking.html</loc><lastmod>2026-10-23</lastmod></url>
 </urlset>
