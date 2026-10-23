@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com"></link>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet"></link>
+<style>
+  body { margin: 0; background: #F6F0E6; }
+  a { color: #C1694A; text-decoration: none; }
+  a:hover { color: #9C4A2E; }
+  .mzl-mnav { display: none; }
+  .mzl-mnav summary { list-style: none; }
+  .mzl-mnav summary::-webkit-details-marker { display: none; }
+  @media (max-width: 760px) {
+    html body div[style*="position:sticky;top:0;z-index:50"] { position: sticky !important; }
+    html body .mzl-header-inner { flex-direction: row !important; justify-content: space-between !important; align-items: center !important; padding: 10px 16px !important; min-height: 60px !important; gap: 0 !important; }
+    html body .mzl-logo { position: static !important; font-size: 16px !important; }
+    html body .mzl-logo img { width: 36px !important; height: 36px !important; }
+    html body .mzl-nav-links, html body .mzl-header-actions { display: none !important; }
+    html body .mzl-mnav { display: block !important; position: relative; }
+    html body .mzl-rail { display: none !important; }
+    html body .mzl-body { padding-right: 24px !important; padding-left: 24px !important; }
+  }
+  @media (max-width: 640px) {
+    html body .mzl-body { padding-left: 18px !important; padding-right: 18px !important; }
+    html body { padding-bottom: 76px; }
+  }
+  @media (min-width: 901px) { .mzl-oneline { white-space: nowrap; max-width: none !important; } .mzl-oneline br { display: none; } }
+  @media (max-width: 900px) { .mzl-eq5 { grid-template-columns: repeat(2,minmax(0,1fr)) !important; } }
+  @media (max-width: 520px) { .mzl-eq5 { grid-template-columns: 1fr !important; } }
+  @media (max-width: 640px) {
+    .mzl-linebar { flex-direction: column !important; gap: 2px !important; padding: 11px 24px !important; }
+    .mzl-linebar-sub { display: block !important; font-size: 12px !important; }
+  }
+  @media (max-width: 1000px) {
+    .mzl-header-inner { flex-direction: column; align-items: center !important; justify-content: center !important; gap: 10px; padding: 14px 16px !important; min-height: auto !important; }
+    .mzl-logo { position: static !important; }
+    .mzl-nav-links { position: static !important; transform: none !important; flex-wrap: wrap; justify-content: center; gap: 16px !important; }
+    .mzl-header-actions { position: absolute !important; top: 12px !important; bottom: auto !important; right: 12px !important; }
+    .mzl-header-actions a { font-size: 12px !important; padding: 5px 12px !important; }
+  }
+  html { scroll-behavior: smooth; }
+  @media (max-width: 900px) {
+    .mzl-2col, .mzl-eq-grid, .mzl-uses { grid-template-columns: 1fr !important; }
+    .mzl-eq-img { order: -1 !important; }
+  }
+  @media (max-width: 640px) {
+    .mzl-header-inner { flex-direction: column; align-items: center !important; gap: 10px; padding: 14px 16px !important; min-height: auto !important; }
+    .mzl-logo { position: static !important; }
+    .mzl-nav-links { position: static !important; transform: none !important; flex-wrap: wrap; justify-content: center; gap: 12px !important; }
+    .mzl-nav-links a { font-size: 13px !important; }
+    .mzl-body { padding-left: 20px !important; padding-right: 20px !important; }
+    .mzl-page-title { font-size: 34px !important; }
+    .mzl-eq-title { font-size: 30px !important; }
+  }
+  img { max-width: 100%; }
+  @media (max-width: 640px) {
+    div[style*="position:sticky;top:0;z-index:50"] { position: relative !important; }
+    div[style*="position:sticky;top:76px"] { top: 0 !important; }
+    .mzl-header-actions a { padding: 8px 16px !important; font-size: 14px !important; }
+    .mzl-rail { display: none !important; }
+    .mzl-linebar { left: 12px !important; right: 12px !important; transform: none !important; justify-content: center !important; white-space: normal !important; text-align: center; flex-direction: column !important; gap: 2px !important; padding: 12px 18px !important; bottom: 12px !important; }
+    .mzl-linebar-sub { display: block !important; font-size: 12.5px !important; }
+    footer [style*="white-space:nowrap"] { white-space: normal !important; }
+  }
+  @media (max-width: 760px) { .mzl-rail { display: none !important; } }
+  @media (max-width: 760px) { .mzl-foot { padding: 48px 22px 110px !important; } }
+  @media (min-width: 901px) {
+    html { scroll-snap-type: y proximity; scroll-padding-top: 78px; }
+    section { min-height: calc(100vh - 78px); scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; }
+    section > * { width: 100%; }
+  }
+  @media (min-width: 641px) { .mzl-pills > div { white-space: nowrap; } }
+  a[style*="border-radius"], footer span, footer a, footer div[style*="font-size:12.5px"], .mzl-nowrap { white-space: nowrap; }
+  @media (min-width: 901px) and (max-width: 1000px) {
+    html { scroll-padding-top: 124px !important; }
+    section, .mzl-panel { min-height: calc(100vh - 124px) !important; }
+  }
+  @media (max-width: 1100px) { .mzl-panel { padding-right: 96px !important; } }
+  @media (max-width: 900px) {
+    .mzl-panel { padding: 56px 22px !important; min-height: 0 !important; }
+    .mzl-split, .mzl-cards2 { grid-template-columns: 1fr !important; gap: 24px !important; }
+    .mzl-split-img { order: -1; height: 280px !important; }
+    .mzl-title { font-size: 32px !important; }
+    .mzl-hero-title { font-size: 40px !important; }
+  }
+  .mzl-eyebrow { white-space: nowrap; }
+  @media (min-width: 901px) {
+    html { scroll-snap-type: y proximity; scroll-padding-top: 78px; }
+    .mzl-panel { min-height: calc(100vh - 78px); scroll-snap-align: start; display: flex; align-items: center; }
+  }
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<div style="font-family:'Noto Sans TC',sans-serif;color:#3A2E22;background:#F6F0E6;min-height:100vh;">
+
+  <div style="position:sticky;top:0;z-index:50;background:rgba(246,240,230,0.95);backdrop-filter:blur(6px);border-bottom:1px solid #E8DCC4;">
+    <div class="mzl-header-inner" style="max-width:1040px;margin:0 auto;padding:16px 28px;position:relative;display:flex;justify-content:flex-end;align-items:center;min-height:44px;">
+      <a href="./index.html" class="mzl-logo" style="position:absolute;left:28px;display:flex;align-items:center;gap:8px;font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;color:#3A2E22;"><img src="./assets/muzili-logo.png" alt="MUZILI" style="width:40px;height:40px;object-fit:contain;"></img>木子李</a>
+      <div class="mzl-nav-links" style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:24px;">
+        <a href="./index.html" style="font-size:15px;color:#3A2E22;">首頁</a>
+        <a href="./about.html" style="font-size:15px;color:#3A2E22;">關於木子李</a>
+        <a href="./courses.html" style="font-size:15px;color:#3A2E22;">課程介紹</a>
+        <a href="./reviews.html" style="font-size:15px;color:#3A2E22;">學員評價</a>
+        <a href="./equipment.html" style="font-size:15px;color:#3A2E22;font-weight:700;">器械介紹</a>
+      </div>
+      <details class="mzl-mnav">
+        <summary style="width:44px;height:44px;border-radius:12px;border:1px solid #DCCFB8;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:#2B2118;">☰</summary>
+        <div style="position:absolute;right:0;top:52px;width:230px;background:#fff;border:1px solid #E8DCC4;border-radius:18px;box-shadow:0 14px 34px rgba(43,33,24,0.18);padding:8px;display:flex;flex-direction:column;">
+          <a href="./index.html" style="padding:14px 16px;font-size:16px;color:#2B2118;border-radius:12px;">首頁</a>
+          <a href="./about.html" style="padding:14px 16px;font-size:16px;color:#2B2118;border-radius:12px;">關於木子李</a>
+          <a href="./courses.html" style="padding:14px 16px;font-size:16px;color:#2B2118;border-radius:12px;">課程介紹</a>
+          <a href="./reviews.html" style="padding:14px 16px;font-size:16px;color:#2B2118;border-radius:12px;">學員評價</a>
+          <a href="./equipment.html" style="padding:14px 16px;font-size:16px;color:#2B2118;border-radius:12px;">器械介紹</a>
+          <a href="./courses.html#trial" style="padding:14px 16px;font-size:16px;color:#C1694A;font-weight:700;border-radius:12px;">首次體驗</a>
+          <a href="./careers.html" style="padding:14px 16px;font-size:16px;color:#C1694A;font-weight:700;border-top:1px solid #EFE6D6;">徵才專區</a>
+          <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="margin-top:6px;padding:13px 16px;font-size:15px;color:#fff;background:#2B2118;font-weight:700;border-radius:12px;text-align:center;">加 LINE 預約體驗</a>
+        </div>
+      </details>
+      <div class="mzl-header-actions" style="position:fixed;top:18px;right:24px;display:flex;align-items:center;justify-content:center;gap:8px;">
+        <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="font-size:14px;color:#fff;background:#C1694A;font-weight:600;border:1.5px solid #C1694A;padding:7px 16px;border-radius:20px;">首次體驗</a>
+        <a href="./careers.html" style="font-size:14px;color:#C1694A;font-weight:600;border:1.5px solid #C1694A;padding:7px 16px;border-radius:20px;">徵才專區</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="mzl-panel" style="background:#F6F0E6;padding:72px 120px 72px 48px;box-sizing:border-box;scroll-margin-top:78px;">
+    <div style="max-width:1120px;width:100%;margin:0 auto;">
+      <div class="mzl-split" style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);gap:60px;align-items:center;">
+        <div>
+          <div style="font-size:14px;color:#8A7A68;margin-bottom:26px;"><a href="./index.html" style="color:#3A2E22;font-weight:700;">首頁</a> / 器械介紹</div>
+          <div class="mzl-eyebrow" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#B8935A;letter-spacing:1px;margin-bottom:16px;"><span style="width:28px;height:1.5px;background:#B8935A;"></span>皮拉提斯器械</div>
+          <div class="mzl-hero-title" style="font-family:'Noto Serif TC',serif;font-size:54px;font-weight:700;color:#2B2118;line-height:1.25;margin-bottom:20px;">五台器械，<br>差在哪？</div>
+          <div style="font-size:17px;color:#6B5D4E;line-height:1.95;margin-bottom:26px;">大家說的「器械床」，通常指的是<strong style="color:#2B2118;">核心床</strong>。<br>每台都靠彈簧或弧面幫你，差別只在<strong style="color:#2B2118;">「練哪裡」</strong>。</div>
+          <div style="display:grid;gap:10px;">
+            <div style="background:#2B2118;color:#fff;border-radius:20px;padding:12px 20px;font-size:15px;line-height:1.6;">不用自己選，<strong style="color:#F6D9A0;">老師會依你的身體幫你挑</strong></div>
+            <div style="background:#fff;border-radius:20px;padding:12px 20px;font-size:15px;color:#6B5D4E;line-height:1.6;">沒有哪台最好，<strong style="color:#C1694A;">適合你的最好</strong></div>
+            <div style="background:#fff;border-radius:20px;padding:12px 20px;font-size:15px;color:#6B5D4E;line-height:1.6;">器械不是越大台越難，<strong style="color:#C1694A;">是越懂你越有效</strong></div>
+            <div style="background:#fff;border-radius:20px;padding:12px 20px;font-size:15px;color:#6B5D4E;line-height:1.6;">第一次來不用會，<strong style="color:#C1694A;">彈簧會先幫你一把</strong></div>
+          </div>
+        </div>
+        <img class="mzl-split-img" src="./assets/hero-3.jpg" alt="木子李器械教室" style="width:100%;height:520px;object-fit:cover;border-radius:28px;display:block;"></img>
+      </div>
+    </div>
+  </section>
+  <section id="eq-reformer" class="mzl-panel" style="background:#EFE6D6;padding:72px 120px 72px 48px;box-sizing:border-box;scroll-margin-top:78px;">
+    <div style="max-width:1120px;width:100%;margin:0 auto;">
+      <div class="mzl-split" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:60px;align-items:center;">
+        <div class="mzl-split-img" style="background:#fff;border-radius:28px;height:440px;display:flex;align-items:center;justify-content:center;padding:28px;box-sizing:border-box;"><img src="./assets/eq-reformer.png" alt="核心床 Reformer" style="width:100%;height:100%;object-fit:contain;display:block;"></img></div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap;"><span style="font-family:'Playfair Display',serif;font-size:52px;color:#C1694A;line-height:1;">01</span><span style="background:#C1694A;color:#fff;font-size:13.5px;font-weight:700;padding:6px 14px;border-radius:14px;white-space:nowrap;">新手首選・大家說的「器械床」</span></div>
+          <div class="mzl-title" style="font-family:'Noto Serif TC',serif;font-size:44px;font-weight:700;color:#2B2118;line-height:1.32;margin-bottom:4px;">核心床</div>
+          <div style="font-family:'Playfair Display',serif;font-size:19px;color:#B8935A;margin-bottom:20px;">Reformer</div>
+          <div style="font-size:17px;color:#6B5D4E;line-height:1.95;margin-bottom:22px;">一張<strong style="color:#2B2118;">會前後滑動的床</strong>，靠彈簧給你支撐或阻力。躺、坐、跪、站都能練，最容易上手。</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;"><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">全身訓練</span><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">核心穩定</span><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">體態改善</span></div>
+          <div style="border-top:1px solid rgba(43,33,24,0.15);padding-top:16px;font-size:15.5px;color:#9C4A2E;font-weight:700;">適合：第一次接觸、想全身都鍛鍊的人</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="eq-cadillac" class="mzl-panel" style="background:#F6F0E6;padding:72px 120px 72px 48px;box-sizing:border-box;scroll-margin-top:78px;">
+    <div style="max-width:1120px;width:100%;margin:0 auto;">
+      <div class="mzl-split" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:60px;align-items:center;">
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap;"><span style="font-family:'Playfair Display',serif;font-size:52px;color:#C1694A;line-height:1;">02</span><span style="background:#2B2118;color:#fff;font-size:13.5px;font-weight:700;padding:6px 14px;border-radius:14px;white-space:nowrap;">支撐最多</span></div>
+          <div class="mzl-title" style="font-family:'Noto Serif TC',serif;font-size:44px;font-weight:700;color:#2B2118;line-height:1.32;margin-bottom:4px;">凱迪拉克</div>
+          <div style="font-family:'Playfair Display',serif;font-size:19px;color:#B8935A;margin-bottom:20px;">Cadillac</div>
+          <div style="font-size:17px;color:#6B5D4E;line-height:1.95;margin-bottom:22px;"><strong style="color:#2B2118;">床面固定不動</strong>，上方鐵架掛著彈簧和推桿，從不同角度幫你一把，身體很緊也能安心動。</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;"><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">伸展放鬆</span><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">脊椎活動</span><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">被協助的訓練</span></div>
+          <div style="border-top:1px solid rgba(43,33,24,0.15);padding-top:16px;font-size:15.5px;color:#9C4A2E;font-weight:700;">適合：身體很緊、需要更多支撐</div>
+        </div>
+        <div class="mzl-split-img" style="background:#fff;border-radius:28px;height:440px;display:flex;align-items:center;justify-content:center;padding:28px;box-sizing:border-box;"><img src="./assets/eq-cadillac.png" alt="凱迪拉克 Cadillac" style="width:100%;height:100%;object-fit:contain;display:block;"></img></div>
+      </div>
+    </div>
+  </section>
+  <section id="eq-chair" class="mzl-panel" style="background:#EFE6D6;padding:72px 120px 72px 48px;box-sizing:border-box;scroll-margin-top:78px;">
+    <div style="max-width:1120px;width:100%;margin:0 auto;">
+      <div class="mzl-split" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:60px;align-items:center;">
+        <div class="mzl-split-img" style="background:#fff;border-radius:28px;height:440px;display:flex;align-items:center;justify-content:center;padding:28px;box-sizing:border-box;"><img src="./assets/eq-chair.png" alt="穩踏椅 Chair" style="width:100%;height:100%;object-fit:contain;display:block;"></img></div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap;"><span style="font-family:'Playfair Display',serif;font-size:52px;color:#C1694A;line-height:1;">03</span><span style="background:#2B2118;color:#fff;font-size:13.5px;font-weight:700;padding:6px 14px;border-radius:14px;white-space:nowrap;">最有挑戰</span></div>
+          <div class="mzl-title" style="font-family:'Noto Serif TC',serif;font-size:44px;font-weight:700;color:#2B2118;line-height:1.32;margin-bottom:4px;">穩踏椅</div>
+          <div style="font-family:'Playfair Display',serif;font-size:19px;color:#B8935A;margin-bottom:20px;">Chair</div>
+          <div style="font-size:17px;color:#6B5D4E;line-height:1.95;margin-bottom:22px;">一張<strong style="color:#2B2118;">帶彈簧踏板的小椅子</strong>，支撐面小，身體要自己找到穩定，最能練出平衡感。</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;"><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">平衡感</span><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">腿力</span><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">核心控制</span></div>
+          <div style="border-top:1px solid rgba(43,33,24,0.15);padding-top:16px;font-size:15.5px;color:#9C4A2E;font-weight:700;">適合：想練平衡、腿力、有一點基礎的學員</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="eq-barrel" class="mzl-panel" style="background:#F6F0E6;padding:72px 120px 72px 48px;box-sizing:border-box;scroll-margin-top:78px;">
+    <div style="max-width:1120px;width:100%;margin:0 auto;">
+      <div class="mzl-split" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:60px;align-items:center;">
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap;"><span style="font-family:'Playfair Display',serif;font-size:52px;color:#C1694A;line-height:1;">04</span><span style="background:#2B2118;color:#fff;font-size:13.5px;font-weight:700;padding:6px 14px;border-radius:14px;white-space:nowrap;">把背打開</span></div>
+          <div class="mzl-title" style="font-family:'Noto Serif TC',serif;font-size:44px;font-weight:700;color:#2B2118;line-height:1.32;margin-bottom:4px;">梯桶</div>
+          <div style="font-family:'Playfair Display',serif;font-size:19px;color:#B8935A;margin-bottom:20px;">Ladder Barrel</div>
+          <div style="font-size:17px;color:#6B5D4E;line-height:1.95;margin-bottom:22px;">一邊是梯子、一邊是<strong style="color:#2B2118;">大弧面的木桶</strong>，身體順著弧度後仰、側彎，安全地把久坐僵硬的背打開。</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;"><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">背部伸展</span><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">髖關節柔軟</span><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">腿後側</span></div>
+          <div style="border-top:1px solid rgba(43,33,24,0.15);padding-top:16px;font-size:15.5px;color:#9C4A2E;font-weight:700;">適合：久坐、背很僵、髖很緊</div>
+        </div>
+        <div class="mzl-split-img" style="background:#fff;border-radius:28px;height:440px;display:flex;align-items:center;justify-content:center;padding:28px;box-sizing:border-box;"><img src="./assets/eq-barrel.png" alt="梯桶 Ladder Barrel" style="width:100%;height:100%;object-fit:contain;display:block;"></img></div>
+      </div>
+    </div>
+  </section>
+  <section id="eq-spine" class="mzl-panel" style="background:#EFE6D6;padding:72px 120px 72px 48px;box-sizing:border-box;scroll-margin-top:78px;">
+    <div style="max-width:1120px;width:100%;margin:0 auto;">
+      <div class="mzl-split" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:60px;align-items:center;">
+        <div class="mzl-split-img" style="background:#fff;border-radius:28px;height:440px;display:flex;align-items:center;justify-content:center;padding:28px;box-sizing:border-box;"><img src="./assets/eq-spine.png" alt="脊椎弧桶 Spine Corrector" style="width:100%;height:100%;object-fit:contain;display:block;"></img></div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap;"><span style="font-family:'Playfair Display',serif;font-size:52px;color:#C1694A;line-height:1;">05</span><span style="background:#2B2118;color:#fff;font-size:13.5px;font-weight:700;padding:6px 14px;border-radius:14px;white-space:nowrap;">輕巧好上手</span></div>
+          <div class="mzl-title" style="font-family:'Noto Serif TC',serif;font-size:44px;font-weight:700;color:#2B2118;line-height:1.32;margin-bottom:4px;">脊椎弧桶</div>
+          <div style="font-family:'Playfair Display',serif;font-size:19px;color:#B8935A;margin-bottom:20px;">Spine Corrector</div>
+          <div style="font-size:17px;color:#6B5D4E;line-height:1.95;margin-bottom:22px;">放在墊上的<strong style="color:#2B2118;">小弧形器材</strong>，貼合脊椎的曲線，躺上去就能感覺胸口被打開。</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;"><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">改善圓肩</span><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">脊椎活動度</span><span style="background:#fff;border:1px solid #E0D3BC;border-radius:16px;padding:7px 14px;font-size:14px;color:#2B2118;white-space:nowrap;">腹部核心</span></div>
+          <div style="border-top:1px solid rgba(43,33,24,0.15);padding-top:16px;font-size:15.5px;color:#9C4A2E;font-weight:700;">適合：圓肩駝背、想加強核心</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="first" class="mzl-panel" style="background:#EFE6D6;padding:72px 120px 72px 48px;box-sizing:border-box;scroll-margin-top:78px;">
+    <div style="max-width:1120px;width:100%;margin:0 auto;">
+      <div class="mzl-split" style="display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.2fr);gap:56px;align-items:center;">
+        <div>
+          <div class="mzl-eyebrow" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#C1694A;letter-spacing:1px;margin-bottom:16px;"><span style="width:28px;height:1.5px;background:#C1694A;"></span>第一次來</div>
+          <div class="mzl-title" style="font-family:'Noto Serif TC',serif;font-size:42px;font-weight:700;color:#2B2118;line-height:1.32;margin-bottom:18px;">第一次上課，<br>不用先選器械</div>
+          <div style="font-size:16.5px;color:#6B5D4E;line-height:1.9;">你只要專心感受身體，<br>剩下的交給老師。</div>
+        </div>
+        <div class="mzl-cards2" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;">
+          <div style="background:#fff;border-radius:24px;padding:28px 28px;">
+            <div style="font-family:'Noto Serif TC',serif;font-size:21px;font-weight:700;color:#2B2118;margin-bottom:12px;">老師會幫你挑</div>
+            <div style="font-size:15.5px;color:#6B5D4E;line-height:1.9;">先做體態評估，看你的肩膀、骨盆、腿型，再決定今天用哪台器械、彈簧要多重。</div>
+          </div>
+          <div style="background:#2B2118;border-radius:24px;padding:28px 28px;">
+            <div style="font-family:'Noto Serif TC',serif;font-size:21px;font-weight:700;color:#F6D9A0;margin-bottom:12px;">上課前先告訴老師</div>
+            <div style="font-size:15.5px;color:#EFE6D6;line-height:1.9;">• 有沒有受過傷、開過刀<br>• 哪裡會痛、痠、麻<br>• 是否懷孕或產後<br>• 有沒有高血壓、骨質疏鬆等狀況</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="mzl-panel" style="background:#2B2118;padding:72px 120px 72px 48px;box-sizing:border-box;scroll-margin-top:78px;">
+    <div style="max-width:1120px;width:100%;margin:0 auto;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+        <div>
+          <div class="mzl-eyebrow" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#F6D9A0;letter-spacing:1px;margin-bottom:16px;"><span style="width:28px;height:1.5px;background:#F6D9A0;"></span>下一步</div>
+          <div class="mzl-title" style="font-family:'Noto Serif TC',serif;font-size:44px;font-weight:700;color:#fff;line-height:1.32;margin-bottom:14px;">看懂器械後，<br>下一步讓老師看懂你。</div>
+          <div style="font-size:17px;color:#D8C7A8;line-height:1.9;">從一堂首次體驗開始，找到最適合你的器械。</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="background:#06C755;color:#fff;padding:18px 36px;border-radius:34px;font-size:18px;font-weight:700;white-space:nowrap;text-align:center;">加 LINE 預約體驗課</a>
+          <a href="./courses.html#trial" style="border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;padding:15px 36px;border-radius:34px;font-size:16px;font-weight:700;white-space:nowrap;text-align:center;">看兩種首次體驗 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="mzl-rail" style="position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:12px;">
+    <a href="https://www.instagram.com/muzili_yoga_pilates/" target="_blank" rel="noopener" title="Instagram" style="width:56px;height:56px;border-radius:50%;background:rgba(251,243,234,0.95);box-shadow:0 4px 14px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#6B4A3A;">IG</a>
+    <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" title="LINE" style="width:56px;height:56px;border-radius:50%;background:rgba(251,243,234,0.95);box-shadow:0 4px 14px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#6B4A3A;">LINE</a>
+  </div>
+
+  <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" class="mzl-linebar" style="position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:70;background:#2B2118;color:#fff;border-radius:32px;padding:15px 30px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 24px rgba(0,0,0,0.25);white-space:nowrap;">
+    <span style="font-size:16px;font-weight:700;">加 LINE 傳「體驗」</span>
+    <span class="mzl-linebar-sub" style="font-size:13px;color:#F6D9A0;">領取體驗專屬一對一折扣</span>
+  </a>
+
+  <footer class="mzl-foot" style="background:#2B2118;padding:56px 110px 110px 40px;box-sizing:border-box;">
+    <div style="max-width:1040px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px;">
+      <div style="flex:1;min-width:260px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;font-family:'Noto Serif TC',serif;font-size:22px;font-weight:700;color:#F6D9A0;margin-bottom:18px;"><img src="./assets/muzili-logo.png" alt="MUZILI" style="width:44px;height:44px;object-fit:contain;background:#fff;border-radius:50%;padding:4px;box-sizing:border-box;"></img>木子李 Muzili</div>
+          <div style="font-size:15px;color:#EFE6D6;line-height:2;"><strong>木子李頭份店</strong>　苗栗縣頭份市華美街56號<br><strong>木子李大埔店</strong>　苗栗縣竹南鎮科專五路16號<br>官方 LINE　@muzili</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%E8%8B%97%E6%A0%97%E7%B8%A3%E9%A0%AD%E4%BB%BD%E5%B8%82%E8%8F%AF%E7%BE%8E%E8%A1%9756%E8%99%9F" target="_blank" rel="noopener" style="font-size:13.5px;color:#fff;border:1px solid rgba(246,217,160,0.5);padding:8px 18px;border-radius:30px;">頭份店地圖</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%E8%8B%97%E6%A0%97%E7%B8%A3%E7%AB%B9%E5%8D%97%E9%8E%AE%E7%A7%91%E5%B0%88%E4%BA%94%E8%B7%AF16%E8%99%9F" target="_blank" rel="noopener" style="font-size:13.5px;color:#fff;border:1px solid rgba(246,217,160,0.5);padding:8px 18px;border-radius:30px;">大埔店地圖</a>
+            <a href="https://www.facebook.com/muziliyoga/" target="_blank" rel="noopener" style="font-size:13.5px;color:#fff;border:1px solid rgba(246,217,160,0.5);padding:8px 18px;border-radius:30px;">Facebook</a>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;width:196px;">
+        <a href="./about.html" style="display:block;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">關於木子李</a>
+        <a href="./courses.html" style="display:block;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">課程介紹</a>
+        <a href="./reviews.html" style="display:block;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">學員評價</a>
+        <a href="./equipment.html" style="display:block;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">器械介紹</a>
+        <a href="./careers.html" style="display:block;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">徵才專區</a>
+        <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="display:block;border:1px solid #C1694A;background:#C1694A;color:#fff;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">立即預約體驗</a>
+      </div>
+    </div>
+    <div style="max-width:1040px;margin:34px auto 0;padding-top:18px;border-top:1px solid rgba(246,217,160,0.18);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="font-size:12.5px;color:#B9A38A;">© 2026 木子李 Muzili</div><a href="#" style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:14.5px;font-weight:700;padding:10px 22px;border-radius:30px;">↑ 回到頂部</a></div>
+  </footer>
+
+</div>
+
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com"></link>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
+<style>
+  body { margin: 0; background: #F6F0E6; }
+  a { color: #C1694A; text-decoration: none; }
+  a:hover { color: #9C4A2E; }
+  .mzl-mnav { display: none; }
+  .mzl-mnav summary { list-style: none; }
+  .mzl-mnav summary::-webkit-details-marker { display: none; }
+  @media (max-width: 760px) {
+    html body div[style*="position:sticky;top:0;z-index:50"] { position: sticky !important; }
+    html body .mzl-header-inner { flex-direction: row !important; justify-content: space-between !important; align-items: center !important; padding: 10px 16px !important; min-height: 60px !important; gap: 0 !important; }
+    html body .mzl-logo { position: static !important; font-size: 16px !important; }
+    html body .mzl-logo img { width: 36px !important; height: 36px !important; }
+    html body .mzl-nav-links, html body .mzl-header-actions { display: none !important; }
+    html body .mzl-mnav { display: block !important; position: relative; }
+    html body .mzl-rail { display: none !important; }
+  }
+  @media (max-width: 640px) { html body { padding-bottom: 76px; } }
+  @media (max-width: 640px) {
+    .mzl-linebar { flex-direction: column !important; gap: 2px !important; padding: 11px 24px !important; }
+    .mzl-linebar-sub { display: block !important; font-size: 12px !important; }
+  }
+  @media (max-width: 1000px) {
+    .mzl-header-inner { flex-direction: column; align-items: center !important; justify-content: center !important; gap: 10px; padding: 14px 16px !important; min-height: auto !important; }
+    .mzl-logo { position: static !important; }
+    .mzl-nav-links { position: static !important; transform: none !important; flex-wrap: wrap; justify-content: center; gap: 16px !important; }
+    .mzl-header-actions { position: absolute !important; top: 12px !important; bottom: auto !important; right: 12px !important; }
+    .mzl-header-actions a { font-size: 12px !important; padding: 5px 12px !important; }
+  }
+  @media (max-width: 640px) {
+    .mzl-2col, .mzl-3col { grid-template-columns: 1fr !important; }
+    .mzl-header-inner { flex-direction: column; align-items: center !important; justify-content: center !important; gap: 10px; padding: 14px 16px !important; min-height: auto !important; }
+    .mzl-logo { position: static !important; }
+    .mzl-nav-links { position: static !important; transform: none !important; flex-wrap: wrap; justify-content: center; gap: 12px !important; }
+    .mzl-nav-links a { font-size: 13px !important; }
+    .mzl-header-actions { position: absolute !important; top: 12px !important; bottom: auto !important; right: 12px !important; }
+    .mzl-header-actions a { font-size: 12px !important; padding: 5px 12px !important; }
+  }
+  img { max-width: 100%; }
+  @media (max-width: 640px) {
+    div[style*="position:sticky;top:0;z-index:50"] { position: relative !important; }
+    .mzl-header-actions a { padding: 8px 16px !important; font-size: 14px !important; }
+    .mzl-rail { display: none !important; }
+    .mzl-linebar { left: 12px !important; right: 12px !important; transform: none !important; justify-content: center !important; white-space: normal !important; text-align: center; flex-direction: column !important; gap: 2px !important; padding: 12px 18px !important; bottom: 12px !important; }
+    .mzl-linebar-sub { display: block !important; font-size: 12.5px !important; }
+    footer [style*="white-space:nowrap"] { white-space: normal !important; }
+  }
+  @media (max-width: 760px) { .mzl-foot { padding: 48px 22px 110px !important; } }
+</style>
+<script src="./image-slot.js"></script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#EAE4D8"/><g transform="translate(60,50)"><rect x="0" y="0" width="80" height="100" rx="8" fill="#C1694A"/><rect x="10" y="15" width="60" height="6" rx="3" fill="#F6F0E6"/><rect x="10" y="30" width="60" height="6" rx="3" fill="#F6F0E6"/><rect x="10" y="45" width="40" height="6" rx="3" fill="#F6F0E6"/><circle cx="40" cy="75" r="12" fill="#F6F0E6"/></g></svg></template>
+</helmet>
+
+<div style="font-family:'Noto Sans TC',sans-serif;color:#3A2E22;background:#F6F0E6;min-height:100vh;">
+
+  <div style="position:sticky;top:0;z-index:50;background:rgba(246,240,230,0.94);backdrop-filter:blur(6px);border-bottom:1px solid #E8DCC4;">
+    <div class="mzl-header-inner" style="max-width:1040px;margin:0 auto;padding:16px 28px;position:relative;display:flex;justify-content:flex-end;align-items:center;min-height:44px;">
+      <a href="./index.html" class="mzl-logo" style="position:absolute;left:28px;display:flex;align-items:center;gap:8px;font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;color:#3A2E22;letter-spacing:0.5px;"><img src="./assets/muzili-logo.png" alt="MUZILI" style="width:40px;height:40px;object-fit:contain;"></img>木子李 <span style="color:#B8935A;font-weight:500;font-size:12px;">MUZILI</span></a>
+      <div class="mzl-nav-links" style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:34px;">
+        <a href="./index.html" style="font-size:15.5px;color:#3A2E22;">首頁</a>
+        <a href="./about.html" style="font-size:15.5px;color:#3A2E22;">關於木子李</a>
+        <a href="./courses.html" style="font-size:15.5px;color:#3A2E22;">課程介紹</a>
+        <a href="./reviews.html" style="font-size:15.5px;color:#3A2E22;">學員評價</a>
+        <a href="./equipment.html" style="font-size:15.5px;color:#3A2E22;">器械介紹</a>
+      </div>
+      <details class="mzl-mnav">
+        <summary style="width:44px;height:44px;border-radius:12px;border:1px solid #DCCFB8;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:#2B2118;">☰</summary>
+        <div style="position:absolute;right:0;top:52px;width:230px;background:#fff;border:1px solid #E8DCC4;border-radius:18px;box-shadow:0 14px 34px rgba(43,33,24,0.18);padding:8px;display:flex;flex-direction:column;">
+          <a href="./index.html" style="padding:14px 16px;font-size:16px;color:#2B2118;border-radius:12px;">首頁</a>
+          <a href="./about.html" style="padding:14px 16px;font-size:16px;color:#2B2118;border-radius:12px;">關於木子李</a>
+          <a href="./courses.html" style="padding:14px 16px;font-size:16px;color:#2B2118;border-radius:12px;">課程介紹</a>
+          <a href="./reviews.html" style="padding:14px 16px;font-size:16px;color:#2B2118;border-radius:12px;">學員評價</a>
+          <a href="./equipment.html" style="padding:14px 16px;font-size:16px;color:#2B2118;border-radius:12px;">器械介紹</a>
+          <a href="./courses.html#trial" style="padding:14px 16px;font-size:16px;color:#C1694A;font-weight:700;border-radius:12px;">首次體驗</a>
+          <a href="./careers.html" style="padding:14px 16px;font-size:16px;color:#C1694A;font-weight:700;border-top:1px solid #EFE6D6;">徵才專區</a>
+          <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="margin-top:6px;padding:13px 16px;font-size:15px;color:#fff;background:#2B2118;font-weight:700;border-radius:12px;text-align:center;">加 LINE 預約體驗</a>
+        </div>
+      </details>
+      <div class="mzl-header-actions" style="position:fixed;top:18px;right:24px;display:flex;align-items:center;justify-content:center;gap:8px;">
+        <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="font-size:14px;color:#fff;background:#C1694A;font-weight:600;border:1.5px solid #C1694A;padding:7px 16px;border-radius:20px;">首次體驗</a>
+        <a href="./careers.html" style="font-size:14px;color:#C1694A;font-weight:600;border:1.5px solid #C1694A;padding:7px 16px;border-radius:20px;">徵才專區</a>
+      </div>
+    </div>
+  </div>
+  <section id="booking" class="mzl-2col" style="max-width:1040px;margin:0 auto;padding:80px 28px;display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;">
+    <div>
+      <div style="font-family:'Noto Serif TC',serif;font-size:30px;font-weight:700;color:#3A2E22;line-height:1.5;margin-bottom:18px;white-space:nowrap;">準備好，帶著身體，慢慢往前走了嗎？</div>
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:32px;">
+        <div>
+          <div style="font-family:'Noto Serif TC',serif;font-size:16px;color:#3A2E22;line-height:1.9;margin-bottom:4px;">建立一個能穩穩停下來的地方。</div>
+          <div style="font-size:13px;letter-spacing:2px;color:#B8935A;font-style:italic;">Movement is medicine</div>
+        </div>
+        <a href="https://line.me/R/ti/p/@muzili" style="display:inline-block;background:#C1694A;color:#fff;padding:20px 40px;border-radius:30px;font-size:19px;font-weight:700;white-space:nowrap;">加 Line 預約體驗課</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:#6B5D4E;">
+        <div>📍 苗栗縣頭份市華美街56號</div>
+        <div>📱 官方 Line：@muzili</div>
+      </div>
+    </div>
+    <image-slot id="booking-photo" shape="rounded" radius="28" placeholder="教室環境照片" style="width:100%;height:360px;"></image-slot>
+  </section>
+
+  <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" class="mzl-linebar" style="position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:70;background:#2B2118;color:#fff;border-radius:32px;padding:15px 30px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 24px rgba(0,0,0,0.25);white-space:nowrap;">
+    <span style="font-size:16px;font-weight:700;">加 LINE 傳「體驗」</span>
+    <span class="mzl-linebar-sub" style="font-size:13px;color:#F6D9A0;">領取體驗專屬一對一折扣</span>
+  </a>
+
+  <footer class="mzl-foot" style="background:#2B2118;padding:56px 110px 110px 40px;box-sizing:border-box;">
+    <div style="max-width:1040px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px;">
+      <div style="flex:1;min-width:260px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;font-family:'Noto Serif TC',serif;font-size:22px;font-weight:700;color:#F6D9A0;margin-bottom:18px;"><img src="./assets/muzili-logo.png" alt="MUZILI" style="width:44px;height:44px;object-fit:contain;background:#fff;border-radius:50%;padding:4px;box-sizing:border-box;"></img>木子李 Muzili</div>
+          <div style="font-size:15px;color:#EFE6D6;line-height:2;"><strong>木子李頭份店</strong>　苗栗縣頭份市華美街56號<br><strong>木子李大埔店</strong>　苗栗縣竹南鎮科專五路16號<br>官方 LINE　@muzili</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%E8%8B%97%E6%A0%97%E7%B8%A3%E9%A0%AD%E4%BB%BD%E5%B8%82%E8%8F%AF%E7%BE%8E%E8%A1%9756%E8%99%9F" target="_blank" rel="noopener" style="font-size:13.5px;color:#fff;border:1px solid rgba(246,217,160,0.5);padding:8px 18px;border-radius:30px;">頭份店地圖</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%E8%8B%97%E6%A0%97%E7%B8%A3%E7%AB%B9%E5%8D%97%E9%8E%AE%E7%A7%91%E5%B0%88%E4%BA%94%E8%B7%AF16%E8%99%9F" target="_blank" rel="noopener" style="font-size:13.5px;color:#fff;border:1px solid rgba(246,217,160,0.5);padding:8px 18px;border-radius:30px;">大埔店地圖</a>
+            <a href="https://www.facebook.com/muziliyoga/" target="_blank" rel="noopener" style="font-size:13.5px;color:#fff;border:1px solid rgba(246,217,160,0.5);padding:8px 18px;border-radius:30px;">Facebook</a>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;width:196px;">
+        <a href="./about.html" style="display:block;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">關於木子李</a>
+        <a href="./courses.html" style="display:block;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">課程介紹</a>
+        <a href="./reviews.html" style="display:block;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">學員評價</a>
+        <a href="./equipment.html" style="display:block;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">器械介紹</a>
+        <a href="./careers.html" style="display:block;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">徵才專區</a>
+        <a href="https://line.me/R/ti/p/@muzili" target="_blank" rel="noopener" style="display:block;border:1px solid #C1694A;background:#C1694A;color:#fff;font-size:16px;font-weight:700;text-align:center;padding:11px 0;border-radius:30px;letter-spacing:1px;">立即預約體驗</a>
+      </div>
+    </div>
+    <div style="max-width:1040px;margin:34px auto 0;padding-top:18px;border-top:1px solid rgba(246,217,160,0.18);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="font-size:12.5px;color:#B9A38A;">© 2026 木子李 Muzili</div><a href="#" style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(246,217,160,0.5);color:#F6D9A0;font-size:14.5px;font-weight:700;padding:10px 22px;border-radius:30px;">↑ 回到頂部</a></div>
+  </footer>
+
+</div>
+
+</x-dc>
+</body>
+</html>
