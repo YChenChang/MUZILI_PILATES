@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="木子李聯絡簿">
+<meta name="theme-color" content="#F6F0E6">
+<title>木子李聯絡簿</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #F6F0E6; }
+  iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+  #msg { font: 16px/1.7 -apple-system, "PingFang TC", "Noto Sans TC", sans-serif; color: #7a6b5e; text-align: center; padding: 40vh 24px 0; }
+</style>
+</head>
+<body>
+<!-- 中轉頁：放在 Google 以外的網址，把學員系統包在裡面。
+     Safari 同時登入多個 Google 帳號時直接開 script.google.com 會出現「目前無法開啟這個檔案」，包一層就不會帶到 Google 帳號。
+     學生的連結 = 這一頁的網址 + ?s=連結碼（跟原本的參數一樣，原封不動轉給學員系統）。 -->
+<div id="msg">聯絡簿打開中…</div>
+<script>
+  var APP = 'https://script.google.com/macros/s/AKfycbwQ8UQvjzxtYoJXGH6iS2OqIVk7V52syvw-QGUgycNkldChOBk9RrpXw7wJCgWysNS5/exec';
+  var f = document.createElement('iframe');
+  f.src = APP + location.search;
+  f.allow = 'clipboard-write';
+  f.onload = function () { document.getElementById('msg').style.display = 'none'; };
+  document.body.appendChild(f);
+</script>
+</body>
+</html>
